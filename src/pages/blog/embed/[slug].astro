@@ -1,0 +1,15 @@
+---
+import BlogEmbedPage from "../../../components/blog/BlogEmbedPage.astro";
+import { getPublishedBlogPosts } from "../../../lib/blog";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedBlogPosts("zh");
+  return posts.map((post) => ({
+    params: { slug: post.data.translationKey },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+---
+<BlogEmbedPage locale="zh" post={post} />

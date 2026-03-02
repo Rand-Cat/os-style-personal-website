@@ -1,0 +1,399 @@
+---
+interface Props {
+  locale?: "zh" | "en";
+}
+
+const { locale = "zh" } = Astro.props;
+const terminalId = `terminal-${Math.random().toString(36).slice(2, 10)}`;
+
+const copy =
+  locale === "en"
+    ? {
+        badge: "Interactive demo",
+        title: "Embedded terminal",
+        note: "Type a command or use a shortcut. This block is rendered directly inside the article through MDX.",
+        placeholder: "Try: help",
+        run: "Run",
+        shortcuts: "Quick commands",
+        prompt: "visitor",
+        commands: {
+          help: [
+            "Available commands:",
+            "help",
+            "ls",
+            "pwd",
+            "cat terminal-notes.md",
+            "open blog",
+            "run publish-preview",
+            "clear"
+          ],
+          ls: ["articles/", "components/", "experiments/", "terminal-notes.md", "deploy.log"],
+          pwd: ["/Users/zhijiegao/Developer/personal-website"],
+          "cat terminal-notes.md": [
+            "# Terminal notes",
+            "",
+            "- Good terminals reduce hesitation.",
+            "- Commands make structure visible.",
+            "- Fast feedback creates confidence."
+          ],
+          "open blog": [
+            "Opening /blog ...",
+            "The command line is often the fastest route to the real content."
+          ],
+          "run publish-preview": [
+            "Building preview ...",
+            "Collecting content ...",
+            "Injecting article component ...",
+            "Preview ready at http://127.0.0.1:4321/blog"
+          ]
+        },
+        unknown: (value: string) =>
+          `Command not found: ${value}. Try "help".`
+      }
+    : {
+        badge: "交互示例",
+        title: "文章内嵌终端",
+        note: "你可以直接输入命令，或者点下面的快捷按钮。这一块就是通过 MDX 直接嵌进文章里的组件。",
+        placeholder: "试试：help",
+        run: "运行",
+        shortcuts: "快捷命令",
+        prompt: "visitor",
+        commands: {
+          help: [
+            "可用命令：",
+            "help",
+            "ls",
+            "pwd",
+            "cat terminal-notes.md",
+            "open blog",
+            "run publish-preview",
+            "clear"
+          ],
+          ls: ["articles/", "components/", "experiments/", "terminal-notes.md", "deploy.log"],
+          pwd: ["/Users/zhijiegao/Developer/personal-website"],
+          "cat terminal-notes.md": [
+            "# terminal-notes.md",
+            "",
+            "- 好的终端会降低犹豫感。",
+            "- 命令让结构变得可见。",
+            "- 快速反馈会让人更有把握继续。"
+          ],
+          "open blog": [
+            "正在打开 /blog ...",
+            "很多时候，命令行反而是通往内容最快的入口。"
+          ],
+          "run publish-preview": [
+            "正在构建预览 ...",
+            "正在收集内容 ...",
+            "正在注入文章组件 ...",
+            "预览地址已就绪：http://127.0.0.1:4321/blog"
+          ]
+        },
+        unknown: (value: string) =>
+          `没有找到命令：${value}。可以先试试 "help"。`
+      };
+
+const shortcuts = ["help", "ls", "cat terminal-notes.md", "run publish-preview"];
+const initialOutput =
+  locale === "en"
+    ? [
+        "This terminal lives inside the article.",
+        'Try "help" or "cat terminal-notes.md".'
+      ]
+    : [
+        "这个终端直接活在文章里。",
+        '可以先试试 "help" 或 "cat terminal-notes.md"。'
+      ];
+---
+
+<section class="terminal-card" data-terminal-root={terminalId}>
+  <div class="terminal-card__header">
+    <div>
+      <span class="terminal-card__badge">{copy.badge}</span>
+      <h3>{copy.title}</h3>
+    </div>
+    <p>{copy.note}</p>
+  </div>
+
+  <div class="terminal-shell">
+    <div class="terminal-shell__chrome">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+      <strong>zsh</strong>
+    </div>
+
+    <div class="terminal-shell__output" data-terminal-output>
+      {initialOutput.map((line) => (
+        <div class="terminal-shell__line">{line}</div>
+      ))}
+    </div>
+
+    <form class="terminal-shell__form" data-terminal-form>
+      <label class="terminal-shell__prompt" for={`${terminalId}-input`}>
+        <span>{copy.prompt}@site</span>
+        <span>~ %</span>
+      </label>
+      <input
+        id={`${terminalId}-input`}
+        class="terminal-shell__input"
+        name="command"
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder={copy.placeholder}
+      />
+      <button class="terminal-shell__run" type="submit">{copy.run}</button>
+    </form>
+  </div>
+
+  <div class="terminal-shortcuts">
+    <span>{copy.shortcuts}</span>
+    <div class="terminal-shortcuts__row">
+      {shortcuts.map((command) => (
+        <button type="button" data-terminal-shortcut={command}>{command}</button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script
+  is:inline
+  define:vars={{
+    terminalId,
+    commands: copy.commands,
+    initialOutput,
+    unknownMessageTemplate: locale === "en" ? 'Command not found: "__VALUE__". Try "help".' : '没有找到命令：__VALUE__。可以先试试 "help"。',
+    prompt: copy.prompt
+  }}
+>
+  const root = document.querySelector(`[data-terminal-root="${terminalId}"]`);
+  const output = root?.querySelector("[data-terminal-output]");
+  const form = root?.querySelector("[data-terminal-form]");
+  const input = root?.querySelector("input[name='command']");
+  const shortcutButtons = Array.from(root?.querySelectorAll("[data-terminal-shortcut]") || []);
+
+  const appendLines = (lines) => {
+    if (!output) return;
+    lines.forEach((line) => {
+      const row = document.createElement("div");
+      row.className = "terminal-shell__line";
+      row.textContent = line;
+      output.appendChild(row);
+    });
+    output.scrollTop = output.scrollHeight;
+  };
+
+  const execute = (rawValue) => {
+    const value = rawValue.trim();
+    if (!value || !output) return;
+
+    appendLines([`${prompt}@site ~ % ${value}`]);
+
+    if (value === "clear") {
+      output.innerHTML = "";
+      appendLines(initialOutput);
+      return;
+    }
+
+    const result = commands[value];
+    if (result) {
+      appendLines(result);
+      return;
+    }
+
+    appendLines([unknownMessageTemplate.replace("__VALUE__", value)]);
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    execute(input?.value || "");
+    if (input) input.value = "";
+  });
+
+  shortcutButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const command = button.getAttribute("data-terminal-shortcut") || "";
+      if (input) input.value = command;
+      execute(command);
+      if (input) input.value = "";
+    });
+  });
+</script>
+
+<style>
+  .terminal-card {
+    margin: 32px 0;
+    padding: 22px;
+    border: 1px solid rgba(20, 32, 46, 0.12);
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(18, 31, 43, 0.02), rgba(18, 31, 43, 0.06));
+  }
+
+  .terminal-card__header {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .terminal-card__header h3 {
+    margin: 8px 0 0;
+    font-size: 1.4rem;
+    line-height: 1.1;
+  }
+
+  .terminal-card__header p {
+    margin: 0;
+    color: rgba(20, 32, 46, 0.68);
+    line-height: 1.7;
+    font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", sans-serif;
+    font-size: 0.94rem;
+  }
+
+  .terminal-card__badge {
+    display: inline-flex;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(20, 32, 46, 0.06);
+    color: rgba(20, 32, 46, 0.74);
+    font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", sans-serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .terminal-shell {
+    overflow: hidden;
+    border-radius: 22px;
+    background: #0d1720;
+    color: #eaf6ff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .terminal-shell__chrome {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: "SF Mono", "Menlo", "Monaco", monospace;
+    font-size: 0.82rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot-red {
+    background: #ff6f79;
+  }
+
+  .dot-yellow {
+    background: #ffcc63;
+  }
+
+  .dot-green {
+    background: #62ecaf;
+  }
+
+  .terminal-shell__output {
+    max-height: 280px;
+    overflow: auto;
+    padding: 18px 16px 8px;
+    font-family: "SF Mono", "Menlo", "Monaco", monospace;
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+
+  .terminal-shell__line {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .terminal-shell__form {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px 18px;
+  }
+
+  .terminal-shell__prompt {
+    display: flex;
+    gap: 8px;
+    font-family: "SF Mono", "Menlo", "Monaco", monospace;
+    font-size: 0.85rem;
+    color: #90e6d1;
+  }
+
+  .terminal-shell__input {
+    width: 100%;
+    border: 0;
+    border-radius: 14px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #f4fbff;
+    font: inherit;
+    outline: none;
+  }
+
+  .terminal-shell__input::placeholder {
+    color: rgba(234, 246, 255, 0.45);
+  }
+
+  .terminal-shell__run {
+    border: 0;
+    border-radius: 14px;
+    padding: 11px 14px;
+    background: #dff4ea;
+    color: #0d1720;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .terminal-shortcuts {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .terminal-shortcuts span {
+    color: rgba(20, 32, 46, 0.58);
+    font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", sans-serif;
+    font-size: 0.84rem;
+  }
+
+  .terminal-shortcuts__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .terminal-shortcuts__row button {
+    border: 1px solid rgba(20, 32, 46, 0.1);
+    border-radius: 999px;
+    padding: 10px 12px;
+    background: white;
+    color: #14202e;
+    font-family: "SF Mono", "Menlo", "Monaco", monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 720px) {
+    .terminal-card {
+      padding: 18px;
+    }
+
+    .terminal-shell__form {
+      grid-template-columns: 1fr;
+    }
+
+    .terminal-shell__prompt {
+      justify-content: space-between;
+    }
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import { readEasyHighlights, readEasyLinks } from "../../data/desktop";
+---
+
+<div class="os-window__scroll read-easy">
+  <section class="read-easy__hero">
+    <img class="read-easy__logo" src="/icons/read-easy.png" alt="Read Easy logo" />
+    <div class="read-easy__copy">
+      <span class="read-easy__eyebrow">Powered by AI</span>
+      <h2>让阅读英语变简单</h2>
+      <p>
+        Read Easy 让用户更轻松地阅读英语文章，并通过阅读自己感兴趣的内容来提升英语水平。
+      </p>
+      <div class="read-easy__actions">
+        <a href={readEasyLinks.home} target="_blank" rel="noreferrer">Website</a>
+        <a href={readEasyLinks.download} target="_blank" rel="noreferrer">Chrome Extension</a>
+        <a href={readEasyLinks.pricing} target="_blank" rel="noreferrer">Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="read-easy__source">
+    <div class="read-easy__source-card">
+      <strong>From the official site</strong>
+      <span>免费阅读 50 个精选信息源，并提供上百万 AI token 的额度。</span>
+    </div>
+  </section>
+
+  <section class="read-easy__grid">
+    {readEasyHighlights.map((item) => (
+      <article class="read-easy__card">
+        <h3>{item.title}</h3>
+        <p>{item.note}</p>
+      </article>
+    ))}
+  </section>
+</div>

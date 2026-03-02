@@ -1,0 +1,273 @@
+---
+import type { BlogLocale, BlogPost } from "../../lib/blog";
+import {
+  BLOG_COPY,
+  BLOG_LANGUAGE_LABELS,
+  formatBlogDate,
+  getBlogIndexPath,
+  getBlogPostPath
+} from "../../lib/blog";
+
+interface Props {
+  locale: BlogLocale;
+  posts: BlogPost[];
+}
+
+const { locale, posts } = Astro.props;
+const copy = BLOG_COPY[locale];
+const alternateLocale = locale === "zh" ? "en" : "zh";
+---
+
+<html lang={copy.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{locale === "zh" ? "Blog" : "Blog"}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        --bg: #f8f6f1;
+        --surface: rgba(255, 255, 255, 0.78);
+        --line: rgba(20, 32, 46, 0.1);
+        --text: #14202e;
+        --muted: rgba(20, 32, 46, 0.66);
+        --accent: #2c567a;
+        --font-ui: "Iowan Old Style", "Georgia", "PingFang SC", serif;
+        --font-sans: "Avenir Next", "Trebuchet MS", "PingFang SC", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: linear-gradient(180deg, #fcfbf7, var(--bg));
+        color: var(--text);
+      }
+
+      body {
+        padding: 24px;
+        font-family: var(--font-ui);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 920px;
+        margin: 0 auto;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0 24px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar strong {
+        font-family: var(--font-sans);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.88rem;
+      }
+
+      .topbar nav {
+        display: flex;
+        gap: 14px;
+        color: var(--muted);
+        font-family: var(--font-sans);
+        font-size: 0.92rem;
+      }
+
+      .hero {
+        padding: 56px 0 40px;
+      }
+
+      .hero__row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+        font-family: var(--font-sans);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.76rem;
+      }
+
+      .hero h1 {
+        margin: 16px 0 0;
+        max-width: 760px;
+        font-size: clamp(2.8rem, 6vw, 5rem);
+        line-height: 0.94;
+        font-weight: 600;
+      }
+
+      .hero__note {
+        margin-top: 20px;
+        max-width: 620px;
+        color: var(--muted);
+        font-family: var(--font-sans);
+        line-height: 1.8;
+      }
+
+      .locale-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px;
+        border-radius: 999px;
+        background: rgba(20, 32, 46, 0.05);
+        border: 1px solid var(--line);
+      }
+
+      .locale-switch a {
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-family: var(--font-sans);
+        font-size: 0.86rem;
+        color: var(--muted);
+      }
+
+      .locale-switch a.is-active {
+        background: #14202e;
+        color: white;
+      }
+
+      .list {
+        display: grid;
+        gap: 18px;
+        padding-bottom: 50px;
+      }
+
+      .item {
+        display: grid;
+        gap: 14px;
+        padding: 22px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .item__meta {
+        display: flex;
+        gap: 14px;
+        color: var(--muted);
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+      }
+
+      .item h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        line-height: 1.04;
+        font-weight: 600;
+      }
+
+      .item p {
+        margin: 0;
+        color: var(--muted);
+        font-family: var(--font-sans);
+        line-height: 1.8;
+      }
+
+      .item__link {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+        color: var(--accent);
+        font-family: var(--font-sans);
+        font-size: 0.94rem;
+      }
+
+      @media (max-width: 720px) {
+        body {
+          padding: 18px;
+        }
+
+        .topbar,
+        .hero__row {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .topbar nav {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <strong>Blog</strong>
+        <nav>
+          <a href="/">Home</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="hero__row">
+          <p>{copy.listEyebrow}</p>
+          <div class="locale-switch" aria-label="Language switch">
+            <a
+              class={locale === "zh" ? "is-active" : ""}
+              data-blog-locale-switch="zh"
+              href={getBlogIndexPath("zh")}
+            >
+              {BLOG_LANGUAGE_LABELS.zh}
+            </a>
+            <a
+              class={locale === "en" ? "is-active" : ""}
+              data-blog-locale-switch="en"
+              href={getBlogIndexPath("en")}
+            >
+              {BLOG_LANGUAGE_LABELS.en}
+            </a>
+          </div>
+        </div>
+        <h1>{copy.listTitle}</h1>
+        <div class="hero__note">{copy.listDescription}</div>
+      </section>
+
+      <section class="list">
+        {posts.map((post) => (
+          <article class="item">
+            <div class="item__meta">
+              <span>{formatBlogDate(post.data.date)}</span>
+              <span>{post.data.readTime}</span>
+            </div>
+            <h2>
+              <a href={getBlogPostPath(locale, post.data.translationKey)}>{post.data.title}</a>
+            </h2>
+            <p>{post.data.excerpt}</p>
+            <a class="item__link" href={getBlogPostPath(locale, post.data.translationKey)}>
+              {copy.readArticle}
+            </a>
+          </article>
+        ))}
+      </section>
+    </main>
+
+    <script is:inline define:vars={{ locale, alternateLocale }}>
+      localStorage.setItem("blog-locale", locale);
+      document.querySelectorAll("[data-blog-locale-switch]").forEach((link) => {
+        link.addEventListener("click", () => {
+          localStorage.setItem("blog-locale", link.getAttribute("data-blog-locale-switch") || alternateLocale);
+        });
+      });
+    </script>
+  </body>
+</html>

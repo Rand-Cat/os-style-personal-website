@@ -1,0 +1,119 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import type { BlogLocale } from "../../lib/blog";
+import { BLOG_COPY, formatBlogDate } from "../../lib/blog";
+
+interface Props {
+  locale: BlogLocale;
+  post: CollectionEntry<"blog">;
+}
+
+const { locale, post } = Astro.props;
+const copy = BLOG_COPY[locale];
+const { Content } = await render(post);
+---
+
+<html lang={copy.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{post.data.title}</title>
+    <style>
+      :root {
+        --bg: #fbfaf6;
+        --text: #162432;
+        --muted: rgba(22, 36, 50, 0.62);
+        --line: rgba(22, 36, 50, 0.1);
+        --quote: rgba(44, 86, 122, 0.08);
+        --font-ui: "Iowan Old Style", "Georgia", "PingFang SC", serif;
+        --font-sans: "Avenir Next", "Trebuchet MS", "PingFang SC", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      body {
+        font-family: var(--font-ui);
+      }
+
+      .page {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 34px 30px 48px;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+      }
+
+      h1 {
+        margin: 14px 0 0;
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
+        line-height: 0.98;
+        font-weight: 600;
+      }
+
+      .content {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      .content :global(p) {
+        margin: 0 0 16px;
+        line-height: 1.95;
+        font-size: 1.04rem;
+        color: rgba(22, 36, 50, 0.9);
+      }
+
+      .content :global(h2) {
+        margin: 0;
+        padding: 32px 0 14px;
+        font-size: 1.58rem;
+        line-height: 1.2;
+        font-weight: 600;
+      }
+
+      .content :global(blockquote) {
+        margin: 30px 0 12px;
+        padding: 18px 20px;
+        border-left: 3px solid #2c567a;
+        background: var(--quote);
+        line-height: 1.8;
+        font-size: 1.04rem;
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          padding: 22px 18px 34px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="meta">
+        <span>{formatBlogDate(post.data.date)}</span>
+        <span> · </span>
+        <span>{post.data.readTime}</span>
+      </div>
+
+      <h1>{post.data.title}</h1>
+
+      <article class="content">
+        <Content />
+      </article>
+    </main>
+  </body>
+</html>

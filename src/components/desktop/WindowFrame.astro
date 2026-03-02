@@ -1,0 +1,44 @@
+---
+import type { DesktopApp } from "../../data/desktop";
+
+interface Props {
+  app: DesktopApp;
+  title: string;
+  open?: boolean;
+  zIndex?: number;
+}
+
+const { app, title, open = false, zIndex } = Astro.props;
+const zIndexStyle = zIndex ? `z-index:${zIndex};` : "";
+---
+
+<section
+  class:list={["os-window", open && "is-open"]}
+  data-window={app.id}
+  data-x={String(app.x)}
+  data-y={String(app.y)}
+  data-min-width="320"
+  data-min-height="240"
+  style={`--x:${app.x}px; --y:${app.y}px; width:${app.width}px; height:${app.height}px; ${zIndexStyle}`}
+>
+  <div class="os-window__titlebar" data-drag-handle>
+    <div class="os-window__toolbar os-window__toolbar--left">
+      <div class="os-window__controls">
+        <button class="close" type="button" data-close-window={app.id} aria-label="关闭"></button>
+        <button class="minimize" type="button" data-minimize-window={app.id} aria-label="最小化"></button>
+        <button class="expand" type="button" data-focus-window={app.id} aria-label="最大化"></button>
+      </div>
+      <slot name="leading" />
+    </div>
+    <div class="os-window__meta">
+      <strong>{title}</strong>
+    </div>
+    <div class="os-window__toolbar os-window__toolbar--right">
+      <slot name="trailing" />
+    </div>
+  </div>
+  <div class="os-window__body">
+    <slot />
+  </div>
+  <button class="os-window__resize" type="button" aria-label="调整窗口大小" data-resize-handle></button>
+</section>

@@ -1,0 +1,146 @@
+---
+import DesktopBlogWindow from "../components/desktop/DesktopBlogWindow.astro";
+import ReadEasyWindow from "../components/desktop/ReadEasyWindow.astro";
+import WindowFrame from "../components/desktop/WindowFrame.astro";
+import { desktopApps } from "../data/desktop";
+import {
+  BLOG_LOCALES,
+  DEFAULT_BLOG_LOCALE,
+  getBlogEmbedPath,
+  getBlogIndexPath,
+  getPublishedBlogPosts
+} from "../lib/blog";
+
+const blogPostsByLocale = Object.fromEntries(
+  await Promise.all(
+    BLOG_LOCALES.map(async (locale) => [locale, await getPublishedBlogPosts(locale)] as const)
+  )
+);
+
+const defaultBlogPosts = blogPostsByLocale[DEFAULT_BLOG_LOCALE];
+const defaultBlogHref = defaultBlogPosts[0]
+  ? getBlogEmbedPath(DEFAULT_BLOG_LOCALE, defaultBlogPosts[0].data.translationKey)
+  : getBlogIndexPath(DEFAULT_BLOG_LOCALE);
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ZG OS</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles/desktop-os.css" />
+  </head>
+  <body>
+    <main class="desktop-page">
+      <header class="desktop-topbar">
+        <div class="desktop-topbar__brand">
+          <strong>ZG OS</strong>
+          <span>BRUTALIST WORKSPACE</span>
+        </div>
+        <div class="desktop-topbar__status">
+          <button type="button" data-reset-windows>RESET</button>
+          <time id="clock">--:--</time>
+        </div>
+      </header>
+
+      <section class="desktop-stage" data-desktop-stage>
+        <div class="desktop-stage__marker" aria-hidden="true">INDEX / 2026</div>
+
+        <div class="desktop-launcher" aria-label="Applications">
+          {desktopApps.map((app) => (
+            <button class="desktop-launcher__item" type="button" data-open-window={app.id}>
+              <span class="desktop-launcher__glyph">
+                {app.iconSrc ? (
+                  <img src={app.iconSrc} alt={`${app.name} logo`} />
+                ) : (
+                  app.glyph
+                )}
+              </span>
+              <span>{app.name}</span>
+            </button>
+          ))}
+        </div>
+
+        <div class="desktop-window-layer">
+          <WindowFrame app={desktopApps[0]} title="Profile" zIndex={11}>
+            <div class="os-window__scroll stack">
+              <section class="card">
+                <h2>Zhi Jie Gao</h2>
+                <p style="margin-top:12px;">产品设计、交互原型、前端实现。</p>
+              </section>
+              <section class="stats">
+                <article class="stat">
+                  <span>Base</span>
+                  <strong>Shanghai</strong>
+                </article>
+                <article class="stat">
+                  <span>Focus</span>
+                  <strong>Product systems</strong>
+                </article>
+                <article class="stat">
+                  <span>Output</span>
+                  <strong>Writing + prototypes</strong>
+                </article>
+              </section>
+            </div>
+          </WindowFrame>
+
+          <WindowFrame app={desktopApps[1]} title="Notes">
+            <div class="os-window__scroll essay">
+              <p>
+                我更喜欢把网站做成一个可以被使用的结构，而不是一个只能被浏览的说明页。
+              </p>
+              <blockquote>
+                当内容可以被打开、切换、比较和停留，它就更接近真实工作状态。
+              </blockquote>
+              <p>
+                所以这里保留窗口、层级和阅读器，但把视觉往后退，只让内容和结构自己成立。
+              </p>
+            </div>
+          </WindowFrame>
+
+          <WindowFrame app={desktopApps[2]} title="Read Easy" open={true} zIndex={13}>
+            <ReadEasyWindow />
+          </WindowFrame>
+
+          <WindowFrame app={desktopApps[3]} title="Blog" open={true} zIndex={12}>
+            <span slot="leading" class="os-window__tool-group">
+              <button class="os-window__tool" type="button" aria-label="列表视图">
+                <span></span>
+              </button>
+              <button class="os-window__tool" type="button" aria-label="搜索">
+                <span class="is-search"></span>
+              </button>
+            </span>
+            <span slot="trailing" class="os-window__titlemark">BTU</span>
+            <DesktopBlogWindow postsByLocale={blogPostsByLocale} defaultHref={defaultBlogHref} />
+          </WindowFrame>
+        </div>
+
+        <div class="desktop-dock" aria-label="Application shortcuts">
+          {desktopApps.map((app) => (
+            <button
+              class="desktop-dock__item"
+              type="button"
+              data-open-window={app.id}
+              aria-label={`Open ${app.name}`}
+              title={app.name}
+            >
+              <span class="desktop-dock__label">{app.name}</span>
+              <span class="desktop-dock__icon">
+                {app.iconSrc ? (
+                  <img src={app.iconSrc} alt={`${app.name} logo`} />
+                ) : (
+                  app.glyph
+                )}
+              </span>
+            </button>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <script src="/scripts/desktop-os.js" defer></script>
+  </body>
+</html>

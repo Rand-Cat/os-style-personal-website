@@ -1,0 +1,7 @@
+---
+import BlogIndexPage from "../../components/blog/BlogIndexPage.astro";
+import { getPublishedBlogPosts } from "../../lib/blog";
+
+const posts = await getPublishedBlogPosts("zh");
+---
+<BlogIndexPage locale="zh" posts={posts} />
