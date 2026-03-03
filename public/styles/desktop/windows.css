@@ -1,0 +1,278 @@
+.os-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  min-width: 280px;
+  min-height: 150px;
+  max-width: calc(100% - 40px);
+  max-height: calc(100% - 88px);
+  overflow: hidden;
+  border-radius: var(--radius-window);
+  border: 1px solid rgba(24, 24, 24, 0.04);
+  background: var(--bg-window);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-window);
+  transform: translate(var(--x), var(--y));
+  pointer-events: auto;
+  will-change: transform, width, height;
+  transition: opacity 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
+}
+
+.os-window::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+}
+
+@keyframes openWindow {
+  from {
+    opacity: 0;
+    transform: translate(var(--x), calc(var(--y) + 10px)) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(var(--x), var(--y)) scale(1);
+  }
+}
+
+.os-window.is-open {
+  display: flex;
+  animation: openWindow 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.os-window.is-minimized {
+  display: none !important;
+}
+
+.os-window.is-active-window {
+  opacity: 1;
+  filter: saturate(1);
+  box-shadow: var(--shadow-window);
+}
+
+.os-window.is-inactive-window {
+  opacity: 0.58;
+  filter: saturate(0.68);
+  box-shadow: 0 10px 24px -18px rgba(24, 24, 24, 0.08), 0 0 0 1px rgba(24, 24, 24, 0.025);
+}
+
+.os-window__titlebar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  background: transparent;
+  cursor: grab;
+  user-select: none;
+}
+
+.os-window__titlebar:active {
+  cursor: grabbing;
+}
+
+.os-window__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.os-window__toolbar--right {
+  justify-content: flex-end;
+}
+
+.os-window__controls {
+  display: flex;
+  gap: 8px;
+}
+
+.os-window__controls button {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.os-window__controls button:hover {
+  background: var(--ink);
+  transform: scale(1.05);
+}
+
+.os-window__control-icon {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 8px;
+  height: 8px;
+  color: #fcfaf7;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.16s ease;
+}
+
+.os-window__controls button:hover .os-window__control-icon {
+  opacity: 1;
+}
+
+.os-window__control-icon::before,
+.os-window__control-icon::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.os-window__control-icon--close::before,
+.os-window__control-icon--close::after {
+  top: 3px;
+  left: 0;
+  width: 8px;
+  height: 1px;
+}
+
+.os-window__control-icon--close::before {
+  transform: rotate(45deg);
+}
+
+.os-window__control-icon--close::after {
+  transform: rotate(-45deg);
+}
+
+.os-window__control-icon--minimize::before {
+  left: 0;
+  top: 4px;
+  width: 8px;
+  height: 1px;
+}
+
+.os-window__control-icon--expand::before {
+  inset: 1px;
+  border: 1px solid currentColor;
+  background: transparent;
+}
+
+.os-window__meta strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+}
+
+.os-window__tool-group {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.os-window__tool {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-ui);
+  color: var(--ink-dim);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.os-window__tool:hover {
+  background: rgba(24, 24, 24, 0.05);
+  color: var(--ink);
+}
+
+.os-window__tool span,
+.os-window__tool::before,
+.os-window__tool::after {
+  content: "";
+  position: absolute;
+}
+
+.os-window__tool span {
+  inset: 5px;
+  border-top: 1.25px solid currentColor;
+  border-bottom: 1.25px solid currentColor;
+}
+
+.os-window__tool span.is-search {
+  inset: 4px auto auto 4px;
+  width: 8px;
+  height: 8px;
+  border: 1.25px solid currentColor;
+  border-radius: 50%;
+}
+
+.os-window__tool span.is-search::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  bottom: -3px;
+  width: 5px;
+  height: 1.25px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.os-window__titlemark {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-dim);
+}
+
+.os-window__body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.os-window__scroll {
+  height: 100%;
+  overflow: auto;
+}
+
+.os-window__resize {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 18px;
+  height: 18px;
+  cursor: nwse-resize;
+}
+
+.os-window__resize::before,
+.os-window__resize::after {
+  content: "";
+  position: absolute;
+  right: 1px;
+  bottom: 2px;
+  height: 1px;
+  background: rgba(24, 24, 24, 0.3);
+  transform: rotate(45deg);
+  transform-origin: right bottom;
+}
+
+.os-window__resize::before {
+  width: 8px;
+}
+
+.os-window__resize::after {
+  right: -1px;
+  bottom: 5px;
+  width: 4px;
+}
+
+.os-window.is-maximized .os-window__resize {
+  display: none;
+}
+
+.os-window.is-dragging iframe,
+.os-window.is-resizing iframe {
+  pointer-events: none;
+}

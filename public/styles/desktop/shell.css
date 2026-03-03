@@ -1,0 +1,285 @@
+:root {
+  --bg-canvas: #f3efe8;
+  --bg-window: rgba(252, 250, 247, 0.92);
+  --bg-window-strong: #fcfaf7;
+  --bg-soft: #f7f2ea;
+  --bg-hover: #f4ede2;
+  --ink: #181818;
+  --ink-secondary: #534d44;
+  --ink-dim: #7b7368;
+  --border: rgba(24, 24, 24, 0.08);
+  --border-strong: rgba(24, 24, 24, 0.14);
+  --shadow-window: 0 20px 50px -14px rgba(24, 24, 24, 0.12), 0 0 0 1px rgba(24, 24, 24, 0.04);
+  --shadow-soft: 0 14px 32px -18px rgba(24, 24, 24, 0.16);
+  --font-serif: "Cormorant Garamond", "STSong", serif;
+  --font-ui: "Inter", -apple-system, "PingFang SC", sans-serif;
+  --radius-window: 8px;
+  --radius-ui: 4px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg-canvas);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow: hidden;
+  cursor: default;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.serif,
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+.desktop-page {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.56), transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(236, 226, 210, 0.45), transparent 34%),
+    linear-gradient(180deg, #f6f1e9 0%, #f3efe8 44%, #ede6db 100%);
+}
+
+.desktop-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.1), transparent 180px),
+    repeating-linear-gradient(
+      0deg,
+      rgba(24, 24, 24, 0.015) 0,
+      rgba(24, 24, 24, 0.015) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.display-text {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(4.5rem, 8vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: rgba(24, 24, 24, 0.08);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.system-bar {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 46px;
+  padding: 0 32px;
+}
+
+.system-left,
+.system-right {
+  display: flex;
+  align-items: center;
+}
+
+.system-left {
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.system-right {
+  gap: 20px;
+  color: var(--ink-dim);
+  font-size: 13px;
+}
+
+.system-locale {
+  display: inline-flex;
+  gap: 14px;
+}
+
+.system-locale button {
+  position: relative;
+  color: var(--ink-dim);
+  font-size: 13px;
+  transition: color 0.18s ease;
+}
+
+.system-locale button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.system-locale button:hover,
+.system-locale button.is-active {
+  color: var(--ink);
+}
+
+.system-locale button:hover::after,
+.system-locale button.is-active::after {
+  opacity: 1;
+}
+
+.system-right time {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.os-logo {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--ink);
+  border-radius: 50% 50% 0 50%;
+  transform: rotate(-18deg);
+}
+
+.desktop-stage {
+  position: relative;
+  min-height: 100vh;
+  padding: 62px 40px 120px;
+  z-index: 1;
+}
+
+.desktop-widget {
+  position: absolute;
+  top: 84px;
+  right: 60px;
+  text-align: right;
+  z-index: 1;
+}
+
+.widget-time {
+  font-family: var(--font-serif);
+  font-size: clamp(3.25rem, 5vw, 4.25rem);
+  font-weight: 300;
+  line-height: 0.9;
+}
+
+.widget-date {
+  margin-top: 8px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.desktop-icons {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.desktop-icon {
+  position: absolute;
+  left: var(--icon-x);
+  top: var(--icon-y);
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: 108px;
+  color: var(--ink);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.desktop-icon__plate {
+  width: 74px;
+  height: 74px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  border: 1px solid rgba(24, 24, 24, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 8px 24px -20px rgba(24, 24, 24, 0.22);
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.desktop-icon__image {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.desktop-icon__glyph {
+  font-size: 22px;
+  line-height: 1;
+  font-style: italic;
+  color: rgba(24, 24, 24, 0.9);
+}
+
+.desktop-icon__label {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: #3b362f;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.desktop-icon:hover .desktop-icon__plate {
+  transform: translateY(-2px);
+  border-color: rgba(24, 24, 24, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.desktop-icon.is-active .desktop-icon__plate {
+  border-color: rgba(24, 24, 24, 0.14);
+  background: #ffffff;
+}
+
+.desktop-window-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}

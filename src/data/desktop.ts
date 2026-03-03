@@ -7,45 +7,66 @@ export interface DesktopApp {
   height: number;
   x: number;
   y: number;
+  iconX: number;
+  iconY: number;
 }
 
 export const desktopApps: DesktopApp[] = [
   {
     id: "profile",
-    name: "Profile",
-    glyph: "PR",
-    width: 360,
-    height: 360,
-    x: 188,
-    y: 64
+    name: "Studio",
+    glyph: "ZG",
+    width: 420,
+    height: 320,
+    x: 1080,
+    y: 148,
+    iconX: 68,
+    iconY: 118
   },
   {
     id: "notes",
-    name: "Notes",
-    glyph: "NT",
-    width: 480,
-    height: 430,
-    x: 308,
-    y: 156
+    name: "Journal",
+    glyph: "TXT",
+    width: 760,
+    height: 560,
+    x: 252,
+    y: 86,
+    iconX: 68,
+    iconY: 246
   },
   {
     id: "read-easy",
     name: "Read Easy",
     glyph: "RE",
     iconSrc: "/icons/read-easy.png",
-    width: 520,
+    width: 620,
     height: 560,
-    x: 196,
-    y: 286
+    x: 846,
+    y: 292,
+    iconX: 68,
+    iconY: 374
   },
   {
     id: "blog",
-    name: "Blog",
+    name: "Library",
     glyph: "BL",
-    width: 860,
-    height: 620,
-    x: 390,
-    y: 72
+    width: 920,
+    height: 660,
+    x: 590,
+    y: 180,
+    iconX: 68,
+    iconY: 502
+  },
+  {
+    id: "player",
+    name: "Player",
+    glyph: "SND",
+    width: 360,
+    height: 190,
+    x: 94,
+    y: 594,
+    iconX: 180,
+    iconY: 118
   }
 ];
 

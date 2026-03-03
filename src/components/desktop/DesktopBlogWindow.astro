@@ -2,6 +2,7 @@
 import {
   BLOG_LOCALES,
   DEFAULT_BLOG_LOCALE,
+  BLOG_LANGUAGE_LABELS,
   formatBlogDate,
   getBlogEmbedPath,
   type BlogLocale,
@@ -17,15 +18,7 @@ const { postsByLocale, defaultHref } = Astro.props;
 ---
 
 <section class="blog-browser">
-  <aside class="blog-browser__sidebar">
-    <div class="blog-browser__sidebar-head">
-      <strong>Notebook</strong>
-      <div class="blog-browser__locale" aria-label="Blog language switch">
-        <button class="is-active" type="button" data-blog-locale-switch="zh">中文</button>
-        <button type="button" data-blog-locale-switch="en">English</button>
-      </div>
-    </div>
-
+  <aside class="blog-browser__sidebar" data-scroll-lock>
     {BLOG_LOCALES.map((locale) => (
       <div class="blog-browser__list" data-blog-list={locale} hidden={locale !== DEFAULT_BLOG_LOCALE}>
         {postsByLocale[locale].map((post, index) => (
@@ -34,10 +27,11 @@ const { postsByLocale, defaultHref } = Astro.props;
             type="button"
             data-blog-locale={locale}
             data-blog-target={getBlogEmbedPath(locale, post.data.translationKey)}
+            aria-label={`${BLOG_LANGUAGE_LABELS[locale]} ${post.data.title}`}
           >
-            <time>{formatBlogDate(post.data.date)}</time>
-            <strong>{post.data.title}</strong>
-            <span>{post.data.readTime}</span>
+            <span class="blog-browser__item-title">{post.data.title}</span>
+            <p class="blog-browser__item-excerpt">{post.data.excerpt}</p>
+            <time>{formatBlogDate(post.data.date)} · {post.data.readTime}</time>
           </button>
         ))}
       </div>

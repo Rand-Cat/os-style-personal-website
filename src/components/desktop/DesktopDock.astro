@@ -1,0 +1,33 @@
+---
+import type { DesktopApp } from "../../data/desktop";
+
+interface Props {
+  apps: DesktopApp[];
+}
+
+const { apps } = Astro.props;
+---
+
+<div class="desktop-dock" data-dock aria-label="Open applications">
+  <div class="desktop-dock__tray" data-dock-tray>
+    {apps.map((app) => (
+      <button
+        class="desktop-dock__item"
+        type="button"
+        data-dock-window={app.id}
+        aria-label={app.name}
+        data-dock-label={app.name}
+      >
+        <span class="desktop-dock__label">{app.name}</span>
+        <span class="desktop-dock__icon">
+          {app.iconSrc ? (
+            <img src={app.iconSrc} alt={`${app.name} icon`} />
+          ) : (
+            <span class="desktop-dock__glyph serif">{app.glyph}</span>
+          )}
+        </span>
+        <span class="desktop-dock__indicator"></span>
+      </button>
+    ))}
+  </div>
+</div>

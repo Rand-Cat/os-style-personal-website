@@ -17,6 +17,10 @@ const zIndexStyle = zIndex ? `z-index:${zIndex};` : "";
   data-window={app.id}
   data-x={String(app.x)}
   data-y={String(app.y)}
+  data-default-x={String(app.x)}
+  data-default-y={String(app.y)}
+  data-default-width={String(app.width)}
+  data-default-height={String(app.height)}
   data-min-width="320"
   data-min-height="240"
   style={`--x:${app.x}px; --y:${app.y}px; width:${app.width}px; height:${app.height}px; ${zIndexStyle}`}
@@ -24,9 +28,15 @@ const zIndexStyle = zIndex ? `z-index:${zIndex};` : "";
   <div class="os-window__titlebar" data-drag-handle>
     <div class="os-window__toolbar os-window__toolbar--left">
       <div class="os-window__controls">
-        <button class="close" type="button" data-close-window={app.id} aria-label="关闭"></button>
-        <button class="minimize" type="button" data-minimize-window={app.id} aria-label="最小化"></button>
-        <button class="expand" type="button" data-focus-window={app.id} aria-label="最大化"></button>
+        <button class="close" type="button" data-close-window={app.id} aria-label="关闭">
+          <span class="os-window__control-icon os-window__control-icon--close" aria-hidden="true"></span>
+        </button>
+        <button class="minimize" type="button" data-minimize-window={app.id} aria-label="最小化">
+          <span class="os-window__control-icon os-window__control-icon--minimize" aria-hidden="true"></span>
+        </button>
+        <button class="expand" type="button" data-toggle-maximize-window={app.id} aria-label="最大化">
+          <span class="os-window__control-icon os-window__control-icon--expand" aria-hidden="true"></span>
+        </button>
       </div>
       <slot name="leading" />
     </div>
