@@ -17,7 +17,15 @@ const { apps } = Astro.props;
       style={`--icon-x:${app.iconX}px; --icon-y:${app.iconY}px;`}
     >
       <span class="desktop-icon__plate" aria-hidden="true">
-        {app.iconSrc ? (
+        {app.groupMembers ? (
+          <span class="desktop-icon__group-preview">
+            {app.groupMembers.slice(0, 4).map((member) => (
+              <span class="desktop-icon__group-cell">
+                <span class="desktop-icon__group-glyph serif">{member.glyph}</span>
+              </span>
+            ))}
+          </span>
+        ) : app.iconSrc ? (
           <img class="desktop-icon__image" src={app.iconSrc} alt={`${app.name} icon`} />
         ) : (
           <span class="desktop-icon__glyph serif">{app.glyph}</span>

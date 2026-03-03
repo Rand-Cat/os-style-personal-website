@@ -1,4 +1,5 @@
 export function initWindowManager() {
+  const desktopPage = document.querySelector(".desktop-page");
   const stage = document.querySelector("[data-desktop-stage]");
   const windows = Array.from(document.querySelectorAll("[data-window]"));
   const launcherButtons = Array.from(document.querySelectorAll("[data-open-window]"));
@@ -17,6 +18,7 @@ export function initWindowManager() {
   const isWindowOpen = (windowEl) => windowEl.classList.contains("is-open");
   const isWindowVisible = (windowEl) =>
     isWindowOpen(windowEl) && !windowEl.classList.contains("is-minimized");
+  const isGroupWindow = (windowEl) => windowEl.classList.contains("os-window--group");
 
   const getStageMetrics = () => ({
     width: stage?.clientWidth || window.innerWidth,
@@ -35,6 +37,119 @@ export function initWindowManager() {
     windowEl.style.setProperty("--y", `${y}px`);
   };
 
+  const getLauncherButton = (appId) =>
+    launcherButtons.find((button) => button.getAttribute("data-open-window") === appId) || null;
+
+  const getGroupAnimationParts = (windowEl, appId) => {
+    const launcher = getLauncherButton(appId);
+    const source = launcher?.querySelector(".desktop-icon__plate") || launcher;
+    const overlay = windowEl.querySelector("[data-group-overlay]");
+    const panel = windowEl.querySelector("[data-group-panel]");
+    const stack = windowEl.querySelector("[data-group-stack]");
+    if (!source || !overlay || !panel || !stack) return null;
+    return { source, overlay, panel, stack };
+  };
+
+  const animateGroupOpen = (windowEl, appId) => {
+    const parts = getGroupAnimationParts(windowEl, appId);
+    if (!parts) return;
+
+    const { source, overlay, panel, stack } = parts;
+    const sourceRect = source.getBoundingClientRect();
+    const panelRect = stack.getBoundingClientRect();
+    const sourceCenterX = sourceRect.left + sourceRect.width / 2;
+    const sourceCenterY = sourceRect.top + sourceRect.height / 2;
+    const panelCenterX = panelRect.left + panelRect.width / 2;
+    const panelCenterY = panelRect.top + panelRect.height / 2;
+    const offsetX = sourceCenterX - panelCenterX;
+    const offsetY = sourceCenterY - panelCenterY;
+    const scale = Math.max(0.08, Math.min(0.3, sourceRect.width / panelRect.width));
+
+    overlay.getAnimations().forEach((animation) => animation.cancel());
+    stack.getAnimations().forEach((animation) => animation.cancel());
+
+    overlay.animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration: 220,
+      easing: "ease-out",
+      fill: "forwards"
+    });
+
+    stack.animate(
+      [
+        {
+          opacity: 0.18,
+          transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`
+        },
+        {
+          opacity: 1,
+          transform: "translate(0, 0) scale(1)"
+        }
+      ],
+      {
+        duration: 320,
+        easing: "cubic-bezier(0.2, 0.9, 0.24, 1)",
+        fill: "forwards"
+      }
+    );
+  };
+
+  const animateGroupClose = (windowEl, appId, onFinish) => {
+    const parts = getGroupAnimationParts(windowEl, appId);
+    if (!parts) {
+      onFinish();
+      return;
+    }
+
+    const { source, overlay, panel, stack } = parts;
+    const sourceRect = source.getBoundingClientRect();
+    const panelRect = stack.getBoundingClientRect();
+    const sourceCenterX = sourceRect.left + sourceRect.width / 2;
+    const sourceCenterY = sourceRect.top + sourceRect.height / 2;
+    const panelCenterX = panelRect.left + panelRect.width / 2;
+    const panelCenterY = panelRect.top + panelRect.height / 2;
+    const offsetX = sourceCenterX - panelCenterX;
+    const offsetY = sourceCenterY - panelCenterY;
+    const scale = Math.max(0.08, Math.min(0.3, sourceRect.width / panelRect.width));
+
+    overlay.getAnimations().forEach((animation) => animation.cancel());
+    stack.getAnimations().forEach((animation) => animation.cancel());
+
+    const overlayAnimation = overlay.animate([{ opacity: 1 }, { opacity: 0 }], {
+      duration: 180,
+      easing: "ease-in",
+      fill: "forwards"
+    });
+
+    const panelAnimation = stack.animate(
+      [
+        {
+          opacity: 1,
+          transform: "translate(0, 0) scale(1)"
+        },
+        {
+          opacity: 0.1,
+          transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`
+        }
+      ],
+      {
+        duration: 220,
+        easing: "cubic-bezier(0.55, 0, 0.8, 0.2)",
+        fill: "forwards"
+      }
+    );
+
+    Promise.allSettled([overlayAnimation.finished, panelAnimation.finished]).finally(onFinish);
+  };
+
+  const syncImmersiveState = (activeWindow = null) => {
+    const isImmersive = !!activeWindow?.classList.contains("is-maximized");
+    const hasOpenGroup = windows.some(
+      (windowEl) => isWindowVisible(windowEl) && windowEl.classList.contains("os-window--group")
+    );
+    desktopPage?.classList.toggle("is-immersive", isImmersive);
+    desktopPage?.classList.toggle("is-group-open", hasOpenGroup);
+  };
+
   const syncAppState = () => {
     launcherButtons.forEach((button) => {
       const appId = button.getAttribute("data-open-window");
@@ -48,13 +163,18 @@ export function initWindowManager() {
       const isOpen = !!target && isWindowOpen(target);
       const isMinimized = !!target && target.classList.contains("is-minimized");
       const isActive = !!target && target.classList.contains("is-active-window");
+      const isPinned = button.getAttribute("data-dock-pinned") === "true";
       button.classList.toggle("is-open", isOpen);
       button.classList.toggle("is-minimized", isOpen && isMinimized);
       button.classList.toggle("is-active", isActive);
+      button.classList.toggle("is-hidden", !isPinned && !isOpen);
     });
 
     if (dock) {
-      dock.classList.toggle("is-visible", windows.some((windowEl) => isWindowOpen(windowEl)));
+      dock.classList.toggle(
+        "is-visible",
+        dockButtons.some((button) => !button.classList.contains("is-hidden"))
+      );
     }
   };
 
@@ -75,6 +195,7 @@ export function initWindowManager() {
       windowEl.classList.toggle("is-active-window", isActive);
       windowEl.classList.toggle("is-inactive-window", isVisible && !isActive);
     });
+    syncImmersiveState(target);
     syncAppState();
   };
 
@@ -85,8 +206,6 @@ export function initWindowManager() {
     const metrics = getStageMetrics();
     const defaultWidth = Number.parseFloat(windowEl.dataset.defaultWidth || "640");
     const defaultHeight = Number.parseFloat(windowEl.dataset.defaultHeight || "480");
-    const defaultX = Number.parseFloat(windowEl.dataset.defaultX || windowEl.dataset.x || "0");
-    const defaultY = Number.parseFloat(windowEl.dataset.defaultY || windowEl.dataset.y || "0");
     const minWidth = Number.parseFloat(windowEl.dataset.minWidth || "320");
     const minHeight = Number.parseFloat(windowEl.dataset.minHeight || "240");
     const maxWidth = Math.max(minWidth, metrics.width - 24);
@@ -98,12 +217,26 @@ export function initWindowManager() {
     windowEl.style.height = `${nextHeight}px`;
 
     if (resetPosition) {
+      const centerX = Math.round((metrics.width - nextWidth) / 2);
+      const centerY = Math.round((metrics.height - nextHeight) / 2);
+      const visibleCount = windows.filter(
+        (item) => item !== windowEl && isWindowVisible(item) && !item.classList.contains("is-maximized")
+      ).length;
+      const offsets = [
+        { x: 0, y: 0 },
+        { x: 28, y: 24 },
+        { x: -28, y: 24 },
+        { x: 54, y: 48 },
+        { x: -54, y: 48 },
+        { x: 0, y: 72 }
+      ];
+      const offset = offsets[visibleCount % offsets.length];
       const maxX = Math.max(12, metrics.width - nextWidth - 12);
       const maxY = Math.max(12, metrics.height - nextHeight - 12);
       setWindowPosition(
         windowEl,
-        clamp(Math.round(defaultX * scale), 12, maxX),
-        clamp(Math.round(defaultY * scale), 12, maxY)
+        clamp(centerX + offset.x, 12, maxX),
+        clamp(centerY + offset.y, 12, maxY)
       );
     }
   };
@@ -113,7 +246,7 @@ export function initWindowManager() {
   };
 
   const maximizeWindow = (windowEl) => {
-    if (!stage || !isDesktopViewport()) return;
+    if (!isDesktopViewport()) return;
 
     if (windowEl.classList.contains("is-maximized")) {
       windowEl.classList.remove("is-maximized");
@@ -136,17 +269,17 @@ export function initWindowManager() {
 
     const nextWidth = Math.max(
       Number.parseFloat(windowEl.dataset.minWidth || "320"),
-      stage.clientWidth - 24
+      window.innerWidth
     );
     const nextHeight = Math.max(
       Number.parseFloat(windowEl.dataset.minHeight || "240"),
-      stage.clientHeight - 24
+      window.innerHeight
     );
 
     windowEl.classList.add("is-maximized");
     windowEl.style.width = `${nextWidth}px`;
     windowEl.style.height = `${nextHeight}px`;
-    setWindowPosition(windowEl, 12, 12);
+    setWindowPosition(windowEl, 0, 0);
   };
 
   const bringToFront = (target) => {
@@ -160,6 +293,12 @@ export function initWindowManager() {
     if (!target) return;
     target.classList.add("is-open");
     restoreWindow(target);
+    if (isGroupWindow(target)) {
+      bringToFront(target);
+      requestAnimationFrame(() => animateGroupOpen(target, appId));
+      syncAppState();
+      return;
+    }
     if (!target.dataset.hasOpened) {
       applyDefaultWindowGeometry(target, true);
       target.dataset.hasOpened = "true";
@@ -171,6 +310,15 @@ export function initWindowManager() {
   const closeWindow = (appId) => {
     const target = document.querySelector(`[data-window="${appId}"]`);
     if (!target) return;
+    if (isGroupWindow(target) && isWindowOpen(target)) {
+      animateGroupClose(target, appId, () => {
+        target.classList.remove("is-open", "is-minimized", "is-maximized");
+        target.classList.remove("is-active-window", "is-inactive-window");
+        setActiveWindow(getTopOpenWindow());
+        syncAppState();
+      });
+      return;
+    }
     target.classList.remove("is-open", "is-minimized", "is-maximized");
     target.classList.remove("is-active-window", "is-inactive-window");
     setActiveWindow(getTopOpenWindow());
@@ -196,6 +344,7 @@ export function initWindowManager() {
         "is-maximized"
       );
     });
+    syncImmersiveState(null);
     syncAppState();
   };
 
@@ -259,6 +408,16 @@ export function initWindowManager() {
 
   windows.forEach((windowEl) => {
     windowEl.addEventListener("pointerdown", () => bringToFront(windowEl));
+  });
+
+  windows.forEach((windowEl) => {
+    if (!windowEl.classList.contains("os-window--group")) return;
+
+    windowEl.addEventListener("click", (event) => {
+      if (event.target.closest("[data-group-panel]")) return;
+      const appId = windowEl.getAttribute("data-window");
+      if (appId) closeWindow(appId);
+    });
   });
 
   windows.forEach((windowEl) => {
@@ -333,6 +492,7 @@ export function initWindowManager() {
     handle.addEventListener("pointerdown", (event) => {
       if (!isDesktopViewport() || windowEl.classList.contains("is-maximized")) return;
 
+      const direction = handle.getAttribute("data-resize-direction") || "se";
       const stageRect = stage?.getBoundingClientRect();
       const startWidth = windowEl.offsetWidth;
       const startHeight = windowEl.offsetHeight;
@@ -342,6 +502,14 @@ export function initWindowManager() {
       const baseY = Number.parseFloat(windowEl.dataset.y || "0");
       const minWidth = Number.parseFloat(windowEl.dataset.minWidth || "320");
       const minHeight = Number.parseFloat(windowEl.dataset.minHeight || "240");
+      const minX = 12;
+      const minY = 12;
+      const maxRight = stageRect ? stageRect.width - 12 : window.innerWidth - 12;
+      const maxBottom = stageRect ? stageRect.height - 12 : window.innerHeight - 12;
+      const fixedRight = baseX + startWidth;
+      const fixedBottom = baseY + startHeight;
+      let nextX = baseX;
+      let nextY = baseY;
       let nextWidth = startWidth;
       let nextHeight = startHeight;
       let frameId = 0;
@@ -352,6 +520,7 @@ export function initWindowManager() {
 
       const paint = () => {
         frameId = 0;
+        setWindowPosition(windowEl, nextX, nextY);
         windowEl.style.width = `${nextWidth}px`;
         windowEl.style.height = `${nextHeight}px`;
       };
@@ -362,10 +531,34 @@ export function initWindowManager() {
       };
 
       const onMove = (moveEvent) => {
-        const maxWidth = stageRect ? stageRect.width - baseX - 12 : startWidth + 1200;
-        const maxHeight = stageRect ? stageRect.height - baseY - 12 : startHeight + 1200;
-        nextWidth = clamp(startWidth + moveEvent.clientX - startX, minWidth, maxWidth);
-        nextHeight = clamp(startHeight + moveEvent.clientY - startY, minHeight, maxHeight);
+        const deltaX = moveEvent.clientX - startX;
+        const deltaY = moveEvent.clientY - startY;
+
+        nextX = baseX;
+        nextY = baseY;
+        nextWidth = startWidth;
+        nextHeight = startHeight;
+
+        if (direction.includes("e")) {
+          const maxWidth = Math.max(minWidth, maxRight - baseX);
+          nextWidth = clamp(startWidth + deltaX, minWidth, maxWidth);
+        }
+
+        if (direction.includes("s")) {
+          const maxHeight = Math.max(minHeight, maxBottom - baseY);
+          nextHeight = clamp(startHeight + deltaY, minHeight, maxHeight);
+        }
+
+        if (direction.includes("w")) {
+          nextX = clamp(baseX + deltaX, minX, fixedRight - minWidth);
+          nextWidth = fixedRight - nextX;
+        }
+
+        if (direction.includes("n")) {
+          nextY = clamp(baseY + deltaY, minY, fixedBottom - minHeight);
+          nextHeight = fixedBottom - nextY;
+        }
+
         schedulePaint();
       };
 
@@ -378,6 +571,7 @@ export function initWindowManager() {
         handle.removeEventListener("pointerup", cleanup);
         handle.removeEventListener("lostpointercapture", cleanup);
         windowEl.classList.remove("is-resizing");
+        setWindowPosition(windowEl, nextX, nextY);
         windowEl.style.width = `${nextWidth}px`;
         windowEl.style.height = `${nextHeight}px`;
       };

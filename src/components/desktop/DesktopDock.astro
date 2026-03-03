@@ -17,6 +17,7 @@ const { apps } = Astro.props;
         data-dock-window={app.id}
         aria-label={app.name}
         data-dock-label={app.name}
+        data-dock-pinned={app.dockPinned ? "true" : "false"}
       >
         <span class="desktop-dock__label">{app.name}</span>
         <span class="desktop-dock__icon">

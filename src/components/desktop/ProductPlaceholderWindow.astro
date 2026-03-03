@@ -1,0 +1,20 @@
+---
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<div class="os-window__scroll product-placeholder">
+  <section class="product-placeholder__hero">
+    <span class="product-placeholder__eyebrow">Placeholder</span>
+    <h2>{name}</h2>
+    <p>这个应用已经放进桌面系统了，窗口内容先保留占位，后面再单独补完整介绍和交互。</p>
+  </section>
+
+  <section class="product-placeholder__card">
+    <strong>Next step</strong>
+    <span>后续可以补官网链接、项目定位、关键特性和更贴近产品本身的窗口视觉。</span>
+  </section>
+</div>

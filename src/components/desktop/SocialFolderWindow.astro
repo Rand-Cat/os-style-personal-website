@@ -1,0 +1,13 @@
+---
+import { socialLinks } from "../../data/desktop";
+---
+
+<div class="social-group">
+  {socialLinks.map((item) => (
+    <a class="social-group__item" href={item.href} target="_blank" rel="noreferrer">
+      <span class="social-group__icon serif">{item.glyph}</span>
+      <strong>{item.name}</strong>
+      <span class="social-group__arrow" aria-hidden="true">↗</span>
+    </a>
+  ))}
+</div>

@@ -1,9 +1,11 @@
 export function initDockMagnification() {
   const dockButtons = Array.from(document.querySelectorAll("[data-dock-window]"));
   const dockTray = document.querySelector("[data-dock-tray]");
+  const getVisibleDockButtons = () =>
+    dockButtons.filter((button) => !button.classList.contains("is-hidden"));
 
   const resetDockMagnification = () => {
-    dockButtons.forEach((button) => {
+    getVisibleDockButtons().forEach((button) => {
       button.style.setProperty("--dock-scale", "1");
       button.style.setProperty("--dock-slot", "62px");
     });
@@ -11,7 +13,7 @@ export function initDockMagnification() {
 
   if (dockTray) {
     dockTray.addEventListener("pointermove", (event) => {
-      dockButtons.forEach((button) => {
+      getVisibleDockButtons().forEach((button) => {
         const rect = button.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const distance = Math.abs(event.clientX - centerX);

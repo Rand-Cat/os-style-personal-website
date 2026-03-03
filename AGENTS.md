@@ -32,13 +32,21 @@ If you are new to the repo, start here:
 1. `src/pages/index.astro`
    The main desktop-style home page. This is the integration point for the OS UI.
 2. `src/data/desktop.ts`
-   Desktop app metadata, icon labels, window sizes, and positioning data.
+   Desktop app metadata, icon labels, group previews, window sizes, desktop icon positions, and external links.
 3. `src/components/desktop/WindowFrame.astro`
-   Shared window shell and window controls.
+   Shared shell for both standard desktop windows and special group-style overlays.
 4. `src/components/desktop/DesktopBlogWindow.astro`
    The main blog application shown inside the desktop.
 5. `src/lib/blog.ts`
    Shared blog helpers: locale logic, paths, formatting, and post lookup.
+
+Useful desktop-specific components to inspect immediately:
+
+- `src/components/desktop/DesktopIcons.astro`
+- `src/components/desktop/DesktopDock.astro`
+- `src/components/desktop/VibaryWindow.astro`
+- `src/components/desktop/ProductPlaceholderWindow.astro`
+- `src/components/desktop/SocialFolderWindow.astro`
 
 ## Blog Architecture
 
@@ -73,7 +81,39 @@ Desktop-related files are mainly under:
 - `public/styles/desktop-os.css`
 - `public/scripts/desktop-os.js`
 
-In some working states, desktop CSS or JS may be further split into subfiles under `public/styles/desktop/` or `public/scripts/desktop/`. If those folders exist, keep concerns separated there instead of pushing everything back into one large file.
+Desktop CSS and JS are intentionally split into modules now. Keep them split by concern instead of pushing everything back into one file.
+
+CSS entry:
+
+- `public/styles/desktop-os.css`
+
+CSS modules:
+
+- `public/styles/desktop/shell.css`
+  Page shell, desktop icons, top bar, wallpaper/background treatment, and global desktop states.
+- `public/styles/desktop/windows.css`
+  Standard window shell, focus states, controls, maximize/fullscreen behavior, and group overlay shells.
+- `public/styles/desktop/panes.css`
+  App/window interior styling such as blog, product cards, social group layout, and editorial content panes.
+- `public/styles/desktop/dock.css`
+  Dock tray, magnification styling, active dots, hover labels, and show/hide behavior.
+- `public/styles/desktop/responsive.css`
+  Responsive adjustments and small-screen fallbacks.
+
+JS entry:
+
+- `public/scripts/desktop-os.js`
+
+JS modules:
+
+- `public/scripts/desktop/window-manager.js`
+  Open/close/focus/minimize/maximize, initial window placement, group overlay open/close, drag, and 8-direction resize.
+- `public/scripts/desktop/dock.js`
+  Dock magnification and slot-width behavior.
+- `public/scripts/desktop/blog-browser.js`
+  Blog locale switching, embedded article routing, and sidebar behavior.
+- `public/scripts/desktop/clock.js`
+  Top bar and desktop clock/date.
 
 ## Design Direction
 
@@ -95,6 +135,25 @@ Avoid introducing glossy consumer-app styling unless the user explicitly asks fo
 3. Put app-specific UI in `src/components/desktop/`
 4. Reuse `WindowFrame.astro` instead of inventing a new shell
 
+Current app categories:
+
+- standard product / content apps
+- pinned dock apps (`dockPinned: true`)
+- placeholder product apps that open a generic intro pane
+- grouped / folder-like apps such as `social`, which use a special overlay variant instead of a normal titlebar window
+
+### Add a desktop group
+
+The `social` app is the reference implementation.
+
+What makes it different:
+
+- the desktop icon can preview multiple items via `groupMembers`
+- it uses `WindowFrame` with `variant="group"`
+- opening it creates a full-screen overlay
+- clicking outside the inner content closes it
+- it is not meant to behave like a draggable/resizable normal window
+
 ### Update blog content
 
 1. Edit or add files in `src/content/blog`
@@ -106,8 +165,39 @@ Avoid introducing glossy consumer-app styling unless the user explicitly asks fo
 If the change affects:
 
 - window focus / drag / resize / minimize / maximize: start with the desktop script layer and `WindowFrame.astro`
+- group / folder-like overlay behavior: start with `WindowFrame.astro`, `window-manager.js`, and the relevant pane component
+- dock content rules or magnification: inspect both `DesktopDock.astro` and `public/scripts/desktop/dock.js`
 - blog selection or locale switching: inspect both `DesktopBlogWindow.astro` and blog page helpers
 - global look and spacing: start from `public/styles/desktop-os.css`
+
+## Current Desktop Rules
+
+These are easy to accidentally break:
+
+- Desktop icon images should fill the rounded rectangle shape with `object-fit: cover`; do not leave inner white padding around provided image icons.
+- Favicon assets are PNG/ICO-based now and are generated from `public/icons/pfp.png` into:
+  - `public/favicon.png`
+  - `public/favicon.ico`
+  - `public/apple-touch-icon.png`
+  - `public/favicon-32x32.png`
+  - `public/favicon-16x16.png`
+- The dock should show:
+  - pinned apps
+  - currently open non-pinned apps
+  It should not list every desktop app all the time.
+- Standard windows open centered by default, with small offsets if other windows are already open.
+- Standard windows support:
+  - focus states
+  - minimize
+  - maximize into a real full-screen-like state
+  - resize from 4 edges and 4 corners
+- Maximize should hide menu bar and dock, and maximized windows should use an opaque background.
+- Group overlays such as `social` should:
+  - cover the whole desktop
+  - hide or heavily suppress dock/menu/desktop noise behind them
+  - open from the icon position with animation
+  - close on outside click
+  - avoid unnecessary extra container layers
 
 ## Guardrails
 
@@ -127,7 +217,12 @@ For meaningful desktop UI changes, also manually verify:
 - opening and closing windows
 - focus state changes
 - dragging and resizing
+- edge/corner resize behavior
+- maximize / restore behavior
 - dock behavior if present
+- dock icon image cropping
+- dock pinned/open visibility rules
+- group overlay open / outside-click close
 - blog article switching
 - locale switching
 

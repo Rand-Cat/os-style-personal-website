@@ -186,6 +186,7 @@ h3 {
   min-height: 100vh;
   padding: 62px 40px 120px;
   z-index: 1;
+  transition: padding 0.18s ease;
 }
 
 .desktop-widget {
@@ -236,6 +237,7 @@ h3 {
   height: 74px;
   display: grid;
   place-items: center;
+  overflow: hidden;
   border-radius: 22px;
   border: 1px solid rgba(24, 24, 24, 0.08);
   background: rgba(255, 255, 255, 0.78);
@@ -244,9 +246,34 @@ h3 {
 }
 
 .desktop-icon__image {
-  width: 54px;
-  height: 54px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.desktop-icon__group-preview {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  width: 56px;
+  height: 56px;
+}
+
+.desktop-icon__group-cell {
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(24, 24, 24, 0.06);
+  box-shadow: 0 4px 14px -14px rgba(24, 24, 24, 0.24);
+}
+
+.desktop-icon__group-glyph {
+  font-size: 11px;
+  line-height: 1;
+  font-style: italic;
+  color: rgba(24, 24, 24, 0.88);
 }
 
 .desktop-icon__glyph {
@@ -282,4 +309,57 @@ h3 {
   inset: 0;
   z-index: 6;
   pointer-events: none;
+}
+
+.desktop-page.is-immersive .system-bar,
+.desktop-page.is-immersive .desktop-dock,
+.desktop-page.is-immersive .desktop-widget,
+.desktop-page.is-immersive .desktop-icons,
+.desktop-page.is-immersive .display-text {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.desktop-page.is-immersive .system-bar,
+.desktop-page.is-immersive .desktop-dock,
+.desktop-page.is-immersive .desktop-widget,
+.desktop-page.is-immersive .display-text {
+  transition: opacity 0.14s ease;
+}
+
+.desktop-page.is-immersive .desktop-stage {
+  padding: 0;
+}
+
+.desktop-page.is-group-open .system-bar,
+.desktop-page.is-group-open .desktop-dock,
+.desktop-page.is-group-open .desktop-widget,
+.desktop-page.is-group-open .display-text {
+  opacity: 0.08;
+  pointer-events: none;
+  filter: blur(10px);
+}
+
+.desktop-page.is-group-open .system-bar,
+.desktop-page.is-group-open .desktop-dock,
+.desktop-page.is-group-open .desktop-widget,
+.desktop-page.is-group-open .display-text {
+  transition: opacity 0.16s ease, filter 0.16s ease;
+}
+
+.desktop-page.is-group-open .desktop-icons {
+  opacity: 0.2;
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.desktop-page.is-group-open .desktop-window-layer > .os-window:not(.os-window--group) {
+  opacity: 0.12;
+  filter: blur(14px) saturate(0.72);
+  pointer-events: none;
+}
+
+.desktop-page.is-group-open .desktop-icons,
+.desktop-page.is-group-open .desktop-window-layer > .os-window:not(.os-window--group) {
+  transition: opacity 0.16s ease, filter 0.16s ease;
 }

@@ -2,10 +2,11 @@
 import DesktopBlogWindow from "../components/desktop/DesktopBlogWindow.astro";
 import DesktopDock from "../components/desktop/DesktopDock.astro";
 import DesktopIcons from "../components/desktop/DesktopIcons.astro";
-import AudioPlayerWindow from "../components/desktop/AudioPlayerWindow.astro";
-import JournalWindow from "../components/desktop/JournalWindow.astro";
+import ProductPlaceholderWindow from "../components/desktop/ProductPlaceholderWindow.astro";
 import ReadEasyWindow from "../components/desktop/ReadEasyWindow.astro";
+import SocialFolderWindow from "../components/desktop/SocialFolderWindow.astro";
 import StudioWindow from "../components/desktop/StudioWindow.astro";
+import VibaryWindow from "../components/desktop/VibaryWindow.astro";
 import WindowFrame from "../components/desktop/WindowFrame.astro";
 import { desktopApps } from "../data/desktop";
 import {
@@ -27,7 +28,23 @@ const defaultBlogPosts = blogPostsByLocale[DEFAULT_BLOG_LOCALE];
 const defaultBlogHref = defaultBlogPosts[0]
   ? getBlogEmbedPath(DEFAULT_BLOG_LOCALE, defaultBlogPosts[0].data.translationKey)
   : getBlogIndexPath(DEFAULT_BLOG_LOCALE);
-const [studioApp, journalApp, readEasyApp, blogApp, playerApp] = desktopApps;
+const getDesktopApp = (id: string) => {
+  const app = desktopApps.find((item) => item.id === id);
+  if (!app) throw new Error(`Desktop app "${id}" not found`);
+  return app;
+};
+
+const studioApp = getDesktopApp("profile");
+const readEasyApp = getDesktopApp("read-easy");
+const blogApp = getDesktopApp("blog");
+const vibaryApp = getDesktopApp("vibary");
+const attenApp = getDesktopApp("atten");
+const interludeApp = getDesktopApp("interlude");
+const moldayApp = getDesktopApp("molday");
+const onesnapApp = getDesktopApp("onesnap");
+const tubeNitroApp = getDesktopApp("tube-nitro");
+const newPortalApp = getDesktopApp("new-portal");
+const socialApp = getDesktopApp("social");
 ---
 
 <html lang="zh-CN">
@@ -36,7 +53,9 @@ const [studioApp, journalApp, readEasyApp, blogApp, playerApp] = desktopApps;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ZG OS</title>
     <meta name="description" content="Zhi Jie Gao — Product designer, builder, writer." />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="stylesheet" href="/styles/desktop-os.css" />
   </head>
   <body>
@@ -80,10 +99,6 @@ const [studioApp, journalApp, readEasyApp, blogApp, playerApp] = desktopApps;
             <StudioWindow />
           </WindowFrame>
 
-          <WindowFrame app={journalApp} title="Editor" open={true} zIndex={15}>
-            <JournalWindow />
-          </WindowFrame>
-
           <WindowFrame app={blogApp} title="Archive & Editor" open={true} zIndex={14}>
             <DesktopBlogWindow postsByLocale={blogPostsByLocale} defaultHref={defaultBlogHref} />
           </WindowFrame>
@@ -92,8 +107,36 @@ const [studioApp, journalApp, readEasyApp, blogApp, playerApp] = desktopApps;
             <ReadEasyWindow />
           </WindowFrame>
 
-          <WindowFrame app={playerApp} title="Player" open={true} zIndex={13}>
-            <AudioPlayerWindow />
+          <WindowFrame app={vibaryApp} title="Vibary">
+            <VibaryWindow />
+          </WindowFrame>
+
+          <WindowFrame app={attenApp} title="Atten">
+            <ProductPlaceholderWindow name="Atten" />
+          </WindowFrame>
+
+          <WindowFrame app={interludeApp} title="Interlude">
+            <ProductPlaceholderWindow name="Interlude" />
+          </WindowFrame>
+
+          <WindowFrame app={moldayApp} title="Molday">
+            <ProductPlaceholderWindow name="Molday" />
+          </WindowFrame>
+
+          <WindowFrame app={onesnapApp} title="OneSnap">
+            <ProductPlaceholderWindow name="OneSnap" />
+          </WindowFrame>
+
+          <WindowFrame app={tubeNitroApp} title="TubeNitro">
+            <ProductPlaceholderWindow name="TubeNitro" />
+          </WindowFrame>
+
+          <WindowFrame app={newPortalApp} title="New Portal">
+            <ProductPlaceholderWindow name="New Portal" />
+          </WindowFrame>
+
+          <WindowFrame app={socialApp} title="Social" variant="group">
+            <SocialFolderWindow />
           </WindowFrame>
         </div>
 

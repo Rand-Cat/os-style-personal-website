@@ -42,6 +42,10 @@
   transition: width 0.12s ease;
 }
 
+.desktop-dock__item.is-hidden {
+  display: none;
+}
+
 .desktop-dock__label {
   position: absolute;
   left: 50%;
@@ -66,6 +70,7 @@
   height: 44px;
   display: grid;
   place-items: center;
+  overflow: hidden;
   border-radius: 14px;
   border: 1px solid rgba(24, 24, 24, 0.08);
   background: rgba(255, 255, 255, 0.78);
@@ -88,9 +93,10 @@
 }
 
 .desktop-dock__icon img {
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .desktop-dock__glyph {
