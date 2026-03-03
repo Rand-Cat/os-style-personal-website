@@ -63,7 +63,14 @@ const zIndexStyle = zIndex ? `z-index:${zIndex};` : "";
       </div>
     )
   }
-  {variant === "group" ? null : <div class="os-window__body"><slot /></div>}
+  {
+    variant === "group" ? null : (
+      <>
+        <div class="os-window__body"><slot /></div>
+        <div class="os-window__interaction-shield" aria-hidden="true"></div>
+      </>
+    )
+  }
   {
     variant === "group" ? null : (
       <>

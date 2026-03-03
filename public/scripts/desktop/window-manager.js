@@ -30,6 +30,19 @@ export function initWindowManager() {
     return Math.min(metrics.width / 1360, metrics.height / 900, 1.18);
   };
 
+  const releasePointerCapture = (target, pointerId) => {
+    if (
+      !target ||
+      typeof target.releasePointerCapture !== "function" ||
+      typeof target.hasPointerCapture !== "function" ||
+      !target.hasPointerCapture(pointerId)
+    ) {
+      return;
+    }
+
+    target.releasePointerCapture(pointerId);
+  };
+
   const setWindowPosition = (windowEl, x, y) => {
     windowEl.dataset.x = String(x);
     windowEl.dataset.y = String(y);
@@ -435,11 +448,13 @@ export function initWindowManager() {
 
       const startX = event.clientX;
       const startY = event.clientY;
+      const pointerId = event.pointerId;
       const originX = Number.parseFloat(windowEl.dataset.x || "0");
       const originY = Number.parseFloat(windowEl.dataset.y || "0");
       let nextX = originX;
       let nextY = originY;
       let frameId = 0;
+      let isCleaningUp = false;
 
       bringToFront(windowEl);
       windowEl.classList.add("is-dragging");
@@ -456,7 +471,7 @@ export function initWindowManager() {
       };
 
       const onMove = (moveEvent) => {
-        if (!stage) return;
+        if (moveEvent.pointerId !== pointerId || !stage) return;
         const rawX = originX + moveEvent.clientX - startX;
         const rawY = originY + moveEvent.clientY - startY;
         const maxX = Math.max(12, stage.clientWidth - windowEl.offsetWidth - 12);
@@ -468,19 +483,26 @@ export function initWindowManager() {
       };
 
       const cleanup = () => {
+        if (isCleaningUp) return;
+        isCleaningUp = true;
         if (frameId) {
           window.cancelAnimationFrame(frameId);
           frameId = 0;
         }
-        handle.removeEventListener("pointermove", onMove);
-        handle.removeEventListener("pointerup", cleanup);
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", cleanup);
+        window.removeEventListener("pointercancel", cleanup);
+        window.removeEventListener("blur", cleanup);
         handle.removeEventListener("lostpointercapture", cleanup);
+        releasePointerCapture(handle, pointerId);
         windowEl.classList.remove("is-dragging");
         setWindowPosition(windowEl, nextX, nextY);
       };
 
-      handle.addEventListener("pointermove", onMove);
-      handle.addEventListener("pointerup", cleanup);
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", cleanup);
+      window.addEventListener("pointercancel", cleanup);
+      window.addEventListener("blur", cleanup);
       handle.addEventListener("lostpointercapture", cleanup);
     });
   });
@@ -498,6 +520,7 @@ export function initWindowManager() {
       const startHeight = windowEl.offsetHeight;
       const startX = event.clientX;
       const startY = event.clientY;
+      const pointerId = event.pointerId;
       const baseX = Number.parseFloat(windowEl.dataset.x || "0");
       const baseY = Number.parseFloat(windowEl.dataset.y || "0");
       const minWidth = Number.parseFloat(windowEl.dataset.minWidth || "320");
@@ -513,6 +536,7 @@ export function initWindowManager() {
       let nextWidth = startWidth;
       let nextHeight = startHeight;
       let frameId = 0;
+      let isCleaningUp = false;
 
       bringToFront(windowEl);
       windowEl.classList.add("is-resizing");
@@ -531,6 +555,7 @@ export function initWindowManager() {
       };
 
       const onMove = (moveEvent) => {
+        if (moveEvent.pointerId !== pointerId) return;
         const deltaX = moveEvent.clientX - startX;
         const deltaY = moveEvent.clientY - startY;
 
@@ -563,21 +588,28 @@ export function initWindowManager() {
       };
 
       const cleanup = () => {
+        if (isCleaningUp) return;
+        isCleaningUp = true;
         if (frameId) {
           window.cancelAnimationFrame(frameId);
           frameId = 0;
         }
-        handle.removeEventListener("pointermove", onMove);
-        handle.removeEventListener("pointerup", cleanup);
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", cleanup);
+        window.removeEventListener("pointercancel", cleanup);
+        window.removeEventListener("blur", cleanup);
         handle.removeEventListener("lostpointercapture", cleanup);
+        releasePointerCapture(handle, pointerId);
         windowEl.classList.remove("is-resizing");
         setWindowPosition(windowEl, nextX, nextY);
         windowEl.style.width = `${nextWidth}px`;
         windowEl.style.height = `${nextHeight}px`;
       };
 
-      handle.addEventListener("pointermove", onMove);
-      handle.addEventListener("pointerup", cleanup);
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", cleanup);
+      window.addEventListener("pointercancel", cleanup);
+      window.addEventListener("blur", cleanup);
       handle.addEventListener("lostpointercapture", cleanup);
     });
   });

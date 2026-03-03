@@ -1,6 +1,6 @@
 :root {
   --bg-canvas: #f3efe8;
-  --bg-window: rgba(252, 250, 247, 0.92);
+  --bg-window: #fcfaf7;
   --bg-window-strong: #fcfaf7;
   --bg-soft: #f7f2ea;
   --bg-hover: #f4ede2;
@@ -13,7 +13,7 @@
   --shadow-soft: 0 14px 32px -18px rgba(24, 24, 24, 0.16);
   --font-serif: "Cormorant Garamond", "STSong", serif;
   --font-ui: "Inter", -apple-system, "PingFang SC", sans-serif;
-  --radius-window: 8px;
+  --radius-window: 14px;
   --radius-ui: 4px;
 }
 
