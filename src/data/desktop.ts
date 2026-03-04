@@ -4,10 +4,12 @@ export interface DesktopApp {
   glyph: string;
   iconSrc?: string;
   dockPinned?: boolean;
+  hiddenFromDesktop?: boolean;
   groupMembers?: Array<{
     id: string;
     glyph: string;
     name: string;
+    iconSrc?: string;
   }>;
   width: number;
   height: number;
@@ -72,6 +74,7 @@ export const desktopApps: DesktopApp[] = [
     id: "settings",
     name: "Settings",
     glyph: "ST",
+    hiddenFromDesktop: true,
     width: 420,
     height: 360,
     x: 930,
@@ -87,7 +90,7 @@ export const desktopApps: DesktopApp[] = [
     height: 620,
     x: 620,
     y: 170,
-    iconX: 516,
+    iconX: 404,
     iconY: 246
   },
   {
@@ -99,7 +102,7 @@ export const desktopApps: DesktopApp[] = [
     height: 420,
     x: 708,
     y: 166,
-    iconX: 404,
+    iconX: 292,
     iconY: 118
   },
   {
@@ -107,6 +110,7 @@ export const desktopApps: DesktopApp[] = [
     name: "Interlude",
     glyph: "IN",
     iconSrc: "/icons/interlude.png",
+    hiddenFromDesktop: true,
     width: 560,
     height: 420,
     x: 742,
@@ -131,6 +135,7 @@ export const desktopApps: DesktopApp[] = [
     name: "OneSnap",
     glyph: "OS",
     iconSrc: "/icons/onesnap.png",
+    hiddenFromDesktop: true,
     width: 560,
     height: 420,
     x: 810,
@@ -143,6 +148,7 @@ export const desktopApps: DesktopApp[] = [
     name: "TubeNitro",
     glyph: "TN",
     iconSrc: "/icons/TubeNitro.png",
+    hiddenFromDesktop: true,
     width: 560,
     height: 420,
     x: 844,
@@ -155,12 +161,71 @@ export const desktopApps: DesktopApp[] = [
     name: "New Portal",
     glyph: "NP",
     iconSrc: "/icons/New Portal.png",
+    hiddenFromDesktop: true,
     width: 560,
     height: 420,
     x: 878,
     y: 316,
     iconX: 292,
     iconY: 374
+  },
+  {
+    id: "deepchat",
+    name: "DeepChat",
+    glyph: "DC",
+    iconSrc: "/icons/deepchat.png",
+    hiddenFromDesktop: true,
+    width: 560,
+    height: 420,
+    x: 912,
+    y: 346,
+    iconX: 404,
+    iconY: 374
+  },
+  {
+    id: "dogcheck",
+    name: "DogCheck",
+    glyph: "DG",
+    iconSrc: "/icons/DogCheck.png",
+    hiddenFromDesktop: true,
+    width: 560,
+    height: 420,
+    x: 946,
+    y: 376,
+    iconX: 516,
+    iconY: 118
+  },
+  {
+    id: "sprint",
+    name: "Sprint",
+    glyph: "SPR",
+    groupMembers: [
+      { id: "interlude", glyph: "IN", name: "Interlude", iconSrc: "/icons/interlude.png" },
+      { id: "onesnap", glyph: "OS", name: "OneSnap", iconSrc: "/icons/onesnap.png" },
+      { id: "tube-nitro", glyph: "TN", name: "TubeNitro", iconSrc: "/icons/TubeNitro.png" },
+      { id: "new-portal", glyph: "NP", name: "New Portal", iconSrc: "/icons/New Portal.png" }
+    ],
+    width: 760,
+    height: 360,
+    x: 860,
+    y: 280,
+    iconX: 180,
+    iconY: 246
+  },
+  {
+    id: "fun",
+    name: "Fun",
+    glyph: "FUN",
+    groupMembers: [
+      { id: "deepchat", glyph: "DC", name: "DeepChat", iconSrc: "/icons/deepchat.png" },
+      { id: "dogcheck", glyph: "DG", name: "DogCheck", iconSrc: "/icons/DogCheck.png" }
+    ],
+    width: 760,
+    height: 360,
+    x: 900,
+    y: 310,
+    iconX: 292,
+    iconY: 246
   },
   {
     id: "social",
@@ -177,7 +242,7 @@ export const desktopApps: DesktopApp[] = [
     x: 912,
     y: 344,
     iconX: 404,
-    iconY: 246
+    iconY: 118
   }
 ];
 

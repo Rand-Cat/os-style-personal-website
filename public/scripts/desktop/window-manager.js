@@ -364,7 +364,14 @@ export function initWindowManager() {
   launcherButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const appId = button.getAttribute("data-open-window");
-      if (appId) openWindow(appId);
+      if (appId) {
+        openWindow(appId);
+      }
+
+      const closeGroupId = button.getAttribute("data-close-group");
+      if (closeGroupId) {
+        closeWindow(closeGroupId);
+      }
     });
   });
 

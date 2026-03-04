@@ -3,9 +3,11 @@ import DesktopBlogWindow from "../components/desktop/DesktopBlogWindow.astro";
 import DesktopCat from "../components/desktop/DesktopCat.astro";
 import DesktopDock from "../components/desktop/DesktopDock.astro";
 import DesktopIcons from "../components/desktop/DesktopIcons.astro";
+import FunFolderWindow from "../components/desktop/FunFolderWindow.astro";
 import JikeIdeasWindow from "../components/desktop/JikeIdeasWindow.astro";
 import ProductPlaceholderWindow from "../components/desktop/ProductPlaceholderWindow.astro";
 import ReadEasyWindow from "../components/desktop/ReadEasyWindow.astro";
+import SprintFolderWindow from "../components/desktop/SprintFolderWindow.astro";
 import SettingsWindow from "../components/desktop/SettingsWindow.astro";
 import SocialFolderWindow from "../components/desktop/SocialFolderWindow.astro";
 import StudioWindow from "../components/desktop/StudioWindow.astro";
@@ -49,6 +51,10 @@ const moldayApp = getDesktopApp("molday");
 const onesnapApp = getDesktopApp("onesnap");
 const tubeNitroApp = getDesktopApp("tube-nitro");
 const newPortalApp = getDesktopApp("new-portal");
+const deepchatApp = getDesktopApp("deepchat");
+const dogcheckApp = getDesktopApp("dogcheck");
+const sprintApp = getDesktopApp("sprint");
+const funApp = getDesktopApp("fun");
 const socialApp = getDesktopApp("social");
 ---
 
@@ -109,7 +115,7 @@ const socialApp = getDesktopApp("social");
         <DesktopIcons apps={desktopApps} />
 
         <div class="desktop-window-layer">
-          <WindowFrame app={studioApp} title="Studio" open={true} zIndex={12}>
+          <WindowFrame app={studioApp} title="Studio" zIndex={12}>
             <StudioWindow />
           </WindowFrame>
 
@@ -155,6 +161,22 @@ const socialApp = getDesktopApp("social");
 
           <WindowFrame app={newPortalApp} title="New Portal">
             <ProductPlaceholderWindow name="New Portal" />
+          </WindowFrame>
+
+          <WindowFrame app={deepchatApp} title="DeepChat">
+            <ProductPlaceholderWindow name="DeepChat" />
+          </WindowFrame>
+
+          <WindowFrame app={dogcheckApp} title="DogCheck">
+            <ProductPlaceholderWindow name="DogCheck" />
+          </WindowFrame>
+
+          <WindowFrame app={sprintApp} title="Sprint" variant="group">
+            <SprintFolderWindow />
+          </WindowFrame>
+
+          <WindowFrame app={funApp} title="Fun" variant="group">
+            <FunFolderWindow />
           </WindowFrame>
 
           <WindowFrame app={socialApp} title="Social" variant="group">

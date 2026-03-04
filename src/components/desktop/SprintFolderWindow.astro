@@ -1,0 +1,24 @@
+---
+const sprintApps = [
+  { id: "interlude", name: "Interlude", iconSrc: "/icons/interlude.png" },
+  { id: "onesnap", name: "OneSnap", iconSrc: "/icons/onesnap.png" },
+  { id: "tube-nitro", name: "TubeNitro", iconSrc: "/icons/TubeNitro.png" },
+  { id: "new-portal", name: "New Portal", iconSrc: "/icons/New Portal.png" }
+];
+---
+
+<div class="social-group">
+  {sprintApps.map((item) => (
+    <button
+      class="social-group__item social-group__item--button"
+      type="button"
+      data-open-window={item.id}
+      data-close-group="sprint"
+    >
+      <span class="social-group__icon">
+        <img class="social-group__icon-image" src={item.iconSrc} alt="" />
+      </span>
+      <strong>{item.name}</strong>
+    </button>
+  ))}
+</div>

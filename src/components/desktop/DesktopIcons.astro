@@ -6,10 +6,11 @@ interface Props {
 }
 
 const { apps } = Astro.props;
+const visibleApps = apps.filter((app) => !app.hiddenFromDesktop);
 ---
 
 <div class="desktop-icons" aria-label="Desktop applications">
-  {apps.map((app) => (
+  {visibleApps.map((app) => (
     <button
       class="desktop-icon"
       type="button"
@@ -19,11 +20,21 @@ const { apps } = Astro.props;
       <span class="desktop-icon__plate" aria-hidden="true">
         {app.groupMembers ? (
           <span class="desktop-icon__group-preview">
-            {app.groupMembers.slice(0, 4).map((member) => (
-              <span class="desktop-icon__group-cell">
-                <span class="desktop-icon__group-glyph serif">{member.glyph}</span>
-              </span>
-            ))}
+            {Array.from({ length: 4 }, (_, index) => {
+              const member = app.groupMembers?.[index];
+
+              return (
+                <span class:list={["desktop-icon__group-cell", !member && "is-empty"]}>
+                  {member ? (
+                    member.iconSrc ? (
+                      <img class="desktop-icon__group-image" src={member.iconSrc} alt="" />
+                    ) : (
+                      <span class="desktop-icon__group-glyph serif">{member.glyph}</span>
+                    )
+                  ) : null}
+                </span>
+              );
+            })}
           </span>
         ) : app.iconSrc ? (
           <img class="desktop-icon__image" src={app.iconSrc} alt={`${app.name} icon`} />

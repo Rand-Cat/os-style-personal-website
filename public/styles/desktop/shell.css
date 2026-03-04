@@ -321,18 +321,38 @@ h3 {
 .desktop-icon__group-preview {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 6px;
   width: 56px;
   height: 56px;
+  align-items: stretch;
 }
 
 .desktop-icon__group-cell {
   display: grid;
   place-items: center;
-  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 7px;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.04);
   box-shadow: 0 4px 10px -6px rgba(0, 0, 0, 0.15);
+}
+
+.desktop-icon__group-cell.is-empty {
+  background: rgba(255, 255, 255, 0.38);
+  border-style: dashed;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.desktop-icon__group-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  object-fit: cover;
 }
 
 .desktop-icon__group-glyph {

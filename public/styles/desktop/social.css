@@ -18,6 +18,12 @@
   text-align: center;
 }
 
+.social-group__item--button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
 .social-group__item:hover .social-group__icon {
   transform: translateY(-4px) scale(1.02);
   border-color: rgba(255, 255, 255, 1);
@@ -39,6 +45,13 @@
   color: var(--ink);
   transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   box-shadow: 0 10px 22px -10px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.social-group__icon-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  object-fit: cover;
 }
 
 .social-group__item strong {
