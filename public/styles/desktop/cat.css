@@ -1,0 +1,148 @@
+.art-illustration {
+  position: absolute;
+  top: 50%;
+  right: 12%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zen-cat-art {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.08));
+}
+
+.cat-group {
+  animation: cat-breathe 6s ease-in-out infinite alternate;
+  transform-origin: 100px 160px;
+}
+
+.cat-tail {
+  transform-origin: 130px 140px;
+  animation: tail-sway 5s ease-in-out infinite alternate;
+}
+
+.cat-head {
+  transform-origin: 100px 70px;
+  animation: face-nod 6s ease-in-out infinite alternate;
+}
+
+.cat-ear-left {
+  transform-box: fill-box;
+  transform-origin: 85% 100%;
+  animation: ear-flick-left 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.cat-ear-right {
+  transform-box: fill-box;
+  transform-origin: 15% 100%;
+  animation: ear-flick-right 8.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite 0.6s;
+}
+
+.cat-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: eye-blink 6.8s ease-in-out infinite;
+}
+
+.cat-eye-orb {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: eye-drift 5.5s ease-in-out infinite alternate;
+}
+
+.cat-eye-right .cat-eye-orb {
+  animation-delay: -0.8s;
+}
+
+.cat-eye-blink {
+  opacity: 0;
+  animation: eye-blink-line 6.8s ease-in-out infinite;
+}
+
+.cat-whiskers-left {
+  transform-origin: 60px 75px;
+  animation: whisker-twitch-left 3s ease-in-out infinite alternate;
+}
+
+.cat-whiskers-right {
+  transform-origin: 140px 75px;
+  animation: whisker-twitch-right 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes cat-breathe {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(1.02) scaleX(0.99); }
+}
+
+@keyframes tail-sway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(10deg); }
+}
+
+@keyframes face-nod {
+  0% { transform: translateY(0) rotate(-1deg); }
+  100% { transform: translateY(2px) rotate(1.5deg); }
+}
+
+@keyframes eye-blink {
+  0%, 43%, 45%, 73%, 75%, 100% { transform: scaleY(1); }
+  44%, 74% { transform: scaleY(0.08); }
+}
+
+@keyframes eye-blink-line {
+  0%, 43%, 45%, 73%, 75%, 100% { opacity: 0; }
+  44%, 74% { opacity: 1; }
+}
+
+@keyframes eye-drift {
+  0% { transform: translate(0, 0); }
+  35% { transform: translate(0.5px, -0.35px); }
+  65% { transform: translate(-0.65px, 0.3px); }
+  100% { transform: translate(0.35px, 0); }
+}
+
+@keyframes ear-flick-left {
+  0%, 76%, 100% { transform: rotate(0deg) translate(0, 0); }
+  79% { transform: rotate(-6deg) translate(-0.5px, 1px); }
+  82% { transform: rotate(2deg) translate(0, 0); }
+  85% { transform: rotate(-2deg) translate(0, 0); }
+}
+
+@keyframes ear-flick-right {
+  0%, 68%, 100% { transform: rotate(0deg) translate(0, 0); }
+  71% { transform: rotate(5deg) translate(0.5px, 1px); }
+  74% { transform: rotate(-1.5deg) translate(0, 0); }
+  77% { transform: rotate(2deg) translate(0, 0); }
+}
+
+@keyframes whisker-twitch-left {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-3deg); }
+}
+
+@keyframes whisker-twitch-right {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-group,
+  .cat-tail,
+  .cat-head,
+  .cat-ear-left,
+  .cat-ear-right,
+  .cat-eye,
+  .cat-eye-orb,
+  .cat-eye-blink,
+  .cat-whiskers-left,
+  .cat-whiskers-right {
+    animation: none;
+  }
+}
