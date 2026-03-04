@@ -224,7 +224,8 @@ These are easy to accidentally break:
   - hide or heavily suppress dock/menu/desktop noise behind them
   - open from the icon position with animation
   - close on outside click
-  - avoid unnecessary extra container layers
+- avoid unnecessary extra container layers
+- Avoid using opaque color-gradient overlays to fade content in scrollable panes. Prefer `mask-image`-based fades so high-contrast background elements (like the cat illustration) do not show a visible white haze when content aligns with anchors.
 
 ## Guardrails
 
