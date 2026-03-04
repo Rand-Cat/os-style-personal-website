@@ -61,7 +61,53 @@ const socialApp = getDesktopApp("social");
     <link rel="stylesheet" href="/styles/desktop-os.css" />
   </head>
   <body>
-    <main class="desktop-page" data-desktop-wallpaper="paper">
+    <main class="desktop-page" data-desktop-wallpaper="custom">
+      <div class="desktop-bg" aria-hidden="true">
+        <!-- Paper Texture Overlay -->
+        <div class="bg-texture"></div>
+        
+        <!-- Zen Geometric Cat Illustration -->
+        <div class="art-illustration">
+          <svg class="zen-cat-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Artistic Sun -->
+            <circle class="art-sun" cx="110" cy="90" r="55" fill="#e65a4c" />
+            
+            <!-- Floor Line -->
+            <line x1="20" y1="160" x2="180" y2="160" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round" />
+            
+            <g class="cat-group">
+              <!-- Tail -->
+              <path class="art-tail" d="M 145,140 C 190,140 190,70 160,50 C 145,40 135,65 150,75" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
+              
+              <!-- Body -->
+              <path class="art-body" d="M 45,160 C 45,90 155,90 155,160 Z" fill="var(--bg-canvas)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" />
+              
+              <!-- Head -->
+              <circle class="art-head" cx="100" cy="80" r="26" fill="var(--bg-canvas)" stroke="var(--ink)" stroke-width="3" />
+              
+              <!-- Ears -->
+              <path class="art-ear" d="M 83,63 L 75,25 L 98,54 Z" fill="var(--ink)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round" />
+              <path class="art-ear" d="M 102,54 L 125,25 L 117,63 Z" fill="var(--ink)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round" />
+              
+              <!-- Face (Zen closed eyes) -->
+              <g class="art-face">
+                <path d="M 88,85 Q 93,92 98,85" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
+                <path d="M 106,85 Q 111,92 116,85" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
+                <circle cx="102" cy="95" r="2" fill="var(--ink)" />
+              </g>
+            </g>
+            
+            <!-- Minimalist decorative elements -->
+            <path class="art-deco" d="M 30,40 L 40,30 M 30,30 L 40,40" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
+            <circle class="art-deco-dot" cx="170" cy="30" r="3" fill="var(--ink)" />
+          </svg>
+        </div>
+
+        <!-- Editorial Elements -->
+        <div class="editorial-line"></div>
+        <div class="editorial-mark">fig. 03 &mdash; geometry</div>
+      </div>
+
       <header class="system-bar">
         <div class="system-left">
           <div class="os-logo" aria-hidden="true"></div>

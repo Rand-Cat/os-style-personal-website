@@ -1,20 +1,20 @@
 :root {
-  --bg-canvas: #f3efe8;
-  --bg-window: #fcfaf7;
-  --bg-window-strong: #fcfaf7;
-  --bg-soft: #f7f2ea;
-  --bg-hover: #f4ede2;
-  --ink: #181818;
-  --ink-secondary: #534d44;
-  --ink-dim: #7b7368;
-  --border: rgba(24, 24, 24, 0.08);
-  --border-strong: rgba(24, 24, 24, 0.14);
-  --shadow-window: 0 20px 50px -14px rgba(24, 24, 24, 0.12), 0 0 0 1px rgba(24, 24, 24, 0.04);
-  --shadow-soft: 0 14px 32px -18px rgba(24, 24, 24, 0.16);
+  --bg-canvas: #ebeaed;
+  --bg-window: rgba(250, 250, 250, 0.7);
+  --bg-window-strong: rgba(250, 250, 250, 0.95);
+  --bg-soft: rgba(250, 250, 250, 0.5);
+  --bg-hover: rgba(250, 250, 250, 0.8);
+  --ink: #111110;
+  --ink-secondary: #4a4a48;
+  --ink-dim: #8b8a88;
+  --border: rgba(0, 0, 0, 0.05);
+  --border-strong: rgba(0, 0, 0, 0.1);
+  --shadow-window: 0 32px 64px -12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4) inset, 0 0 0 1px rgba(0, 0, 0, 0.03);
+  --shadow-soft: 0 12px 24px -8px rgba(0, 0, 0, 0.06);
   --font-serif: "Cormorant Garamond", "STSong", serif;
   --font-ui: "Inter", -apple-system, "PingFang SC", sans-serif;
-  --radius-window: 14px;
-  --radius-ui: 4px;
+  --radius-window: 20px;
+  --radius-ui: 8px;
 }
 
 *,
@@ -68,42 +68,27 @@ h3 {
   position: relative;
   min-height: 100vh;
   --desktop-wallpaper:
-    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.56), transparent 30%),
-    radial-gradient(circle at 80% 20%, rgba(236, 226, 210, 0.45), transparent 34%),
-    linear-gradient(180deg, #f6f1e9 0%, #f3efe8 44%, #ede6db 100%);
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.9), transparent 50%),
+    radial-gradient(circle at 90% 40%, rgba(220, 225, 230, 0.6), transparent 50%),
+    radial-gradient(circle at 40% 90%, rgba(240, 235, 225, 0.7), transparent 60%),
+    linear-gradient(135deg, #f2f3f5 0%, #e8e9ea 100%);
   --desktop-overlay:
-    linear-gradient(rgba(255, 255, 255, 0.1), transparent 180px),
-    repeating-linear-gradient(
-      0deg,
-      rgba(24, 24, 24, 0.015) 0,
-      rgba(24, 24, 24, 0.015) 1px,
-      transparent 1px,
-      transparent 22px
-    );
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   background: var(--desktop-wallpaper);
 }
 
 .desktop-page[data-desktop-wallpaper="dawn"] {
   --desktop-wallpaper:
-    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.62), transparent 28%),
-    radial-gradient(circle at 78% 16%, rgba(247, 210, 185, 0.42), transparent 32%),
-    linear-gradient(180deg, #fbf4e8 0%, #f3e6d3 46%, #e8d8c3 100%);
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.8), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(255, 210, 180, 0.5), transparent 50%),
+    linear-gradient(160deg, #fcf6ef 0%, #f4e8d8 40%, #ebd7c0 100%);
 }
 
 .desktop-page[data-desktop-wallpaper="ink"] {
   --desktop-wallpaper:
-    radial-gradient(circle at 18% 18%, rgba(255, 248, 234, 0.18), transparent 26%),
-    radial-gradient(circle at 82% 18%, rgba(181, 169, 153, 0.18), transparent 30%),
-    linear-gradient(180deg, #d8d1c8 0%, #b9b0a5 38%, #8e877f 100%);
-  --desktop-overlay:
-    linear-gradient(rgba(255, 255, 255, 0.08), transparent 180px),
-    repeating-linear-gradient(
-      0deg,
-      rgba(24, 24, 24, 0.028) 0,
-      rgba(24, 24, 24, 0.028) 1px,
-      transparent 1px,
-      transparent 22px
-    );
+    radial-gradient(circle at 18% 18%, rgba(255, 248, 234, 0.25), transparent 40%),
+    radial-gradient(circle at 82% 18%, rgba(181, 169, 153, 0.25), transparent 40%),
+    linear-gradient(135deg, #d8d1c8 0%, #b9b0a5 40%, #8e877f 100%);
 }
 
 .desktop-page[data-desktop-wallpaper="custom"] {
@@ -120,8 +105,106 @@ h3 {
   position: fixed;
   inset: 0;
   background: var(--desktop-overlay);
-  opacity: 0.55;
+  opacity: 0.05;
   pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.desktop-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #f4f2ed;
+  overflow: hidden;
+}
+
+.bg-texture {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.art-illustration {
+  position: absolute;
+  top: 50%;
+  right: 12%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zen-cat-art {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.08));
+}
+
+.art-sun {
+  animation: sun-float 10s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+.cat-group {
+  animation: cat-breathe 6s ease-in-out infinite alternate;
+  transform-origin: 100px 160px;
+}
+
+.art-tail {
+  transform-origin: 150px 140px;
+  animation: tail-sway 5s ease-in-out infinite alternate;
+}
+
+.art-face {
+  transform-origin: 100px 85px;
+  animation: face-nod 6s ease-in-out infinite alternate;
+}
+
+.art-deco {
+  animation: spin-slow 20s linear infinite;
+  transform-origin: 35px 35px;
+}
+
+.art-deco-dot {
+  animation: float-particle 8s ease-in-out infinite alternate;
+}
+
+@keyframes cat-breathe {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(1.02) scaleX(0.99); }
+}
+
+@keyframes tail-sway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(15deg); }
+}
+
+@keyframes face-nod {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(2px); }
+}
+
+@keyframes sun-float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-5px, -10px) scale(1.02); }
+}
+
+@keyframes spin-slow {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes float-particle {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(10px, -15px) rotate(10deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 .system-bar {
@@ -131,12 +214,13 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 46px;
+  height: 44px;
   padding: 0 32px;
-  border-bottom: 1px solid rgba(24, 24, 24, 0.08);
-  background: rgba(252, 250, 247, 0.72);
-  backdrop-filter: blur(14px) saturate(112%);
-  -webkit-backdrop-filter: blur(14px) saturate(112%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .system-left,
@@ -220,6 +304,18 @@ h3 {
   right: 60px;
   text-align: right;
   z-index: 1;
+  width: auto;
+  height: auto;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 0;
+  box-shadow: none;
+  display: block;
+}
+
+.desktop-widget::before {
+  display: none;
 }
 
 .widget-time {
@@ -227,6 +323,12 @@ h3 {
   font-size: clamp(3.25rem, 5vw, 4.25rem);
   font-weight: 300;
   line-height: 0.9;
+  letter-spacing: 0;
+  color: #2c2c2c;
+  background: none;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentcolor;
+  filter: none;
 }
 
 .widget-date {
@@ -234,7 +336,8 @@ h3 {
   font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-dim);
+  color: rgba(44, 44, 44, 0.6);
+  font-weight: 400;
 }
 
 .desktop-icons {
@@ -258,16 +361,18 @@ h3 {
 }
 
 .desktop-icon__plate {
-  width: 74px;
-  height: 74px;
+  width: 76px;
+  height: 76px;
   display: grid;
   place-items: center;
   overflow: hidden;
-  border-radius: 22px;
-  border: 1px solid rgba(24, 24, 24, 0.08);
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 8px 24px -20px rgba(24, 24, 24, 0.22);
-  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease;
 }
 
 .desktop-icon__image {
@@ -289,23 +394,23 @@ h3 {
   display: grid;
   place-items: center;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(24, 24, 24, 0.06);
-  box-shadow: 0 4px 14px -14px rgba(24, 24, 24, 0.24);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 10px -6px rgba(0, 0, 0, 0.15);
 }
 
 .desktop-icon__group-glyph {
   font-size: 11px;
   line-height: 1;
   font-style: italic;
-  color: rgba(24, 24, 24, 0.88);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .desktop-icon__glyph {
-  font-size: 22px;
+  font-size: 24px;
   line-height: 1;
   font-style: italic;
-  color: rgba(24, 24, 24, 0.9);
+  color: rgba(0, 0, 0, 0.85);
 }
 
 .desktop-icon__label {
@@ -313,20 +418,21 @@ h3 {
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: 0.01em;
-  color: #3b362f;
+  color: rgba(0, 0, 0, 0.8);
   text-align: center;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .desktop-icon:hover .desktop-icon__plate {
-  transform: translateY(-2px);
-  border-color: rgba(24, 24, 24, 0.12);
-  background: rgba(255, 255, 255, 0.96);
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .desktop-icon.is-active .desktop-icon__plate {
-  border-color: rgba(24, 24, 24, 0.14);
-  background: #ffffff;
+  border-color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .desktop-window-layer {
