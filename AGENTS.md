@@ -24,6 +24,7 @@ Useful commands:
 - `npm run dev`
 - `npm run build`
 - `npm run preview`
+- `npm run import:jike -- "/absolute/path/to/export.csv"`
 
 ## First Places To Read
 
@@ -47,6 +48,7 @@ Useful desktop-specific components to inspect immediately:
 - `src/components/desktop/VibaryWindow.astro`
 - `src/components/desktop/ProductPlaceholderWindow.astro`
 - `src/components/desktop/SocialFolderWindow.astro`
+- `src/components/desktop/JikeIdeasWindow.astro`
 
 ## Blog Architecture
 
@@ -82,6 +84,7 @@ Desktop-related files are mainly under:
 - `public/scripts/desktop-os.js`
 
 Desktop CSS and JS are intentionally split into modules now. Keep them split by concern instead of pushing everything back into one file.
+If a window/app has custom UI that is not clearly reusable, give it its own CSS file instead of growing `panes.css`.
 
 CSS entry:
 
@@ -94,11 +97,13 @@ CSS modules:
 - `public/styles/desktop/windows.css`
   Standard window shell, focus states, controls, maximize/fullscreen behavior, and group overlay shells.
 - `public/styles/desktop/panes.css`
-  App/window interior styling such as blog, product cards, social group layout, and editorial content panes.
+  Shared pane styles only. Do not keep app-specific window styling here unless it is genuinely reused.
 - `public/styles/desktop/dock.css`
   Dock tray, magnification styling, active dots, hover labels, and show/hide behavior.
 - `public/styles/desktop/responsive.css`
   Responsive adjustments and small-screen fallbacks.
+- `public/styles/desktop/*.css`
+  App-specific window styling such as `jike.css`, `studio.css`, `settings.css`, `read-easy.css`, `vibary.css`, and related per-window files.
 
 JS entry:
 
@@ -114,6 +119,27 @@ JS modules:
   Blog locale switching, embedded article routing, and sidebar behavior.
 - `public/scripts/desktop/clock.js`
   Top bar and desktop clock/date.
+- `public/scripts/desktop/jike-archive.js`
+  Jike window interactions such as text expand/collapse and image lightbox behavior.
+
+## Jike Archive Architecture
+
+The `jike` desktop app is a content app backed by generated data from an exported CSV.
+
+Important files:
+
+- `src/components/desktop/JikeIdeasWindow.astro`
+- `src/data/jike.ts`
+- `src/data/jike-posts.generated.ts`
+- `public/styles/desktop/jike.css`
+- `public/scripts/desktop/jike-archive.js`
+- `scripts/import-jike-csv.py`
+
+Notes:
+
+- The generated data file should be treated as derived output, not hand-edited content.
+- When the CSV export changes, regenerate the data via `npm run import:jike -- "/absolute/path/to/export.csv"`.
+- If the Jike UI changes, keep its structure, styles, and interactions isolated to the Jike-specific files instead of leaking logic into shared pane files.
 
 ## Design Direction
 
@@ -134,6 +160,7 @@ Avoid introducing glossy consumer-app styling unless the user explicitly asks fo
 2. Render the app window from `src/pages/index.astro`
 3. Put app-specific UI in `src/components/desktop/`
 4. Reuse `WindowFrame.astro` instead of inventing a new shell
+5. If the window has bespoke styling or interaction logic, create app-specific files under `public/styles/desktop/` and `public/scripts/desktop/` instead of extending shared files by default
 
 Current app categories:
 
@@ -205,6 +232,7 @@ These are easy to accidentally break:
 - Prefer data-driven additions in `src/data/desktop.ts` over hardcoded duplicated markup.
 - Preserve the editorial OS feeling unless the request clearly changes the art direction.
 - If the user asks for UI refinement, check the actual rendered interaction, not just static markup.
+- Prefer app-level decoupling for window interiors. Shared files should stay shared; they should not become catch-all buckets for unrelated app code.
 
 ## Verification
 
