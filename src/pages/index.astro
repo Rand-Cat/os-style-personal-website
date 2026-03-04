@@ -4,6 +4,7 @@ import DesktopDock from "../components/desktop/DesktopDock.astro";
 import DesktopIcons from "../components/desktop/DesktopIcons.astro";
 import ProductPlaceholderWindow from "../components/desktop/ProductPlaceholderWindow.astro";
 import ReadEasyWindow from "../components/desktop/ReadEasyWindow.astro";
+import SettingsWindow from "../components/desktop/SettingsWindow.astro";
 import SocialFolderWindow from "../components/desktop/SocialFolderWindow.astro";
 import StudioWindow from "../components/desktop/StudioWindow.astro";
 import VibaryWindow from "../components/desktop/VibaryWindow.astro";
@@ -38,6 +39,7 @@ const studioApp = getDesktopApp("profile");
 const readEasyApp = getDesktopApp("read-easy");
 const blogApp = getDesktopApp("blog");
 const vibaryApp = getDesktopApp("vibary");
+const settingsApp = getDesktopApp("settings");
 const attenApp = getDesktopApp("atten");
 const interludeApp = getDesktopApp("interlude");
 const moldayApp = getDesktopApp("molday");
@@ -59,9 +61,7 @@ const socialApp = getDesktopApp("social");
     <link rel="stylesheet" href="/styles/desktop-os.css" />
   </head>
   <body>
-    <main class="desktop-page">
-      <div class="display-text serif">System I</div>
-
+    <main class="desktop-page" data-desktop-wallpaper="paper">
       <header class="system-bar">
         <div class="system-left">
           <div class="os-logo" aria-hidden="true"></div>
@@ -109,6 +109,10 @@ const socialApp = getDesktopApp("social");
 
           <WindowFrame app={vibaryApp} title="Vibary">
             <VibaryWindow />
+          </WindowFrame>
+
+          <WindowFrame app={settingsApp} title="Settings">
+            <SettingsWindow />
           </WindowFrame>
 
           <WindowFrame app={attenApp} title="Atten">

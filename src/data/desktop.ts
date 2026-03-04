@@ -69,6 +69,17 @@ export const desktopApps: DesktopApp[] = [
     iconY: 118
   },
   {
+    id: "settings",
+    name: "Settings",
+    glyph: "ST",
+    width: 420,
+    height: 360,
+    x: 930,
+    y: 170,
+    iconX: 516,
+    iconY: 118
+  },
+  {
     id: "atten",
     name: "Atten",
     glyph: "AT",

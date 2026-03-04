@@ -67,17 +67,11 @@ h3 {
 .desktop-page {
   position: relative;
   min-height: 100vh;
-  background:
+  --desktop-wallpaper:
     radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.56), transparent 30%),
     radial-gradient(circle at 80% 20%, rgba(236, 226, 210, 0.45), transparent 34%),
     linear-gradient(180deg, #f6f1e9 0%, #f3efe8 44%, #ede6db 100%);
-}
-
-.desktop-page::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
+  --desktop-overlay:
     linear-gradient(rgba(255, 255, 255, 0.1), transparent 180px),
     repeating-linear-gradient(
       0deg,
@@ -86,21 +80,48 @@ h3 {
       transparent 1px,
       transparent 22px
     );
-  opacity: 0.55;
-  pointer-events: none;
+  background: var(--desktop-wallpaper);
 }
 
-.display-text {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
-  font-size: clamp(4.5rem, 8vw, 7rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: rgba(24, 24, 24, 0.08);
-  white-space: nowrap;
+.desktop-page[data-desktop-wallpaper="dawn"] {
+  --desktop-wallpaper:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.62), transparent 28%),
+    radial-gradient(circle at 78% 16%, rgba(247, 210, 185, 0.42), transparent 32%),
+    linear-gradient(180deg, #fbf4e8 0%, #f3e6d3 46%, #e8d8c3 100%);
+}
+
+.desktop-page[data-desktop-wallpaper="ink"] {
+  --desktop-wallpaper:
+    radial-gradient(circle at 18% 18%, rgba(255, 248, 234, 0.18), transparent 26%),
+    radial-gradient(circle at 82% 18%, rgba(181, 169, 153, 0.18), transparent 30%),
+    linear-gradient(180deg, #d8d1c8 0%, #b9b0a5 38%, #8e877f 100%);
+  --desktop-overlay:
+    linear-gradient(rgba(255, 255, 255, 0.08), transparent 180px),
+    repeating-linear-gradient(
+      0deg,
+      rgba(24, 24, 24, 0.028) 0,
+      rgba(24, 24, 24, 0.028) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+}
+
+.desktop-page[data-desktop-wallpaper="custom"] {
+  --desktop-wallpaper:
+    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)),
+    var(--desktop-custom-wallpaper);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.desktop-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--desktop-overlay);
+  opacity: 0.55;
   pointer-events: none;
-  z-index: 0;
 }
 
 .system-bar {
@@ -112,6 +133,10 @@ h3 {
   justify-content: space-between;
   height: 46px;
   padding: 0 32px;
+  border-bottom: 1px solid rgba(24, 24, 24, 0.08);
+  background: rgba(252, 250, 247, 0.72);
+  backdrop-filter: blur(14px) saturate(112%);
+  -webkit-backdrop-filter: blur(14px) saturate(112%);
 }
 
 .system-left,

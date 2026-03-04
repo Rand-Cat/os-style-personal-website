@@ -231,7 +231,7 @@ export function initWindowManager() {
 
     if (resetPosition) {
       const centerX = Math.round((metrics.width - nextWidth) / 2);
-      const centerY = Math.round((metrics.height - nextHeight) / 2);
+      const centerY = Math.round((metrics.height - nextHeight) / 2 - 28);
       const visibleCount = windows.filter(
         (item) => item !== windowEl && isWindowVisible(item) && !item.classList.contains("is-maximized")
       ).length;
