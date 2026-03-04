@@ -1,0 +1,37 @@
+---
+interface GroupItem {
+  id: string;
+  name: string;
+  iconSrc?: string;
+  glyph?: string;
+}
+
+interface Props {
+  groupId: string;
+  items: GroupItem[];
+}
+
+const { groupId, items } = Astro.props;
+---
+
+<div class="social-group">
+  {items.map((item) => (
+    <button
+      class="social-group__item social-group__item--button"
+      type="button"
+      data-open-window={item.id}
+      data-close-group={groupId}
+    >
+      <span class="social-group__icon">
+        {
+          item.iconSrc ? (
+            <img class="social-group__icon-image" src={item.iconSrc} alt="" />
+          ) : (
+            <span class="desktop-icon__group-glyph serif">{item.glyph}</span>
+          )
+        }
+      </span>
+      <strong>{item.name}</strong>
+    </button>
+  ))}
+</div>

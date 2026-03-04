@@ -1,0 +1,152 @@
+---
+import type { DesktopApp } from "../../data/desktop";
+import DesktopBlogWindow from "./DesktopBlogWindow.astro";
+import AppGroupWindow from "./AppGroupWindow.astro";
+import ExistenceWindow from "./ExistenceWindow.astro";
+import SekaiWindow from "./SekaiWindow.astro";
+import JikeIdeasWindow from "./JikeIdeasWindow.astro";
+import ProductPlaceholderWindow from "./ProductPlaceholderWindow.astro";
+import ReadEasyWindow from "./ReadEasyWindow.astro";
+import SettingsWindow from "./SettingsWindow.astro";
+import SocialFolderWindow from "./SocialFolderWindow.astro";
+import StudioWindow from "./StudioWindow.astro";
+import VibaryWindow from "./VibaryWindow.astro";
+import WindowFrame from "./WindowFrame.astro";
+
+interface Props {
+  apps: DesktopApp[];
+  blogPostsByLocale: Record<string, unknown>;
+  defaultBlogHref: string;
+}
+
+interface WindowDefinition {
+  appId: string;
+  title: string;
+  component:
+    | typeof StudioWindow
+    | typeof DesktopBlogWindow
+    | typeof ReadEasyWindow
+    | typeof VibaryWindow
+    | typeof SettingsWindow
+    | typeof JikeIdeasWindow
+    | typeof ExistenceWindow
+    | typeof ProductPlaceholderWindow
+    | typeof AppGroupWindow
+    | typeof SocialFolderWindow;
+  componentProps?: Record<string, unknown>;
+  variant?: "default" | "group";
+  zIndex?: number;
+}
+
+const { apps, blogPostsByLocale, defaultBlogHref } = Astro.props;
+const appById = new Map(apps.map((app) => [app.id, app]));
+
+const getApp = (id: string) => {
+  const app = appById.get(id);
+  if (!app) throw new Error(`Desktop app "${id}" not found`);
+  return app;
+};
+
+const windowDefinitions: WindowDefinition[] = [
+  { appId: "profile", title: "Studio", component: StudioWindow, zIndex: 12 },
+  {
+    appId: "blog",
+    title: "Archive & Editor",
+    component: DesktopBlogWindow,
+    componentProps: { postsByLocale: blogPostsByLocale, defaultHref: defaultBlogHref },
+    zIndex: 14
+  },
+  { appId: "read-easy", title: "Read Easy", component: ReadEasyWindow },
+  { appId: "vibary", title: "Vibary", component: VibaryWindow },
+  { appId: "settings", title: "Settings", component: SettingsWindow },
+  { appId: "jike", title: "即刻", component: JikeIdeasWindow },
+  {
+    appId: "atten",
+    title: "Atten",
+    component: ProductPlaceholderWindow,
+    componentProps: { name: "Atten" }
+  },
+  {
+    appId: "interlude",
+    title: "Interlude",
+    component: ProductPlaceholderWindow,
+    componentProps: { name: "Interlude" }
+  },
+  {
+    appId: "molday",
+    title: "Molday",
+    component: ProductPlaceholderWindow,
+    componentProps: { name: "Molday" }
+  },
+  {
+    appId: "onesnap",
+    title: "OneSnap",
+    component: ProductPlaceholderWindow,
+    componentProps: { name: "OneSnap" }
+  },
+  {
+    appId: "tube-nitro",
+    title: "TubeNitro",
+    component: ProductPlaceholderWindow,
+    componentProps: { name: "TubeNitro" }
+  },
+  {
+    appId: "new-portal",
+    title: "New Portal",
+    component: ProductPlaceholderWindow,
+    componentProps: { name: "New Portal" }
+  },
+  {
+    appId: "deepchat",
+    title: "DeepChat",
+    component: ProductPlaceholderWindow,
+    componentProps: { name: "DeepChat" }
+  },
+  {
+    appId: "dogcheck",
+    title: "DogCheck",
+    component: ProductPlaceholderWindow,
+    componentProps: { name: "DogCheck" }
+  },
+  {
+    appId: "existence",
+    title: "Existence",
+    component: ExistenceWindow
+  },
+  {
+    appId: "sekai",
+    title: "sekai",
+    component: SekaiWindow
+  },
+  {
+    appId: "sprint",
+    title: "Sprint",
+    component: AppGroupWindow,
+    componentProps: { groupId: "sprint", items: getApp("sprint").groupMembers || [] },
+    variant: "group"
+  },
+  {
+    appId: "fun",
+    title: "Fun",
+    component: AppGroupWindow,
+    componentProps: { groupId: "fun", items: getApp("fun").groupMembers || [] },
+    variant: "group"
+  },
+  {
+    appId: "reflex-ai",
+    title: "Reflex AI",
+    component: AppGroupWindow,
+    componentProps: { groupId: "reflex-ai", items: getApp("reflex-ai").groupMembers || [] },
+    variant: "group"
+  },
+  { appId: "social", title: "Social", component: SocialFolderWindow, variant: "group" }
+];
+---
+
+<div class="desktop-window-layer">
+  {windowDefinitions.map(({ appId, title, component: Component, componentProps = {}, variant, zIndex }) => (
+    <WindowFrame app={getApp(appId)} title={title} variant={variant} zIndex={zIndex}>
+      <Component {...componentProps} />
+    </WindowFrame>
+  ))}
+</div>

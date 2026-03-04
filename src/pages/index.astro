@@ -1,18 +1,8 @@
 ---
-import DesktopBlogWindow from "../components/desktop/DesktopBlogWindow.astro";
 import DesktopCat from "../components/desktop/DesktopCat.astro";
 import DesktopDock from "../components/desktop/DesktopDock.astro";
 import DesktopIcons from "../components/desktop/DesktopIcons.astro";
-import FunFolderWindow from "../components/desktop/FunFolderWindow.astro";
-import JikeIdeasWindow from "../components/desktop/JikeIdeasWindow.astro";
-import ProductPlaceholderWindow from "../components/desktop/ProductPlaceholderWindow.astro";
-import ReadEasyWindow from "../components/desktop/ReadEasyWindow.astro";
-import SprintFolderWindow from "../components/desktop/SprintFolderWindow.astro";
-import SettingsWindow from "../components/desktop/SettingsWindow.astro";
-import SocialFolderWindow from "../components/desktop/SocialFolderWindow.astro";
-import StudioWindow from "../components/desktop/StudioWindow.astro";
-import VibaryWindow from "../components/desktop/VibaryWindow.astro";
-import WindowFrame from "../components/desktop/WindowFrame.astro";
+import DesktopWindows from "../components/desktop/DesktopWindows.astro";
 import { desktopApps } from "../data/desktop";
 import {
   BLOG_LOCALES,
@@ -33,29 +23,6 @@ const defaultBlogPosts = blogPostsByLocale[DEFAULT_BLOG_LOCALE];
 const defaultBlogHref = defaultBlogPosts[0]
   ? getBlogEmbedPath(DEFAULT_BLOG_LOCALE, defaultBlogPosts[0].data.translationKey)
   : getBlogIndexPath(DEFAULT_BLOG_LOCALE);
-const getDesktopApp = (id: string) => {
-  const app = desktopApps.find((item) => item.id === id);
-  if (!app) throw new Error(`Desktop app "${id}" not found`);
-  return app;
-};
-
-const studioApp = getDesktopApp("profile");
-const readEasyApp = getDesktopApp("read-easy");
-const blogApp = getDesktopApp("blog");
-const vibaryApp = getDesktopApp("vibary");
-const settingsApp = getDesktopApp("settings");
-const jikeApp = getDesktopApp("jike");
-const attenApp = getDesktopApp("atten");
-const interludeApp = getDesktopApp("interlude");
-const moldayApp = getDesktopApp("molday");
-const onesnapApp = getDesktopApp("onesnap");
-const tubeNitroApp = getDesktopApp("tube-nitro");
-const newPortalApp = getDesktopApp("new-portal");
-const deepchatApp = getDesktopApp("deepchat");
-const dogcheckApp = getDesktopApp("dogcheck");
-const sprintApp = getDesktopApp("sprint");
-const funApp = getDesktopApp("fun");
-const socialApp = getDesktopApp("social");
 ---
 
 <html lang="zh-CN">
@@ -114,75 +81,11 @@ const socialApp = getDesktopApp("social");
 
         <DesktopIcons apps={desktopApps} />
 
-        <div class="desktop-window-layer">
-          <WindowFrame app={studioApp} title="Studio" zIndex={12}>
-            <StudioWindow />
-          </WindowFrame>
-
-          <WindowFrame app={blogApp} title="Archive & Editor" zIndex={14}>
-            <DesktopBlogWindow postsByLocale={blogPostsByLocale} defaultHref={defaultBlogHref} />
-          </WindowFrame>
-
-          <WindowFrame app={readEasyApp} title="Read Easy">
-            <ReadEasyWindow />
-          </WindowFrame>
-
-          <WindowFrame app={vibaryApp} title="Vibary">
-            <VibaryWindow />
-          </WindowFrame>
-
-          <WindowFrame app={settingsApp} title="Settings">
-            <SettingsWindow />
-          </WindowFrame>
-
-          <WindowFrame app={jikeApp} title="即刻">
-            <JikeIdeasWindow />
-          </WindowFrame>
-
-          <WindowFrame app={attenApp} title="Atten">
-            <ProductPlaceholderWindow name="Atten" />
-          </WindowFrame>
-
-          <WindowFrame app={interludeApp} title="Interlude">
-            <ProductPlaceholderWindow name="Interlude" />
-          </WindowFrame>
-
-          <WindowFrame app={moldayApp} title="Molday">
-            <ProductPlaceholderWindow name="Molday" />
-          </WindowFrame>
-
-          <WindowFrame app={onesnapApp} title="OneSnap">
-            <ProductPlaceholderWindow name="OneSnap" />
-          </WindowFrame>
-
-          <WindowFrame app={tubeNitroApp} title="TubeNitro">
-            <ProductPlaceholderWindow name="TubeNitro" />
-          </WindowFrame>
-
-          <WindowFrame app={newPortalApp} title="New Portal">
-            <ProductPlaceholderWindow name="New Portal" />
-          </WindowFrame>
-
-          <WindowFrame app={deepchatApp} title="DeepChat">
-            <ProductPlaceholderWindow name="DeepChat" />
-          </WindowFrame>
-
-          <WindowFrame app={dogcheckApp} title="DogCheck">
-            <ProductPlaceholderWindow name="DogCheck" />
-          </WindowFrame>
-
-          <WindowFrame app={sprintApp} title="Sprint" variant="group">
-            <SprintFolderWindow />
-          </WindowFrame>
-
-          <WindowFrame app={funApp} title="Fun" variant="group">
-            <FunFolderWindow />
-          </WindowFrame>
-
-          <WindowFrame app={socialApp} title="Social" variant="group">
-            <SocialFolderWindow />
-          </WindowFrame>
-        </div>
+        <DesktopWindows
+          apps={desktopApps}
+          blogPostsByLocale={blogPostsByLocale}
+          defaultBlogHref={defaultBlogHref}
+        />
 
         <DesktopDock apps={desktopApps} />
       </section>

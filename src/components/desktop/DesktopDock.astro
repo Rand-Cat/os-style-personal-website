@@ -6,11 +6,12 @@ interface Props {
 }
 
 const { apps } = Astro.props;
+const dockApps = apps.filter((app) => app.showInDock !== false);
 ---
 
 <div class="desktop-dock" data-dock aria-label="Open applications">
   <div class="desktop-dock__tray" data-dock-tray>
-    {apps.map((app) => (
+    {dockApps.map((app) => (
       <button
         class="desktop-dock__item"
         type="button"

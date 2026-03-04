@@ -12,6 +12,22 @@ const blog = defineCollection({
   })
 });
 
+const apps = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    year: z.string(),
+    platform: z.string(),
+    summary: z.string(),
+    heroImage: z.string(),
+    heroAlt: z.string(),
+    webImage: z.string(),
+    webAlt: z.string(),
+    extensionImage: z.string(),
+    extensionAlt: z.string()
+  })
+});
+
 export const collections = {
-  blog
+  blog,
+  apps
 };

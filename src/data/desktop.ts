@@ -4,7 +4,8 @@ export interface DesktopApp {
   glyph: string;
   iconSrc?: string;
   dockPinned?: boolean;
-  hiddenFromDesktop?: boolean;
+  showOnDesktop?: boolean;
+  showInDock?: boolean;
   groupMembers?: Array<{
     id: string;
     glyph: string;
@@ -74,7 +75,8 @@ export const desktopApps: DesktopApp[] = [
     id: "settings",
     name: "Settings",
     glyph: "ST",
-    hiddenFromDesktop: true,
+    showOnDesktop: false,
+    showInDock: false,
     width: 420,
     height: 360,
     x: 930,
@@ -110,7 +112,7 @@ export const desktopApps: DesktopApp[] = [
     name: "Interlude",
     glyph: "IN",
     iconSrc: "/icons/interlude.png",
-    hiddenFromDesktop: true,
+    showOnDesktop: false,
     width: 560,
     height: 420,
     x: 742,
@@ -135,7 +137,7 @@ export const desktopApps: DesktopApp[] = [
     name: "OneSnap",
     glyph: "OS",
     iconSrc: "/icons/onesnap.png",
-    hiddenFromDesktop: true,
+    showOnDesktop: false,
     width: 560,
     height: 420,
     x: 810,
@@ -148,7 +150,7 @@ export const desktopApps: DesktopApp[] = [
     name: "TubeNitro",
     glyph: "TN",
     iconSrc: "/icons/TubeNitro.png",
-    hiddenFromDesktop: true,
+    showOnDesktop: false,
     width: 560,
     height: 420,
     x: 844,
@@ -161,7 +163,7 @@ export const desktopApps: DesktopApp[] = [
     name: "New Portal",
     glyph: "NP",
     iconSrc: "/icons/New Portal.png",
-    hiddenFromDesktop: true,
+    showOnDesktop: false,
     width: 560,
     height: 420,
     x: 878,
@@ -174,7 +176,7 @@ export const desktopApps: DesktopApp[] = [
     name: "DeepChat",
     glyph: "DC",
     iconSrc: "/icons/deepchat.png",
-    hiddenFromDesktop: true,
+    showOnDesktop: false,
     width: 560,
     height: 420,
     x: 912,
@@ -187,13 +189,39 @@ export const desktopApps: DesktopApp[] = [
     name: "DogCheck",
     glyph: "DG",
     iconSrc: "/icons/DogCheck.png",
-    hiddenFromDesktop: true,
+    showOnDesktop: false,
     width: 560,
     height: 420,
     x: 946,
     y: 376,
     iconX: 516,
     iconY: 118
+  },
+  {
+    id: "existence",
+    name: "Existence",
+    glyph: "EX",
+    iconSrc: "/icons/existence.png",
+    showOnDesktop: false,
+    width: 860,
+    height: 620,
+    x: 980,
+    y: 406,
+    iconX: 292,
+    iconY: 374
+  },
+  {
+    id: "sekai",
+    name: "sekai",
+    glyph: "SK",
+    iconSrc: "/icons/sekai.png",
+    showOnDesktop: false,
+    width: 860,
+    height: 620,
+    x: 1014,
+    y: 436,
+    iconX: 404,
+    iconY: 374
   },
   {
     id: "sprint",
@@ -228,6 +256,21 @@ export const desktopApps: DesktopApp[] = [
     iconY: 246
   },
   {
+    id: "reflex-ai",
+    name: "Reflex AI",
+    glyph: "RAI",
+    groupMembers: [
+      { id: "existence", glyph: "EX", name: "Existence", iconSrc: "/icons/existence.png" },
+      { id: "sekai", glyph: "SK", name: "sekai", iconSrc: "/icons/sekai.png" }
+    ],
+    width: 760,
+    height: 360,
+    x: 940,
+    y: 300,
+    iconX: 292,
+    iconY: 374
+  },
+  {
     id: "social",
     name: "Social",
     glyph: "SOC",
@@ -245,6 +288,8 @@ export const desktopApps: DesktopApp[] = [
     iconY: 118
   }
 ];
+
+export const desktopAppsById = new Map(desktopApps.map((app) => [app.id, app]));
 
 export const readEasyLinks = {
   home: "https://www.read-easy.io/",

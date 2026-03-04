@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { apps } = Astro.props;
-const visibleApps = apps.filter((app) => !app.hiddenFromDesktop);
+const visibleApps = apps.filter((app) => app.showOnDesktop !== false);
 ---
 
 <div class="desktop-icons" aria-label="Desktop applications">
