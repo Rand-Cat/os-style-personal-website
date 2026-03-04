@@ -1,0 +1,130 @@
+---
+import {
+  jikeArchiveStats,
+  jikeArchiveFeed,
+  renderJikeContent
+} from "../../data/jike";
+---
+
+<div class="os-window__scroll jike-archive">
+  <section class="jike-archive__intro">
+    <span class="jike-archive__eyebrow">Jike Archive</span>
+    <h2>过去几年发布在即刻上的想法</h2>
+    <p>
+      从导出的 CSV 整理而来。时间范围从 {jikeArchiveStats.earliestDate} 到 {jikeArchiveStats.latestDate}，
+      保留原帖链接、主题，以及部分图片和转发信息。
+    </p>
+  </section>
+
+  <div class="jike-archive__feed">
+    {jikeArchiveFeed.map((post, index) => (
+      <>
+        {index === 0 || jikeArchiveFeed[index - 1].year !== post.year ? (
+          <div class="jike-archive__year-label">{post.year}</div>
+        ) : null}
+
+        <article class="jike-card">
+          <header class="jike-card__header">
+            <div class="jike-card__meta">
+              <span>{post.dateLabel}</span>
+              {post.pictureCount ? <span class="jike-card__flag">{post.pictureCount} 图</span> : null}
+              {post.repost ? <span class="jike-card__flag">转发</span> : null}
+            </div>
+            <div class="jike-card__actions">
+              {post.topic !== "未分类" ? <span class="jike-card__topic">{post.topic}</span> : null}
+              <a class="jike-card__origin" href={post.link} target="_blank" rel="noreferrer">
+                原帖
+              </a>
+            </div>
+          </header>
+
+          {
+            post.content ? (
+              post.content.length > 280 ? (
+                <div class="jike-card__copy">
+                  <div
+                    class="jike-card__body is-collapsed"
+                    data-jike-expandable
+                    set:html={renderJikeContent(post.content)}
+                  ></div>
+                  <button class="jike-card__expand" type="button" data-jike-expand-button>
+                    展开全文
+                  </button>
+                </div>
+              ) : (
+                <div class="jike-card__body" set:html={renderJikeContent(post.content)}></div>
+              )
+            ) : null
+          }
+
+          {
+            post.pictureCount && !post.repost ? (
+              <figure class="jike-card__media">
+                <div class:list={["jike-card__media-grid", `is-${Math.min(post.pictureCount, 4)}-up`]}>
+                  {post.pictures.slice(0, 4).map((picture, pictureIndex) => (
+                    <button
+                      class="jike-card__media-trigger"
+                      type="button"
+                      data-jike-lightbox-trigger
+                      data-jike-lightbox-src={picture}
+                      data-jike-lightbox-images={JSON.stringify(post.pictures)}
+                      data-jike-lightbox-index={pictureIndex}
+                      data-jike-lightbox-alt={`即刻配图 ${pictureIndex + 1} / ${post.pictureCount}，${post.dateLabel}`}
+                    >
+                      <img src={picture} alt="" loading="lazy" decoding="async" />
+                      {
+                        pictureIndex === 3 && post.pictureCount > 4 ? (
+                          <span class="jike-card__media-more">+{post.pictureCount - 4}</span>
+                        ) : null
+                      }
+                    </button>
+                  ))}
+                </div>
+              </figure>
+            ) : null
+          }
+
+          {
+            post.repost ? (
+              <div class="jike-card__repost">
+                <span>转发自 {post.repost.author || "即刻用户"}</span>
+                <div class="jike-card__repost-content" set:html={renderJikeContent(post.repost.content)}></div>
+              </div>
+            ) : null
+          }
+        </article>
+      </>
+    ))}
+  </div>
+
+  <div class="jike-lightbox" hidden data-jike-lightbox>
+    <div class="jike-lightbox__backdrop" data-jike-lightbox-close></div>
+    <div class="jike-lightbox__dialog">
+      <div class="jike-lightbox__toolbar">
+        <span class="jike-lightbox__counter" data-jike-lightbox-counter></span>
+        <button class="jike-lightbox__close" type="button" aria-label="关闭图片预览" data-jike-lightbox-close>
+          关闭
+        </button>
+      </div>
+      <div class="jike-lightbox__viewport">
+        <button
+          class="jike-lightbox__nav is-prev"
+          type="button"
+          aria-label="查看上一张"
+          data-jike-lightbox-prev
+        >
+          上一张
+        </button>
+        <img class="jike-lightbox__image" alt="" data-jike-lightbox-image />
+        <button
+          class="jike-lightbox__nav is-next"
+          type="button"
+          aria-label="查看下一张"
+          data-jike-lightbox-next
+        >
+          下一张
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

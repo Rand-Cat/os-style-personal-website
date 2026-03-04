@@ -1,0 +1,121 @@
+.vibary {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+}
+
+.vibary__hero {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 6px 2px 0;
+}
+
+.vibary__logo {
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-soft);
+  object-fit: cover;
+}
+
+.vibary__copy h2,
+.vibary__copy p,
+.vibary__source-card strong,
+.vibary__source-card span,
+.vibary__card h3,
+.vibary__card p {
+  margin: 0;
+}
+
+.vibary__eyebrow {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.vibary__copy h2 {
+  margin-top: 10px;
+  font-size: 32px;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.vibary__copy p {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-secondary);
+}
+
+.vibary__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.vibary__actions a,
+.vibary__card--wide a {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--ink-secondary);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.vibary__actions a:hover,
+.vibary__card--wide a:hover {
+  background: var(--bg-hover);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.vibary__source-card,
+.vibary__card {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.5);
+  padding: 14px;
+}
+
+.vibary__source-card strong,
+.vibary__card h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.vibary__source-card span,
+.vibary__card p {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+}
+
+.vibary__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.vibary__card--wide {
+  grid-column: 1 / -1;
+}
+
+.vibary__card--wide a {
+  margin-top: 12px;
+}

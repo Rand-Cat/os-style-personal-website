@@ -1,0 +1,57 @@
+.audio-player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 24px;
+}
+
+.track-info {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.track-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.track-time {
+  font-size: 11px;
+  color: var(--ink-dim);
+}
+
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 16px;
+  background: #dbd2c4;
+}
+
+.progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: var(--ink);
+}
+
+.audio-controls {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.btn-icon {
+  color: var(--ink-dim);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-icon:hover,
+.btn-icon.is-active {
+  color: var(--ink);
+}

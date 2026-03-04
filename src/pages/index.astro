@@ -3,6 +3,7 @@ import DesktopBlogWindow from "../components/desktop/DesktopBlogWindow.astro";
 import DesktopCat from "../components/desktop/DesktopCat.astro";
 import DesktopDock from "../components/desktop/DesktopDock.astro";
 import DesktopIcons from "../components/desktop/DesktopIcons.astro";
+import JikeIdeasWindow from "../components/desktop/JikeIdeasWindow.astro";
 import ProductPlaceholderWindow from "../components/desktop/ProductPlaceholderWindow.astro";
 import ReadEasyWindow from "../components/desktop/ReadEasyWindow.astro";
 import SettingsWindow from "../components/desktop/SettingsWindow.astro";
@@ -41,6 +42,7 @@ const readEasyApp = getDesktopApp("read-easy");
 const blogApp = getDesktopApp("blog");
 const vibaryApp = getDesktopApp("vibary");
 const settingsApp = getDesktopApp("settings");
+const jikeApp = getDesktopApp("jike");
 const attenApp = getDesktopApp("atten");
 const interludeApp = getDesktopApp("interlude");
 const moldayApp = getDesktopApp("molday");
@@ -125,6 +127,10 @@ const socialApp = getDesktopApp("social");
 
           <WindowFrame app={settingsApp} title="Settings">
             <SettingsWindow />
+          </WindowFrame>
+
+          <WindowFrame app={jikeApp} title="即刻">
+            <JikeIdeasWindow />
           </WindowFrame>
 
           <WindowFrame app={attenApp} title="Atten">

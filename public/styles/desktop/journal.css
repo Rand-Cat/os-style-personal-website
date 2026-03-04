@@ -1,0 +1,42 @@
+.journal-editor {
+  padding: 38px 60px 42px;
+  font-family: var(--font-serif);
+}
+
+.journal-date {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--ink-dim);
+  font-family: var(--font-ui);
+}
+
+.journal-heading {
+  margin: 0 0 18px;
+  font-size: clamp(2rem, 3vw, 2.45rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.journal-body {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.65;
+  color: #302c27;
+}
+
+.cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--ink);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

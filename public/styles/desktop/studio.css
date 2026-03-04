@@ -1,0 +1,61 @@
+.studio-sheet {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.studio-sheet__eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+}
+
+.studio-sheet__intro h2,
+.studio-sheet__intro p {
+  margin: 0;
+}
+
+.studio-sheet__intro h2 {
+  font-size: 34px;
+  line-height: 0.95;
+}
+
+.studio-sheet__intro p {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink-secondary);
+}
+
+.studio-metrics {
+  display: grid;
+  gap: 10px;
+}
+
+.studio-metric {
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.studio-metric span,
+.studio-metric strong {
+  display: block;
+}
+
+.studio-metric span {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.studio-metric strong {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--ink);
+}

@@ -3,5 +3,15 @@
 @import url("/styles/desktop/cat.css");
 @import url("/styles/desktop/windows.css");
 @import url("/styles/desktop/panes.css");
+@import url("/styles/desktop/studio.css");
+@import url("/styles/desktop/settings.css");
+@import url("/styles/desktop/read-easy.css");
+@import url("/styles/desktop/vibary.css");
+@import url("/styles/desktop/product-placeholder.css");
+@import url("/styles/desktop/social.css");
+@import url("/styles/desktop/blog-window.css");
+@import url("/styles/desktop/journal.css");
+@import url("/styles/desktop/audio-player.css");
+@import url("/styles/desktop/jike.css");
 @import url("/styles/desktop/dock.css");
 @import url("/styles/desktop/responsive.css");

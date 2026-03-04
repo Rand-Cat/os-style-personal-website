@@ -80,6 +80,17 @@ export const desktopApps: DesktopApp[] = [
     iconY: 118
   },
   {
+    id: "jike",
+    name: "即刻",
+    glyph: "JK",
+    width: 860,
+    height: 620,
+    x: 620,
+    y: 170,
+    iconX: 516,
+    iconY: 246
+  },
+  {
     id: "atten",
     name: "Atten",
     glyph: "AT",
