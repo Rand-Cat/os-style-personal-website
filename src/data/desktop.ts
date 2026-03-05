@@ -23,9 +23,10 @@ export interface DesktopApp {
 export const desktopApps: DesktopApp[] = [
   {
     id: "profile",
-    name: "Studio",
+    name: "About Me",
     glyph: "ZG",
     iconSrc: "/icons/pfp.png",
+    dockPinned: true,
     width: 420,
     height: 320,
     x: 1080,

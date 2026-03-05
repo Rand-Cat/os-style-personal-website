@@ -254,10 +254,13 @@
   top: 26%;
   right: 72%;
   transform: translateX(-10px);
-  --cat-bubble-bg: rgba(235, 234, 237, 0.72);
-  background: var(--cat-bubble-bg);
-  border: 3px solid var(--ink);
-  border-radius: 12px;
+  --cat-bubble-fill: rgba(255, 255, 255, 0.6);
+  --cat-bubble-border: rgba(255, 255, 255, 0.5);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(250, 250, 250, 0.6)),
+    var(--cat-bubble-fill);
+  border: 1px solid var(--cat-bubble-border);
+  border-radius: 14px;
   padding: 12px 20px;
   font-family: var(--font-serif);
   font-size: 1.1rem;
@@ -269,7 +272,11 @@
   pointer-events: none;
   z-index: 10;
   white-space: nowrap;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 12px 24px -14px rgba(0, 0, 0, 0.18);
 }
 
 .cat-speech-bubble.is-visible {
@@ -286,7 +293,7 @@
   transform: translateY(-50%);
   border-width: 8px 0 8px 11px;
   border-style: solid;
-  border-color: transparent transparent transparent var(--ink);
+  border-color: transparent transparent transparent var(--cat-bubble-border);
 }
 
 .cat-speech-bubble::before {
@@ -297,6 +304,6 @@
   transform: translateY(-50%);
   border-width: 5px 0 5px 8px;
   border-style: solid;
-  border-color: transparent transparent transparent var(--cat-bubble-bg);
+  border-color: transparent transparent transparent var(--cat-bubble-fill);
   z-index: 1;
 }

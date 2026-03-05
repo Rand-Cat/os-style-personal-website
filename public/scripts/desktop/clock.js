@@ -10,13 +10,18 @@ export function initClock() {
       minute: "2-digit",
       hour12: false
     });
+    const menuDateText = now.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric"
+    });
     const dateText = now.toLocaleDateString("en-US", {
       weekday: "long",
       month: "long",
       day: "numeric"
     });
 
-    if (clock) clock.textContent = timeText;
+    if (clock) clock.textContent = `${menuDateText} ${timeText}`;
     if (widgetTime) widgetTime.textContent = timeText;
     if (widgetDate) widgetDate.textContent = dateText;
   };
