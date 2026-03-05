@@ -11,6 +11,18 @@
   justify-content: center;
 }
 
+.cat-hover-area {
+  position: absolute;
+  top: 50%;
+  right: 12%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: default;
+}
+
 .zen-cat-art {
   width: 100%;
   height: 100%;
@@ -145,4 +157,134 @@
   .cat-whiskers-right {
     animation: none;
   }
+}
+
+/* --- Moods & Expressions --- */
+
+.cat-head-inner {
+  transition: transform 0.3s ease;
+  transform-origin: 100px 70px;
+}
+
+.cat-eye-target, .cat-eye-sclera, .cat-eye-blink, .cat-eye-happy,
+.cat-mouth-normal, .cat-mouth-speaking, .cat-mouth-happy {
+  transition: opacity 0.2s ease, transform 0.3s ease;
+}
+
+/* Base Speaking (looking left, mouth slightly open) */
+.zen-cat-art[data-mood] .cat-eye-target {
+  transform: translate(-3.5px, 0.5px);
+}
+.zen-cat-art[data-mood] .cat-mouth-normal {
+  opacity: 0;
+}
+.zen-cat-art[data-mood="speaking"] .cat-mouth-speaking,
+.zen-cat-art[data-mood="curious"] .cat-mouth-speaking,
+.zen-cat-art[data-mood="focused"] .cat-mouth-speaking {
+  opacity: 1;
+}
+
+/* Happy (fun, jike, social) */
+.zen-cat-art[data-mood="happy"] .cat-eye-sclera,
+.zen-cat-art[data-mood="happy"] .cat-eye-target,
+.zen-cat-art[data-mood="happy"] .cat-eye-blink {
+  opacity: 0;
+}
+.zen-cat-art[data-mood="happy"] .cat-eye-happy {
+  opacity: 1;
+}
+.zen-cat-art[data-mood="happy"] .cat-mouth-happy {
+  opacity: 1;
+}
+
+/* Curious (read-easy, vibary) */
+.zen-cat-art[data-mood="curious"] .cat-head-inner {
+  transform: rotate(-6deg);
+}
+
+/* Focused (atten, sprint, reflex-ai) */
+.zen-cat-art[data-mood="focused"] .cat-eye {
+  animation: eye-blink-focused 6.8s ease-in-out infinite;
+}
+
+/* Greeting (hover on cat itself) */
+.zen-cat-art[data-mood="greeting"] .cat-eye-target {
+  transform: translate(0, 0);
+}
+.zen-cat-art[data-mood="greeting"] .cat-eye-sclera,
+.zen-cat-art[data-mood="greeting"] .cat-eye-target,
+.zen-cat-art[data-mood="greeting"] .cat-eye-blink {
+  opacity: 0;
+}
+.zen-cat-art[data-mood="greeting"] .cat-eye-happy {
+  opacity: 1;
+}
+.zen-cat-art[data-mood="greeting"] .cat-mouth-normal {
+  opacity: 0;
+}
+.zen-cat-art[data-mood="greeting"] .cat-mouth-speaking {
+  opacity: 0;
+}
+.zen-cat-art[data-mood="greeting"] .cat-mouth-happy {
+  opacity: 1;
+}
+.zen-cat-art[data-mood="greeting"] .cat-head-inner {
+  transform: rotate(4deg);
+}
+
+@keyframes eye-blink-focused {
+  0%, 43%, 45%, 73%, 75%, 100% { transform: scaleY(0.75); }
+  44%, 74% { transform: scaleY(0.08); }
+}
+
+.cat-speech-bubble {
+  position: absolute;
+  top: 26%;
+  right: 72%;
+  transform: translateX(-10px);
+  --cat-bubble-bg: rgba(235, 234, 237, 0.72);
+  background: var(--cat-bubble-bg);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+}
+
+.cat-speech-bubble.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.cat-speech-bubble::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -11px;
+  transform: translateY(-50%);
+  border-width: 8px 0 8px 11px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--ink);
+}
+
+.cat-speech-bubble::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
+  border-width: 5px 0 5px 8px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--cat-bubble-bg);
+  z-index: 1;
 }
