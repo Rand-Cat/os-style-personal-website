@@ -7,6 +7,7 @@ interface Props {
 
 const { apps } = Astro.props;
 const dockApps = apps.filter((app) => app.showInDock !== false);
+const mobileDockIds = new Set(["profile", "read-easy", "blog", "vibary"]);
 ---
 
 <div class="desktop-dock" data-dock aria-label="Open applications">
@@ -16,6 +17,7 @@ const dockApps = apps.filter((app) => app.showInDock !== false);
         class="desktop-dock__item"
         type="button"
         data-dock-window={app.id}
+        data-mobile-dock={mobileDockIds.has(app.id) ? "true" : "false"}
         aria-label={app.name}
         data-dock-label={app.name}
         data-dock-pinned={app.dockPinned ? "true" : "false"}

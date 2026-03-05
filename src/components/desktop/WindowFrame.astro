@@ -60,6 +60,9 @@ const zIndexStyle = zIndex ? `z-index:${zIndex};` : "";
         <div class="os-window__toolbar os-window__toolbar--right">
           <slot name="trailing" />
         </div>
+        <button class="os-window__close-mobile" type="button" data-close-window={app.id} aria-label="返回桌面">
+          <span class="os-window__close-mobile-dot" aria-hidden="true"></span>
+        </button>
       </div>
     )
   }

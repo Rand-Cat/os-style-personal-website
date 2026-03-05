@@ -1,5 +1,7 @@
 export function initCatInteraction() {
-  const icons = document.querySelectorAll('.desktop-icon, .desktop-dock__item');
+  if (window.matchMedia('(max-width: 980px)').matches) return;
+
+  const icons = document.querySelectorAll('[data-open-window], [data-dock-window]');
   const catHover = document.querySelector('[data-cat-hover]');
   const speechBubble = document.querySelector('[data-cat-speech]');
   const speechText = document.querySelector('[data-cat-text]');

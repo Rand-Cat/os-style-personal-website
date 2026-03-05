@@ -122,6 +122,25 @@ JS modules:
 - `public/scripts/desktop/jike-archive.js`
   Jike window interactions such as text expand/collapse and image lightbox behavior.
 
+## Mobile/Tablet Behavior
+
+For widths `<= 980px`, the site switches to a mobile OS model (phone + tablet share the same rules):
+
+- No system bar, no desktop cat, and no desktop drag/resize affordances.
+- Apps open full-screen; the page itself does not scroll (only app content scrolls).
+- A fixed bottom dock shows exactly 4 apps (not dynamic). Dock magnification and hover labels are disabled.
+- The close control is a small circular button styled to match window borders, with a single inner dot.
+- Blog uses a mobile flow: list first, then article detail with a back button in the title bar.
+- Group overlays (folders) are shown as a square 3x3 grid panel.
+
+Key files for mobile behavior:
+- `public/styles/desktop/responsive.css`
+- `public/scripts/desktop/window-manager.js`
+- `public/scripts/desktop/dock.js`
+- `public/scripts/desktop/blog-browser.js`
+- `public/styles/desktop/blog-window.css`
+- `public/styles/desktop/cat.css`
+
 ## Jike Archive Architecture
 
 The `jike` desktop app is a content app backed by generated data from an exported CSV.

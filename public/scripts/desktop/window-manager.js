@@ -13,6 +13,12 @@ export function initWindowManager() {
 
   let topZ = 20;
 
+  const setStatusBarHeight = () => {
+    const bar = document.querySelector(".system-bar");
+    if (!(bar instanceof HTMLElement)) return;
+    document.documentElement.style.setProperty("--status-bar-height", `${bar.offsetHeight}px`);
+  };
+
   const isDesktopViewport = () => window.matchMedia("(min-width: 981px)").matches;
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   const isWindowOpen = (windowEl) => windowEl.classList.contains("is-open");
@@ -182,17 +188,35 @@ export function initWindowManager() {
       const isMinimized = !!target && target.classList.contains("is-minimized");
       const isActive = !!target && target.classList.contains("is-active-window");
       const isPinned = button.getAttribute("data-dock-pinned") === "true";
+      const isMobileDock = button.getAttribute("data-mobile-dock") === "true";
       button.classList.toggle("is-open", isOpen);
       button.classList.toggle("is-minimized", isOpen && isMinimized);
       button.classList.toggle("is-active", isActive);
-      button.classList.toggle("is-hidden", !isPinned && !isOpen);
+      if (!isDesktopViewport()) {
+        button.classList.toggle("is-hidden", !isMobileDock);
+      } else {
+        button.classList.toggle("is-hidden", !isPinned && !isOpen);
+      }
     });
 
     if (dock) {
-      dock.classList.toggle(
-        "is-visible",
-        dockButtons.some((button) => !button.classList.contains("is-hidden"))
+      if (!isDesktopViewport()) {
+        dock.classList.add("is-visible");
+      } else {
+        dock.classList.toggle(
+          "is-visible",
+          dockButtons.some((button) => !button.classList.contains("is-hidden"))
+        );
+      }
+    }
+
+    if (!isDesktopViewport()) {
+      desktopPage?.classList.toggle(
+        "is-mobile-app-open",
+        windows.some((windowEl) => isWindowVisible(windowEl))
       );
+    } else {
+      desktopPage?.classList.remove("is-mobile-app-open");
     }
   };
 
@@ -349,6 +373,14 @@ export function initWindowManager() {
   const openWindow = (appId) => {
     const target = document.querySelector(`[data-window="${appId}"]`);
     if (!target) return;
+    if (!isDesktopViewport()) {
+      windows.forEach((windowEl) => {
+        const windowId = windowEl.getAttribute("data-window");
+        if (windowId && windowId !== appId && isWindowOpen(windowEl)) {
+          closeWindow(windowId);
+        }
+      });
+    }
     target.classList.add("is-open");
     restoreWindow(target);
     if (isGroupWindow(target)) {
@@ -668,6 +700,9 @@ export function initWindowManager() {
       windowEl.dataset.hasOpened = "true";
     }
   });
+
+  setStatusBarHeight();
+  window.addEventListener("resize", setStatusBarHeight);
 
   syncAppState();
   setActiveWindow(getTopOpenWindow());

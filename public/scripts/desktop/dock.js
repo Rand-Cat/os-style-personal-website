@@ -1,4 +1,6 @@
 export function initDockMagnification() {
+  if (window.matchMedia("(max-width: 720px)").matches) return;
+
   const dockButtons = Array.from(document.querySelectorAll("[data-dock-window]"));
   const dockTray = document.querySelector("[data-dock-tray]");
   const getVisibleDockButtons = () =>

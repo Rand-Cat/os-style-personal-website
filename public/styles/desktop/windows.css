@@ -253,6 +253,10 @@
   color: var(--ink-dim);
 }
 
+.os-window__close-mobile {
+  display: none;
+}
+
 .os-window__body {
   flex: 1;
   min-height: 0;

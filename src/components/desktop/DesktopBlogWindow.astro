@@ -17,7 +17,12 @@ interface Props {
 const { postsByLocale, defaultHref } = Astro.props;
 ---
 
-<section class="blog-browser">
+<section class="blog-browser" data-blog-browser>
+  <button class="blog-browser__back" type="button" data-blog-back aria-label="返回">
+    <svg class="blog-browser__back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  </button>
   <aside class="blog-browser__sidebar" data-scroll-lock>
     {BLOG_LOCALES.map((locale) => (
       <div class="blog-browser__list" data-blog-list={locale} hidden={locale !== DEFAULT_BLOG_LOCALE}>
