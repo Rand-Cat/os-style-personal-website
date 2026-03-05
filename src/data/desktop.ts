@@ -49,8 +49,9 @@ export const desktopApps: DesktopApp[] = [
   },
   {
     id: "blog",
-    name: "Library",
-    glyph: "BL",
+    name: "Blog",
+    glyph: "B",
+    iconSrc: "/icons/blog-pencil.svg",
     dockPinned: true,
     width: 920,
     height: 660,
@@ -87,8 +88,9 @@ export const desktopApps: DesktopApp[] = [
   },
   {
     id: "jike",
-    name: "即刻",
+    name: "动态",
     glyph: "JK",
+    iconSrc: "/icons/updates.svg",
     width: 860,
     height: 620,
     x: 620,
@@ -276,10 +278,10 @@ export const desktopApps: DesktopApp[] = [
     name: "Social",
     glyph: "SOC",
     groupMembers: [
-      { id: "okjk", glyph: "JK", name: "即刻" },
-      { id: "xiaohongshu", glyph: "HS", name: "小红书" },
-      { id: "x", glyph: "X", name: "X" },
-      { id: "github", glyph: "GH", name: "GitHub" }
+      { id: "okjk", glyph: "JK", name: "即刻", iconSrc: "/icons/okjk.jpg" },
+      { id: "xiaohongshu", glyph: "HS", name: "小红书", iconSrc: "/icons/xiaohongshu.jpg" },
+      { id: "x", glyph: "X", name: "X", iconSrc: "/icons/x.jpg" },
+      { id: "github", glyph: "GH", name: "GitHub", iconSrc: "/icons/github.jpg" }
     ],
     width: 980,
     height: 470,
@@ -356,6 +358,7 @@ export const socialLinks = [
     id: "okjk",
     name: "即刻",
     glyph: "JK",
+    iconSrc: "/icons/okjk.jpg",
     href: "https://okjk.co/",
     note: "占位链接，后面替换成你的即刻主页。"
   },
@@ -363,6 +366,7 @@ export const socialLinks = [
     id: "xiaohongshu",
     name: "小红书",
     glyph: "XHS",
+    iconSrc: "/icons/xiaohongshu.jpg",
     href: "https://www.xiaohongshu.com/",
     note: "占位链接，后面替换成你的小红书主页。"
   },
@@ -370,6 +374,7 @@ export const socialLinks = [
     id: "x",
     name: "Twitter / X",
     glyph: "X",
+    iconSrc: "/icons/x.jpg",
     href: "https://x.com/",
     note: "占位链接，后面替换成你的 X 主页。"
   },
@@ -377,6 +382,7 @@ export const socialLinks = [
     id: "github",
     name: "GitHub",
     glyph: "GH",
+    iconSrc: "/icons/github.jpg",
     href: "https://github.com/",
     note: "占位链接，后面替换成你的 GitHub 主页。"
   }

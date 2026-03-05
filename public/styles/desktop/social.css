@@ -54,6 +54,14 @@
   object-fit: cover;
 }
 
+.social-group__item[data-social-id="x"] .social-group__icon-image {
+  transform: scale(1.12);
+}
+
+.social-group__item[data-social-id="github"] .social-group__icon-image {
+  transform: scale(1.34);
+}
+
 .social-group__item strong {
   font-size: 16px;
   font-weight: 500;

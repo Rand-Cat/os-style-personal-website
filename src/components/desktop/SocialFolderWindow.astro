@@ -4,8 +4,14 @@ import { socialLinks } from "../../data/desktop";
 
 <div class="social-group">
   {socialLinks.map((item) => (
-    <a class="social-group__item" href={item.href} target="_blank" rel="noreferrer">
-      <span class="social-group__icon serif">{item.glyph}</span>
+    <a class="social-group__item" data-social-id={item.id} href={item.href} target="_blank" rel="noreferrer">
+      <span class="social-group__icon">
+        {item.iconSrc ? (
+          <img class="social-group__icon-image" src={item.iconSrc} alt={`${item.name} logo`} />
+        ) : (
+          <span class="serif">{item.glyph}</span>
+        )}
+      </span>
       <strong>{item.name}</strong>
       <span class="social-group__arrow" aria-hidden="true">↗</span>
     </a>
