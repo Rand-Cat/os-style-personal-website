@@ -446,6 +446,12 @@ h3 {
   pointer-events: none;
 }
 
+.desktop-page.is-group-open .cat-layer {
+  opacity: 0.25;
+  filter: blur(12px) saturate(0.8);
+  pointer-events: none;
+}
+
 .desktop-page.is-group-open .desktop-bg {
   opacity: 0.25;
   filter: blur(12px) saturate(0.8);
@@ -453,6 +459,7 @@ h3 {
 
 .desktop-page.is-group-open .desktop-icons,
 .desktop-page.is-group-open .desktop-window-layer > .os-window:not(.os-window--group),
-.desktop-page.is-group-open .desktop-bg {
+.desktop-page.is-group-open .desktop-bg,
+.desktop-page.is-group-open .cat-layer {
   transition: opacity 0.16s ease, filter 0.16s ease;
 }

@@ -19,6 +19,11 @@ export function initWindowManager() {
   const isWindowVisible = (windowEl) =>
     isWindowOpen(windowEl) && !windowEl.classList.contains("is-minimized");
   const isGroupWindow = (windowEl) => windowEl.classList.contains("os-window--group");
+  const getTopInset = () => {
+    const bar = document.querySelector(".system-bar");
+    const barHeight = bar instanceof HTMLElement ? bar.offsetHeight : 44;
+    return Math.max(12, barHeight + 8);
+  };
 
   const getStageMetrics = () => ({
     width: stage?.clientWidth || window.innerWidth,
@@ -244,18 +249,58 @@ export function initWindowManager() {
         { x: 0, y: 72 }
       ];
       const offset = offsets[visibleCount % offsets.length];
+      const minY = getTopInset();
       const maxX = Math.max(12, metrics.width - nextWidth - 12);
-      const maxY = Math.max(12, metrics.height - nextHeight - 12);
+      const maxY = Math.max(minY, metrics.height - nextHeight - 12);
       setWindowPosition(
         windowEl,
         clamp(centerX + offset.x, 12, maxX),
-        clamp(centerY + offset.y, 12, maxY)
+        clamp(centerY + offset.y, minY, maxY)
       );
     }
   };
 
   const restoreWindow = (windowEl) => {
     windowEl.classList.remove("is-minimized");
+  };
+
+  const resetWindowState = (windowEl) => {
+    windowEl.classList.remove("is-minimized", "is-maximized");
+    windowEl.classList.remove("is-active-window", "is-inactive-window");
+    delete windowEl.dataset.hasOpened;
+    delete windowEl.dataset.restoreWidth;
+    delete windowEl.dataset.restoreHeight;
+    delete windowEl.dataset.restoreX;
+    delete windowEl.dataset.restoreY;
+
+    const scrollables = windowEl.querySelectorAll(
+      ".os-window__scroll, [data-scroll-lock], .os-window__body"
+    );
+    scrollables.forEach((node) => {
+      if (node instanceof HTMLElement) {
+        node.scrollTop = 0;
+        node.scrollLeft = 0;
+      }
+    });
+
+    const frames = windowEl.querySelectorAll("iframe");
+    frames.forEach((frame) => {
+      try {
+        if (frame.contentWindow) {
+          frame.contentWindow.scrollTo(0, 0);
+        } else {
+          frame.addEventListener(
+            "load",
+            () => {
+              try {
+                frame.contentWindow?.scrollTo(0, 0);
+              } catch {}
+            },
+            { once: true }
+          );
+        }
+      } catch {}
+    });
   };
 
   const maximizeWindow = (windowEl) => {
@@ -325,15 +370,15 @@ export function initWindowManager() {
     if (!target) return;
     if (isGroupWindow(target) && isWindowOpen(target)) {
       animateGroupClose(target, appId, () => {
-        target.classList.remove("is-open", "is-minimized", "is-maximized");
-        target.classList.remove("is-active-window", "is-inactive-window");
+        target.classList.remove("is-open");
+        resetWindowState(target);
         setActiveWindow(getTopOpenWindow());
         syncAppState();
       });
       return;
     }
-    target.classList.remove("is-open", "is-minimized", "is-maximized");
-    target.classList.remove("is-active-window", "is-inactive-window");
+    target.classList.remove("is-open");
+    resetWindowState(target);
     setActiveWindow(getTopOpenWindow());
     syncAppState();
   };
@@ -349,13 +394,8 @@ export function initWindowManager() {
 
   const closeAllWindows = () => {
     windows.forEach((windowEl) => {
-      windowEl.classList.remove(
-        "is-open",
-        "is-active-window",
-        "is-inactive-window",
-        "is-minimized",
-        "is-maximized"
-      );
+      windowEl.classList.remove("is-open");
+      resetWindowState(windowEl);
     });
     syncImmersiveState(null);
     syncAppState();
@@ -481,11 +521,12 @@ export function initWindowManager() {
         if (moveEvent.pointerId !== pointerId || !stage) return;
         const rawX = originX + moveEvent.clientX - startX;
         const rawY = originY + moveEvent.clientY - startY;
+        const minY = getTopInset();
         const maxX = Math.max(12, stage.clientWidth - windowEl.offsetWidth - 12);
-        const maxY = Math.max(12, stage.clientHeight - windowEl.offsetHeight - 12);
+        const maxY = Math.max(minY, stage.clientHeight - windowEl.offsetHeight - 12);
 
         nextX = clamp(rawX, 12, maxX);
-        nextY = clamp(rawY, 12, maxY);
+        nextY = clamp(rawY, minY, maxY);
         schedulePaint();
       };
 
@@ -533,7 +574,7 @@ export function initWindowManager() {
       const minWidth = Number.parseFloat(windowEl.dataset.minWidth || "320");
       const minHeight = Number.parseFloat(windowEl.dataset.minHeight || "240");
       const minX = 12;
-      const minY = 12;
+      const minY = getTopInset();
       const maxRight = stageRect ? stageRect.width - 12 : window.innerWidth - 12;
       const maxBottom = stageRect ? stageRect.height - 12 : window.innerHeight - 12;
       const fixedRight = baseX + startWidth;

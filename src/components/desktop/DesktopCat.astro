@@ -1,8 +1,10 @@
 ---
 // DesktopCat.astro
 ---
-<div class="art-illustration">
-  <svg class="zen-cat-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<div class="cat-layer">
+  <div class="cat-hover-area" data-cat-hover aria-hidden="true"></div>
+  <div class="art-illustration">
+    <svg class="zen-cat-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
     <rect x="60" y="40" width="80" height="120" fill="#D93025" rx="4" />
 
     <line x1="40" y1="160" x2="160" y2="160" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
@@ -81,8 +83,9 @@
         </g>
       </g>
     </g>
-  </svg>
-  <div class="cat-speech-bubble" aria-hidden="true" data-cat-speech>
-    <span class="cat-speech-text" data-cat-text></span>
+    </svg>
+    <div class="cat-speech-bubble" aria-hidden="true" data-cat-speech>
+      <span class="cat-speech-text" data-cat-text></span>
+    </div>
   </div>
 </div>
