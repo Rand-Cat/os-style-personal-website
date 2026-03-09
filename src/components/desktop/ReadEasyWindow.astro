@@ -1,37 +1,75 @@
 ---
-import { readEasyHighlights, readEasyLinks } from "../../data/desktop";
+import { getEntry, render } from "astro:content";
+import ReadEasyDslTutorial from "./ReadEasyDslTutorial.astro";
+
+const readEasy = await getEntry("apps", "read-easy");
+if (!readEasy) {
+  throw new Error('App content "read-easy" not found');
+}
+
+const { Content } = await render(readEasy);
+const { title, year, platform, summary } = readEasy.data;
 ---
 
-<div class="os-window__scroll read-easy">
-  <section class="read-easy__hero">
-    <img class="read-easy__logo" src="/icons/read-easy.png" alt="Read Easy logo" />
-    <div class="read-easy__copy">
-      <span class="read-easy__eyebrow">Powered by AI</span>
-      <h2>让阅读英语变简单</h2>
-      <p>
-        Read Easy 让用户更轻松地阅读英语文章，并通过阅读自己感兴趣的内容来提升英语水平。
-      </p>
-      <div class="read-easy__actions">
-        <a href={readEasyLinks.home} target="_blank" rel="noreferrer">Website</a>
-        <a href={readEasyLinks.download} target="_blank" rel="noreferrer">Chrome Extension</a>
-        <a href={readEasyLinks.pricing} target="_blank" rel="noreferrer">Pricing</a>
+<div class="os-window__scroll read-easy" data-read-easy-window>
+  <section class="read-easy__page" data-read-easy-page="overview">
+    <header class="read-easy__hero">
+      <div class="read-easy__meta">
+        <span class="read-easy__eyebrow">{year}</span>
+        <span class="read-easy__eyebrow">{platform}</span>
       </div>
-    </div>
+      <h2>{title}</h2>
+      <p>{summary}</p>
+    </header>
+
+    <article class="read-easy__article">
+      <Content />
+    </article>
+
+    <section class="read-easy__dsl-entry">
+      <div class="read-easy__dsl-copy">
+        <span class="read-easy__dsl-kicker">How It Works</span>
+        <h3>DSL 不是附属说明，而是这个阅读体验真正成立的方式</h3>
+        <p>
+          我把这部分单独拆成了一个小教程。点进去之后，会从最基础的标记开始，一步一步讲到 block
+          结构，最后再进入可交互的 playground。
+        </p>
+      </div>
+      <button type="button" class="read-easy__dsl-button" data-read-easy-open-guide>
+        Open DSL Guide
+      </button>
+    </section>
   </section>
 
-  <section class="read-easy__source">
-    <div class="read-easy__source-card">
-      <strong>From the official site</strong>
-      <span>免费阅读 50 个精选信息源，并提供上百万 AI token 的额度。</span>
-    </div>
-  </section>
-
-  <section class="read-easy__grid">
-    {readEasyHighlights.map((item) => (
-      <article class="read-easy__card">
-        <h3>{item.title}</h3>
-        <p>{item.note}</p>
-      </article>
-    ))}
+  <section class="read-easy__page" data-read-easy-page="guide" hidden>
+    <ReadEasyDslTutorial />
   </section>
 </div>
+
+<script>
+  function setView(root, nextView) {
+    const pages = root.querySelectorAll("[data-read-easy-page]");
+    const scroller = root.closest(".os-window__scroll");
+
+    pages.forEach((page) => {
+      if (!(page instanceof HTMLElement)) return;
+      page.hidden = page.dataset.readEasyPage !== nextView;
+    });
+
+    if (scroller instanceof HTMLElement) {
+      scroller.scrollTop = 0;
+    }
+  }
+
+  document.querySelectorAll("[data-read-easy-window]").forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+
+    root.querySelectorAll("[data-read-easy-open-guide]").forEach((button) => {
+      button.addEventListener("click", () => setView(root, "guide"));
+    });
+
+    root.querySelectorAll("[data-read-easy-close-guide]").forEach((button) => {
+      button.addEventListener("click", () => setView(root, "overview"));
+    });
+  });
+</script>

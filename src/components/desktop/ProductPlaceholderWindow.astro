@@ -4,17 +4,174 @@ interface Props {
 }
 
 const { name } = Astro.props;
+
+type ProductCard = {
+  title: string;
+  body: string;
+};
+
+type ProductScreenshot = {
+  src: string;
+  alt: string;
+};
+
+type ProductContent = {
+  eyebrow: string;
+  description: string;
+  cards: ProductCard[];
+  featureShot?: ProductScreenshot;
+  screenshots?: ProductScreenshot[];
+  ctaLabel?: string;
+  ctaHref?: string;
+};
+
+const productContent: Record<string, ProductContent> = {
+  Interlude: {
+    eyebrow: "Browser Extension",
+    description:
+      "Interlude 是一个浏览器扩展，会在 AI 工具进入思考、生成回答或生图阶段时自动弹出单词卡片，把原本无聊的等待时间变成几秒钟的轻量背词时间。它不试图变成完整的英语学习产品，而是专注在一个更具体的场景里：当你频繁使用 ChatGPT 或 DeepSeek 时，让等待这段空白不再完全浪费掉。",
+    cards: [
+      {
+        title: "等待时自动出现",
+        body:
+          "在支持的网站上，Interlude 会通过页面状态判断 AI 是否仍在生成内容，并在合适的时机弹出小卡片；生成结束后，它会自己收起，不打断原本的工作流。"
+      },
+      {
+        title: "轻量到几秒钟就够",
+        body:
+          "交互被刻意压缩成很短的节奏：看一眼单词、试着拼写、听一下发音，然后继续回到正在等待的对话。它解决的是碎片时间，而不是系统化学习。"
+      },
+      {
+        title: "本地优先",
+        body:
+          "设置保存在浏览器本地。扩展会读取页面 DOM 来判断 AI 是否仍在思考，但不会把浏览历史、页面正文、提示词内容或账号信息发送到项目自建服务器。"
+      }
+    ],
+    screenshots: [
+      {
+        src: "/images/apps/interlude/store-1.jpg",
+        alt: "Interlude screenshot showing the floating vocabulary card while waiting for AI"
+      },
+      {
+        src: "/images/apps/interlude/store-2.jpg",
+        alt: "Interlude screenshot showing the extension settings and dictionary options"
+      },
+      {
+        src: "/images/apps/interlude/store-3.jpg",
+        alt: "Interlude screenshot showing the compact word card interface inside a browser page"
+      }
+    ],
+    ctaLabel: "Open in Chrome Web Store",
+    ctaHref: "https://chromewebstore.google.com/detail/interlude/oafhmpindfnaffeacgjohkkbpdbahgdn?hl=en&authuser=0"
+  },
+  OneSnap: {
+    eyebrow: "Photo & Video",
+    description:
+      "OneSnap 是一个把双机拍摄体验做得更直接的 iOS 工具。一台设备负责拍摄，另一台设备实时查看取景并远程按下快门，让构图、角度和拍摄时机可以当场一起确认，不用再靠口头描述来回调整。",
+    cards: [
+      {
+        title: "实时共享取景",
+        body:
+          "拍摄端和预览端保持同步，站在镜头前的人也能直接看到当前画面，能更快把姿势、构图和边距调到位。"
+      },
+      {
+        title: "远程快门控制",
+        body:
+          "另一台设备可以直接触发拍照，适合双人协作自拍，也适合高机位、低机位或不方便手持查看屏幕的拍摄场景。"
+      },
+      {
+        title: "点对点隐私连接",
+        body:
+          "连接采用设备之间的直接通信，没有远程服务器中转，也不上传画面内容，整个取景和拍摄过程都留在两台设备之间。"
+      }
+    ],
+    screenshots: [
+      {
+        src: "/images/apps/onesnap/appstore-1.jpg",
+        alt: "OneSnap App Store screenshot showing live shared camera preview"
+      },
+      {
+        src: "/images/apps/onesnap/appstore-2.jpg",
+        alt: "OneSnap App Store screenshot showing remote shutter flow"
+      },
+      {
+        src: "/images/apps/onesnap/appstore-3.jpg",
+        alt: "OneSnap App Store screenshot showing peer to peer connection explanation"
+      }
+    ],
+    ctaLabel: "View on the App Store",
+    ctaHref: "https://apps.apple.com/us/app/onesnap/id6754680962"
+  }
+};
+
+if (productContent.OneSnap.screenshots?.[0]) {
+  productContent.OneSnap.featureShot = productContent.OneSnap.screenshots[0];
+}
+
+if (productContent.Interlude.screenshots?.[0]) {
+  productContent.Interlude.featureShot = productContent.Interlude.screenshots[0];
+}
+
+const content = productContent[name] ?? {
+  eyebrow: "Placeholder",
+  description: "这个应用已经放进桌面系统了，窗口内容先保留占位，后面再单独补完整介绍和交互。",
+  cards: [
+    {
+      title: "Next step",
+      body: "后续可以补官网链接、项目定位、关键特性和更贴近产品本身的窗口视觉。"
+    }
+  ]
+};
 ---
 
 <div class="os-window__scroll product-placeholder">
   <section class="product-placeholder__hero">
-    <span class="product-placeholder__eyebrow">Placeholder</span>
+    {
+      content.featureShot && (
+        <figure class="product-placeholder__feature-shot">
+          <img src={content.featureShot.src} alt={content.featureShot.alt} />
+        </figure>
+      )
+    }
+
+    <span class="product-placeholder__eyebrow">{content.eyebrow}</span>
     <h2>{name}</h2>
-    <p>这个应用已经放进桌面系统了，窗口内容先保留占位，后面再单独补完整介绍和交互。</p>
+    <p>{content.description}</p>
+
+    {
+      content.ctaHref && content.ctaLabel && (
+        <a
+          class="product-placeholder__cta"
+          href={content.ctaHref}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {content.ctaLabel}
+        </a>
+      )
+    }
   </section>
 
-  <section class="product-placeholder__card">
-    <strong>Next step</strong>
-    <span>后续可以补官网链接、项目定位、关键特性和更贴近产品本身的窗口视觉。</span>
+  {
+    content.screenshots && content.screenshots.length > 0 && (
+      <section class="product-placeholder__gallery" aria-label={`${name} App Store screenshots`}>
+        {content.screenshots
+          .filter((shot) => shot.src !== content.featureShot?.src)
+          .map((shot) => (
+          <figure class="product-placeholder__shot">
+            <img src={shot.src} alt={shot.alt} />
+          </figure>
+        ))}
+      </section>
+    )
+  }
+
+  <section class="product-placeholder__cards">
+    {content.cards.map((card) => (
+      <article class="product-placeholder__card">
+        <strong>{card.title}</strong>
+        <span>{card.body}</span>
+      </article>
+    ))}
   </section>
 </div>

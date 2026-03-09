@@ -1,0 +1,445 @@
+---
+const sampleDsl = `<paragraph>
+  <sentence>
+    In the highly anticipated [Thinking, Fast and Slow]@book{translation:思考，快与慢}, {/}[Kahneman]@person{avatar:👴🏻,translation:卡尼曼} {/} takes us on a [groundbreaking]@translation{开创性的} tour of the [mind]@emoji{🧠} {/} and explains the two systems {//} that drive the way we think.
+  </sentence>
+  <sentence>
+    <sentence2>
+      [System 1]@term{translation:系统1} is fast, [intuitive]@translation{直觉的}, and [emotional]@translation{感性的}@emoji{💖};
+    </sentence2>
+    <sentence2>
+      [System 2]@term{translation:系统2} is slower, more [deliberative]@translation{深思熟虑的}, and more [logical]@translation{逻辑的}@emoji{🧠}.
+    </sentence2>
+  </sentence>
+  <summary>
+    卡尼曼在《思考，快与慢》中介绍了驱动我们思维的两个系统：快速直觉的系统1和慢速逻辑的系统2，并探讨了它们如何影响我们的判断和决策。
+  </summary>
+</paragraph>`;
+
+const lessons = [
+  {
+    title: "1. 先从单个翻译标记开始",
+    description:
+      "先把它理解成一种“给单词做注释”的写法就够了。方括号里的内容是原文，`@translation{}` 里的内容是你想展示出来的中文解释。渲染之后，用户看到的不是代码，而是一个被高亮出来、旁边带着解释的词。",
+    code: `[groundbreaking]@translation{开创性的}`
+  },
+  {
+    title: "2. 再加上人物、术语这类实体标记",
+    description:
+      "当你不只是想翻译一个词，而是想告诉用户“这是谁”“这是哪个概念”时，就可以换成别的标记类型。比如 `@person` 适合人物，`@term` 适合术语。它们的外形和颜色会不同，因为它们表达的语义也不同。",
+    code: `[Kahneman]@person{avatar:👴🏻,translation:卡尼曼}\n[System 1]@term{translation:系统1}`
+  },
+  {
+    title: "3. 长句拆分不是翻译，而是读法提示",
+    description:
+      "很多英文句子的问题不是“不会翻译”，而是“太长，不知道该从哪里断开”。像 `{/}` 和 `{//}` 这种标记不会额外解释内容，它只是告诉渲染层，这里应该给用户一个轻一点的停顿和分隔。",
+    code: `The book {/} takes us on a [groundbreaking]@translation{开创性的} tour {//} of the mind.`
+  },
+  {
+    title: "4. 当你开始用标签包结构时，它就变成了界面",
+    description:
+      "到了这一步，DSL 就不只是“给词加注释”，而是在描述一个界面结构。`<sentence>` 是正文块，`<summary>` 是总结块，`<paragraph>` 是更大的段落容器。也就是说，你写的不只是文本，而是文本在界面里该怎么被摆出来。",
+    code: `<paragraph>\n  <sentence>\n    [System 1]@term{translation:系统1} is fast and [intuitive]@translation{直觉的}.\n  </sentence>\n  <summary>\n    这一句先介绍系统1的基本特征。\n  </summary>\n</paragraph>`
+  }
+];
+---
+
+<section class="read-easy-guide">
+  <header class="read-easy-guide__header">
+    <div class="read-easy-guide__topbar">
+      <button type="button" class="read-easy-guide__back" data-read-easy-close-guide>
+        Back To Product
+      </button>
+      <span class="read-easy-guide__eyebrow">How It Works</span>
+    </div>
+    <div class="read-easy-guide__intro">
+      <h3>把 AI 的解释，变成一层可渲染的阅读语言</h3>
+      <p>
+        这套 DSL 不是给最终用户直接看的“产品文案”，而是我放在模型输出和前端界面之间的一层结构化中间层。
+        下面这页不是完整技术文档，而是一个给普通人也能看懂的教程：先理解它为什么存在，再看最基础的几种写法分别会变成什么，最后再自己试着写。
+      </p>
+    </div>
+  </header>
+
+  <section class="read-easy-guide__overview">
+    <div class="read-easy-guide__overviewCard">
+      <span class="read-easy-guide__kicker">Concept</span>
+      <h4>为什么要有 DSL</h4>
+      <p>
+        可以把它理解成一种“中间稿”。如果模型直接输出最终文案，前端只能照单全收，很难稳定控制界面。
+        但如果它先输出一套结构化 DSL，我就可以把词汇标记、人物信息、长句拆分、段落 summary 这些东西分开处理，再渲染成阅读体验。
+      </p>
+    </div>
+    <div class="read-easy-guide__overviewCard">
+      <span class="read-easy-guide__kicker">Pipeline</span>
+      <h4>它在链路里处于哪里</h4>
+      <p>
+        整体链路可以简单理解成三步：先让模型把原文写成 Read Easy DSL；再由解析器把 block 和 inline marks 拆出来；最后交给渲染层，把这些结构变成用户真正看到的阅读卡片。
+      </p>
+    </div>
+  </section>
+
+  <section class="read-easy-guide__basics">
+    <article class="read-easy-guide__basicCard">
+      <span class="read-easy-guide__kicker">Read This First</span>
+      <h4>先记住一个最简单的心智模型</h4>
+      <p>
+        整套 DSL 其实可以拆成两类东西：
+      </p>
+      <ul>
+        <li>一类是行内标记：比如给某个词补翻译、标人物、加 emoji。</li>
+        <li>一类是块级结构：比如一句话、一段总结、一个段落。</li>
+      </ul>
+      <p>
+        只要先记住“前者负责标注细节，后者负责页面结构”，后面的语法就会容易很多。
+      </p>
+    </article>
+  </section>
+
+  <section class="read-easy-guide__lessons">
+    {
+      lessons.map((lesson) => (
+        <article class="read-easy-guide__lesson">
+          <div class="read-easy-guide__lessonHeader">
+            <h4>{lesson.title}</h4>
+            <p>{lesson.description}</p>
+          </div>
+          <div class="read-easy-guide__lessonGrid">
+            <div class="read-easy-guide__codePane">
+              <span class="read-easy-guide__label">Syntax</span>
+              <textarea class="read-easy-guide__code" readonly>{lesson.code}</textarea>
+            </div>
+            <div class="read-easy-guide__previewPane">
+              <span class="read-easy-guide__label">Rendered</span>
+              <div class="read-easy-guide__preview" data-read-easy-static-preview></div>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="read-easy-guide__playground">
+    <div class="read-easy-guide__playgroundHeader">
+      <div>
+        <span class="read-easy-guide__kicker">Playground</span>
+        <h4>最后，自己写一点试试</h4>
+        <p>
+          到这里你已经知道，哪些写法是在标一个词，哪些写法是在定义一个 block。现在可以直接改左边的内容，看右边如何被解释成真正的阅读界面。这一步也最接近我原项目里调 DSL 的真实工作方式。
+        </p>
+      </div>
+      <button type="button" class="read-easy-guide__reset" data-read-easy-dsl-reset>
+        Reset Sample
+      </button>
+    </div>
+
+    <div class="read-easy-guide__playgroundGrid">
+      <div class="read-easy-guide__editorPane">
+        <span class="read-easy-guide__label">DSL Input</span>
+        <textarea
+          class="read-easy-guide__editor"
+          data-read-easy-dsl-input
+          spellcheck="false"
+          aria-label="DSL Input"
+        >{sampleDsl}</textarea>
+      </div>
+
+      <div class="read-easy-guide__previewPane">
+        <span class="read-easy-guide__label">Rendered Preview</span>
+        <div class="read-easy-guide__preview read-easy-guide__preview--playground" data-read-easy-dsl-preview></div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<script>
+  import { parseBlocks, parseMarkedText } from "../../lib/read-easy-dsl";
+
+  const sentenceColors = [
+    "read-easy-dsl-sentence--sky",
+    "read-easy-dsl-sentence--green",
+    "read-easy-dsl-sentence--amber"
+  ];
+
+  const sampleDsl = `<paragraph>
+  <sentence>
+    In the highly anticipated [Thinking, Fast and Slow]@book{translation:思考，快与慢}, {/}[Kahneman]@person{avatar:👴🏻,translation:卡尼曼} {/} takes us on a [groundbreaking]@translation{开创性的} tour of the [mind]@emoji{🧠} {/} and explains the two systems {//} that drive the way we think.
+  </sentence>
+  <sentence>
+    <sentence2>
+      [System 1]@term{translation:系统1} is fast, [intuitive]@translation{直觉的}, and [emotional]@translation{感性的}@emoji{💖};
+    </sentence2>
+    <sentence2>
+      [System 2]@term{translation:系统2} is slower, more [deliberative]@translation{深思熟虑的}, and more [logical]@translation{逻辑的}@emoji{🧠}.
+    </sentence2>
+  </sentence>
+  <summary>
+    卡尼曼在《思考，快与慢》中介绍了驱动我们思维的两个系统：快速直觉的系统1和慢速逻辑的系统2，并探讨了它们如何影响我们的判断和决策。
+  </summary>
+</paragraph>`;
+
+  function textNode(text) {
+    return document.createTextNode(text);
+  }
+
+  function getTranslation(value) {
+    if (!value) return "";
+    const [, translation = ""] = value.split(":");
+    return translation;
+  }
+
+  function parseOptions(value) {
+    const options = {};
+    if (!value) return options;
+    value.split(",").forEach((pair) => {
+      const [key, optionValue] = pair.split(":");
+      if (key && optionValue) {
+        options[key.trim()] = optionValue.trim();
+      }
+    });
+    return options;
+  }
+
+  function renderMarkedString(text) {
+    const trimmed = text.trim();
+
+    if (trimmed === "{/}" || trimmed === "{//}") {
+      const divider = document.createElement("span");
+      divider.className = "read-easy-dsl-divider";
+      divider.textContent = "/";
+      return divider;
+    }
+
+    if (trimmed === "{|}") {
+      const rule = document.createElement("span");
+      rule.className = "read-easy-dsl-rule";
+      return rule;
+    }
+
+    return textNode(text);
+  }
+
+  function renderMarkedNodes(content) {
+    return content.map((item) => {
+      if (typeof item === "string") {
+        return renderMarkedString(item);
+      }
+      return renderMarkedItem(item);
+    });
+  }
+
+  function renderMarkedItem(item) {
+    if (typeof item === "string") {
+      return renderMarkedString(item);
+    }
+
+    let node = document.createElement("span");
+    node.className = "read-easy-dsl-inline";
+    node.append(...renderMarkedNodes(item.content));
+
+    for (const mark of item.marks) {
+      switch (mark.key) {
+        case "emoji": {
+          const wrapper = document.createElement("span");
+          wrapper.className = "read-easy-dsl-inline";
+          wrapper.append(node, textNode(` ${mark.value ?? ""}`));
+          node = wrapper;
+          break;
+        }
+        case "translation": {
+          const wrapper = document.createElement("span");
+          const word = document.createElement("span");
+          word.className = "read-easy-dsl-tag read-easy-dsl-tag--translation";
+          word.append(node);
+          wrapper.append(word);
+
+          if (mark.value) {
+            const hint = document.createElement("span");
+            hint.className = "read-easy-dsl-note";
+            hint.textContent = `(${mark.value})`;
+            wrapper.append(hint);
+          }
+          node = wrapper;
+          break;
+        }
+        case "book":
+        case "article":
+        case "movie":
+        case "music":
+        case "game":
+        case "opera":
+        case "art": {
+          const wrapper = document.createElement("span");
+          const strong = document.createElement("span");
+          strong.className = "read-easy-dsl-tag read-easy-dsl-tag--title";
+          strong.append(node);
+          wrapper.append(strong);
+
+          const translation = getTranslation(mark.value);
+          if (translation) {
+            const note = document.createElement("span");
+            note.className = "read-easy-dsl-note";
+            note.textContent = ` 《${translation}》`;
+            wrapper.append(note);
+          }
+          node = wrapper;
+          break;
+        }
+        case "person": {
+          const wrapper = document.createElement("span");
+          wrapper.className = "read-easy-dsl-person";
+          const options = parseOptions(mark.value);
+
+          if (options.avatar) {
+            const avatar = document.createElement("span");
+            avatar.className = "read-easy-dsl-avatar";
+            avatar.textContent = options.avatar;
+            wrapper.append(avatar);
+          }
+
+          wrapper.append(node);
+
+          if (options.translation) {
+            const note = document.createElement("span");
+            note.className = "read-easy-dsl-note";
+            note.textContent = `(${options.translation})`;
+            wrapper.append(note);
+          }
+          node = wrapper;
+          break;
+        }
+        case "brand":
+        case "product":
+        case "place":
+        case "event":
+        case "term": {
+          const wrapper = document.createElement("span");
+          const strong = document.createElement("span");
+          strong.className = "read-easy-dsl-tag read-easy-dsl-tag--entity";
+          strong.append(node);
+          wrapper.append(strong);
+
+          const translation = getTranslation(mark.value);
+          if (translation) {
+            const note = document.createElement("span");
+            note.className = "read-easy-dsl-note";
+            note.textContent = `(${translation})`;
+            wrapper.append(note);
+          }
+          node = wrapper;
+          break;
+        }
+        default:
+          break;
+      }
+    }
+
+    return node;
+  }
+
+  function renderInlineText(text) {
+    return parseMarkedText(text).map((item) => renderMarkedItem(item));
+  }
+
+  function renderBlocks(content, state) {
+    const fragment = document.createDocumentFragment();
+
+    content.forEach((item) => {
+      if (typeof item === "string") {
+        fragment.append(...renderInlineText(item));
+        return;
+      }
+
+      const element = document.createElement("div");
+
+      switch (item.type) {
+        case "paragraph":
+          element.className = "read-easy-dsl-block read-easy-dsl-block--paragraph";
+          break;
+        case "sentence":
+          element.className = `read-easy-dsl-block read-easy-dsl-block--sentence ${sentenceColors[state.sentenceCount % sentenceColors.length]}`;
+          state.sentenceCount += 1;
+          break;
+        case "summary":
+          element.className = "read-easy-dsl-block read-easy-dsl-block--summary";
+          break;
+        case "speech":
+          element.className = "read-easy-dsl-block read-easy-dsl-block--speech";
+          break;
+        case "sentence1":
+        case "sentence2":
+        case "sentence3":
+        case "sentence4":
+          element.className = "read-easy-dsl-block read-easy-dsl-block--subsentence";
+          break;
+        default:
+          element.className = "read-easy-dsl-block";
+          break;
+      }
+
+      element.append(renderBlocks(item.content, state));
+      fragment.append(element);
+    });
+
+    return fragment;
+  }
+
+  function renderInto(preview, source) {
+    preview.innerHTML = "";
+
+    try {
+      const normalized = source.trim();
+      const blocks =
+        normalized.startsWith("<") && normalized.includes("</")
+          ? parseBlocks(source)
+          : [
+              {
+                type: "sentence",
+                content: [source],
+                raw: source
+              }
+            ];
+
+      preview.classList.remove("read-easy-guide__preview--error");
+      preview.append(renderBlocks(blocks, { sentenceCount: 0 }));
+    } catch (error) {
+      preview.classList.add("read-easy-guide__preview--error");
+      preview.textContent = error instanceof Error ? error.message : "DSL parse failed.";
+    }
+  }
+
+  function mountGuide(root) {
+    root.querySelectorAll(".read-easy-guide__lesson").forEach((lesson) => {
+      const input = lesson.querySelector(".read-easy-guide__code");
+      const preview = lesson.querySelector("[data-read-easy-static-preview]");
+
+      if (input instanceof HTMLTextAreaElement && preview instanceof HTMLElement) {
+        renderInto(preview, input.value);
+      }
+    });
+
+    const input = root.querySelector("[data-read-easy-dsl-input]");
+    const preview = root.querySelector("[data-read-easy-dsl-preview]");
+    const reset = root.querySelector("[data-read-easy-dsl-reset]");
+
+    if (!(input instanceof HTMLTextAreaElement) || !(preview instanceof HTMLElement)) {
+      return;
+    }
+
+    const update = () => renderInto(preview, input.value);
+
+    input.addEventListener("input", update);
+    reset?.addEventListener("click", () => {
+      input.value = sampleDsl;
+      update();
+    });
+
+    update();
+  }
+
+  document.querySelectorAll(".read-easy-guide").forEach((root) => {
+    if (root instanceof HTMLElement) {
+      mountGuide(root);
+    }
+  });
+</script>
