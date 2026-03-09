@@ -1,0 +1,110 @@
+---
+import { getCollection, render } from "astro:content";
+
+const profile = (await getCollection("apps")).find(
+  (entry) => entry.id === "profile" || entry.filePath?.endsWith("profile.mdx")
+);
+if (!profile) throw new Error('App content "profile" not found');
+
+const { Content } = await render(profile);
+const { title } = profile.data;
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles/desktop-os.css" />
+    <style>
+      body {
+        overflow: auto;
+      }
+
+      .about-page {
+        min-height: 100vh;
+      }
+
+      .about-page .system-bar {
+        position: sticky;
+      }
+
+      .about-stage {
+        position: relative;
+        z-index: 2;
+        min-height: calc(100vh - 44px);
+        padding: 36px 24px 56px;
+        background: var(--bg-window-strong);
+      }
+
+      .about-content {
+        width: min(100%, 980px);
+        margin: 0 auto;
+        padding: 8px 0 0;
+      }
+
+      .about-content .studio__article :where(p, li) {
+        font-size: 18px;
+        line-height: 1.95;
+        color: #1f1f1d;
+        font-weight: 400;
+      }
+
+      .about-content .studio__article :where(h2) {
+        color: #171716;
+      }
+
+      .about-content .studio__article :where(h3) {
+        color: #1e1e1c;
+      }
+
+      @media (max-width: 980px) {
+        .about-stage {
+          padding: 18px 12px 28px;
+        }
+
+        .about-content {
+          padding-top: 0;
+        }
+
+        .about-content .studio__article :where(p, li) {
+          font-size: 17px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="desktop-page about-page" data-desktop-wallpaper="paper">
+      <div class="desktop-bg" aria-hidden="true">
+        <div class="bg-texture"></div>
+        <div class="editorial-line"></div>
+      </div>
+
+      <header class="system-bar">
+        <div class="system-left">
+          <a class="os-logo" href="/" aria-label="Back to home"></a>
+        </div>
+        <div class="system-right">
+          <span>About Me</span>
+        </div>
+      </header>
+
+      <section class="about-stage">
+        <div class="about-content">
+          <div class="studio">
+            <header class="studio__hero">
+              <h2>{title}</h2>
+            </header>
+
+            <article class="studio__article">
+              <Content />
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

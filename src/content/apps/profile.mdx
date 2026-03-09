@@ -1,0 +1,167 @@
+---
+title: 关于我
+heroImage: "/icons/pfp.png"
+heroAlt: "Zhi Jie Gao portrait"
+webImage: "/icons/pfp.png"
+webAlt: "Zhi Jie Gao portrait"
+extensionImage: "/icons/pfp.png"
+extensionAlt: "Zhi Jie Gao portrait"
+---
+
+import ProfileProducts from "../../components/desktop/ProfileProducts.astro";
+import ProfileSocialLinks from "../../components/desktop/ProfileSocialLinks.astro";
+
+<p class="inline-intro">Hi，我是 <img class="inline-avatar" src="/icons/pfp.png" alt="zhijie avatar" /> <strong>zhijie</strong>，欢迎来我的个人网站。</p>
+
+我喜欢构建产品、思考交互、研究AI。日常在设计和代码之间来回穿梭，把想法变成现实。
+
+我有很多新奇的想法，也做过许多产品，有些计划做个大东西改变世界（但计划失败了），有些则只是解决自己问题的小工具。不过我依然在思考 AI 会带来哪些大的机会，前几个月我在思考互动内容平台，我对此很感兴趣，可惜还没有看到其成立的可能性。
+
+我以前做产品不写代码，尽管我认为编程很有趣。后来在 AI 的帮助下，通过做各种项目，包括网站、APP和 Chrome 插件，学会了各种编程语言和框架。但最近半年，又回到了不写代码的状态，基本都在 vibe coding 了。
+
+对于 AI，我同时关注宏观与微观。我阅读阿西莫夫对机器人的想象，也对模型做过 fine-tune。
+
+
+我会从多个视角去看待问题，探索不同的可能性，以便对事物有更全面的理解。正如 Alan Kay 所说的 “Point of view is worth 80 IQ points”。理解事物存在许多不同视角，而我却无法获得所有的视角，这使我持有一种 Less sure about everything 的态度。
+
+
+我做过许多关于产品和AI的预测，包括会出现什么产品形态，什么产品又将失败，这些预测的准确度还不错，例如；
+- 当 GPTs Store 发布时，我认为这是在一个没有金子的地方，把铲子换成了挖掘机。
+- 我在 2023 年初写了一些文章关于，如何让 AI 在没有人介入的情况下自主完成复杂任务，我们今天把它叫做 Agent。
+- 也是在 2023 年做了个产品 Atten，它可以让用户直接预览和编辑AI生成的代码，早于 Claude Code 的 Artifacts 或是 ChatGPT 的 Canvas。
+
+
+等等。
+
+
+
+
+## 关于这个网站
+
+过去 3 年，我做了一些 AI 的产品，也用 AI 做了一些和 AI 无关的产品。
+
+这期间不是在做产品，就是在做产品的路上，却没有怎么停下来，看看自己做了哪些东西。
+
+最近，我在考虑接下来做什么，于是就趁机做个个人网站，一方面是帮助自己整理和反思，另一方面也小小宣传和介绍一下自己，看看有哪些合作机会。
+
+我希望可以用稍微有趣且简洁的方式来呈现我做过的产品，所以想到了用操作系统风格的交互方式，做的产品正好对应桌面里的应用。除了产品，写过的文字，也可以很自然的放在应用里面。
+
+网站的开发完全使用 vibe coding 完成，具体的视觉风格也是让 AI 尝试了很多个方案后挑选出来的。
+
+
+### 产品
+
+不过，操作系统的风格不太适合展示项目的时间，因此在这里还是保留一个简单的时间线视图。
+
+<ProfileProducts
+  years={[
+    {
+      year: "2025年",
+      groups: [
+        {
+          items: [
+            {
+              name: "MoldDay",
+              appId: "molday",
+              note: "一个 iOS 应用，将屏幕时间与发霉",
+              tags: ["iOS", "Screen Time"]
+            },
+            {
+              name: "Vibary",
+              appId: "vibary",
+              note: "一句话描述待补充。",
+              tags: ["Music", "Utility"]
+            },
+            {
+              name: "Read Easy",
+              appId: "read-easy",
+              note: "一句话描述待补充。",
+              tags: ["Web", "Chrome Extension", "Reading"]
+            }
+          ]
+        },
+        {
+          label: "小产品",
+          items: [
+            {
+              name: "Interlude",
+              appId: "interlude",
+              note: "一句话描述待补充。",
+              tags: ["Chrome Extension", "Language"]
+            },
+            {
+              name: "Tube Nitro",
+              appId: "tube-nitro",
+              note: "一句话描述待补充。",
+              tags: ["Chrome Extension", "YouTube"]
+            },
+            {
+              name: "OneSnap",
+              appId: "onesnap",
+              note: "一句话描述待补充。",
+              tags: ["iOS", "Camera"]
+            },
+            {
+              name: "DeepChat",
+              appId: "deepchat",
+              note: "一句话描述待补充。",
+              tags: ["AI", "Social"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      year: "2024年",
+      groups: [
+        {
+          items: [
+            {
+              name: "sekai",
+              appId: "sekai",
+              note: "一句话描述待补充。",
+              tags: ["iOS", "Language"]
+            },
+            {
+              name: "Existence",
+              appId: "existence",
+              note: "一句话描述待补充。",
+              tags: ["Web", "Extension"]
+            },
+            {
+              name: "New Portal",
+              appId: "new-portal",
+              note: "一句话描述待补充。",
+              tags: ["Concept", "Product"]
+            },
+            {
+              name: "DogCheck",
+              appId: "dogcheck",
+              note: "一句话描述待补充。",
+              tags: ["Concept", "Utility"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      year: "2023年",
+      groups: [
+        {
+          items: [
+            {
+              name: "Atten",
+              appId: "atten",
+              note: "一句话描述待补充。",
+              tags: ["AI", "Workspace", "Web"]
+            }
+          ]
+        }
+      ]
+    }
+  ]}
+/>
+
+### 如何找到我
+
+<ProfileSocialLinks />

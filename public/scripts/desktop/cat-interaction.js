@@ -27,7 +27,6 @@ export function initCatInteraction() {
     'sprint': '这里藏着几个小工具。',
     'fun': '找点乐子？',
     'reflex-ai': 'AI 相关的奇思妙想。',
-    'social': '在其他地方也能找到我。',
   };
 
   const appMoods = {
@@ -41,7 +40,6 @@ export function initCatInteraction() {
     'sprint': 'focused',
     'fun': 'happy',
     'reflex-ai': 'focused',
-    'social': 'happy',
   };
 
   let hideTimeout;

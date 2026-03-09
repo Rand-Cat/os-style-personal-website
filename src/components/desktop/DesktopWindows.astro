@@ -13,7 +13,6 @@ import OneSnapWindow from "./OneSnapWindow.astro";
 import ProductPlaceholderWindow from "./ProductPlaceholderWindow.astro";
 import ReadEasyWindow from "./ReadEasyWindow.astro";
 import SettingsWindow from "./SettingsWindow.astro";
-import SocialFolderWindow from "./SocialFolderWindow.astro";
 import StudioWindow from "./StudioWindow.astro";
 import TubeNitroWindow from "./TubeNitroWindow.astro";
 import VibaryWindow from "./VibaryWindow.astro";
@@ -43,8 +42,7 @@ interface WindowDefinition {
     | typeof OneSnapWindow
     | typeof TubeNitroWindow
     | typeof ProductPlaceholderWindow
-    | typeof AppGroupWindow
-    | typeof SocialFolderWindow;
+    | typeof AppGroupWindow;
   componentProps?: Record<string, unknown>;
   variant?: "default" | "group";
   zIndex?: number;
@@ -60,7 +58,7 @@ const getApp = (id: string) => {
 };
 
 const windowDefinitions: WindowDefinition[] = [
-  { appId: "profile", title: "Studio", component: StudioWindow, zIndex: 12 },
+  { appId: "profile", title: "About Me", component: StudioWindow, zIndex: 12 },
   {
     appId: "blog",
     title: "Archive & Editor",
@@ -144,8 +142,7 @@ const windowDefinitions: WindowDefinition[] = [
     component: AppGroupWindow,
     componentProps: { groupId: "reflex-ai", items: getApp("reflex-ai").groupMembers || [] },
     variant: "group"
-  },
-  { appId: "social", title: "Social", component: SocialFolderWindow, variant: "group" }
+  }
 ];
 ---
 

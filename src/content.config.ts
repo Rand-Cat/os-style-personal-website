@@ -15,9 +15,9 @@ const blog = defineCollection({
 const apps = defineCollection({
   schema: z.object({
     title: z.string(),
-    year: z.string(),
-    platform: z.string(),
-    summary: z.string(),
+    year: z.string().optional(),
+    platform: z.string().optional(),
+    summary: z.string().optional(),
     heroImage: z.string(),
     heroAlt: z.string(),
     webImage: z.string(),

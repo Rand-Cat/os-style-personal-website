@@ -1,61 +1,442 @@
-.studio-sheet {
+.studio {
   display: grid;
   gap: 18px;
-  padding: 24px;
+  width: min(100%, 860px);
+  min-width: 0;
+  margin: 0 auto;
+  padding: 22px;
 }
 
-.studio-sheet__eyebrow {
-  display: inline-block;
-  margin-bottom: 10px;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: var(--ink-dim);
+.studio__hero {
+  padding: 4px 2px 0;
+}
+
+.studio__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.studio__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 10px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--ink-dim);
 }
 
-.studio-sheet__intro h2,
-.studio-sheet__intro p {
+.studio__hero h2,
+.studio__hero p,
+.studio__article :where(h2, h3, p, ul) {
   margin: 0;
 }
 
-.studio-sheet__intro h2 {
-  font-size: 34px;
-  line-height: 0.95;
+.studio__hero h2 {
+  margin-top: 12px;
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: clamp(2rem, 4.3vw, 3.8rem);
+  line-height: 0.96;
+  font-weight: 500;
+  color: #232320;
+  letter-spacing: -0.02em;
 }
 
-.studio-sheet__intro p {
+.studio__hero p {
   margin-top: 14px;
-  font-size: 13px;
-  line-height: 1.7;
+  max-width: 42ch;
+  font-size: 14px;
+  line-height: 1.8;
   color: var(--ink-secondary);
 }
 
-.studio-metrics {
+.studio__article {
+  display: grid;
+  gap: 22px;
+  margin-top: 28px;
+  padding: 0 2px 8px;
+  min-width: 0;
+}
+
+.studio__article > :where(h2, h3, p, ul) {
+  display: grid;
+}
+
+.studio__article :where(h2) {
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 26px;
+  line-height: 1.12;
+  font-weight: 600;
+  color: #2a2a27;
+}
+
+.studio__article :where(h3) {
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 19px;
+  line-height: 1.22;
+  font-weight: 700;
+}
+
+.studio__article :where(p, li) {
+  font-size: 17px;
+  line-height: 1.95;
+  color: #1f1f1d;
+}
+
+.studio__article :where(.inline-intro) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.32em;
+  color: var(--ink);
+}
+
+.studio__article :where(.inline-avatar) {
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  vertical-align: middle;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.studio__article :where(.inline-intro strong) {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.studio__article :where(ul) {
+  gap: 10px;
+  padding-left: 18px;
+}
+
+.studio__article :where(.profile-products) {
+  position: relative;
+  display: grid;
+  gap: 16px;
+}
+
+.studio__article :where(.profile-products__viewport) {
+  display: grid;
+  gap: 24px;
+}
+
+.studio__article :where(.profile-products[data-overflowing="true"][data-expanded="false"] .profile-products__viewport) {
+  max-height: var(--profile-products-collapsed-height, 520px);
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, #000 0%, #000 68%, rgba(0, 0, 0, 0.72) 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 68%, rgba(0, 0, 0, 0.72) 82%, transparent 100%);
+}
+
+.studio__article :where(.profile-products__year) {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.studio__article :where(.profile-products__rail) {
+  position: relative;
+  display: block;
+  min-height: 100%;
+}
+
+.studio__article :where(.profile-products__rail)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: -24px;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.12);
+  transform: translateX(-50%);
+}
+
+.studio__article :where(.profile-products__year:last-child .profile-products__rail)::after {
+  display: none;
+}
+
+.studio__article :where(.profile-products__dot) {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: var(--bg-window-strong);
+  box-shadow: 0 0 0 3px var(--bg-window-strong);
+  transform: translateX(-50%);
+}
+
+.studio__article :where(.profile-products__content) {
   display: grid;
   gap: 10px;
 }
 
-.studio-metric {
-  padding: 12px 14px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.5);
+.studio__article :where(.profile-products__yearLabel) {
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  padding-top: 1px;
+  font-size: 26px;
+  line-height: 0.88;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  color: #2d2d29;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+  text-align: left;
+  white-space: nowrap;
 }
 
-.studio-metric span,
-.studio-metric strong {
+.studio__article :where(.profile-products__group) {
+  display: grid;
+  gap: 8px;
+}
+
+.studio__article :where(.profile-products__groupLabel) {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.studio__article :where(.profile-products__grid) {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.studio__article :where(.profile-products__card) {
+  display: grid;
+  gap: 4px;
+  padding: 6px 0 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.studio__article :where(.profile-products__cardTop) {
   display: block;
 }
 
-.studio-metric span {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
+.studio__article :where(.profile-products__app) {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
 }
 
-.studio-metric strong {
-  margin-top: 6px;
-  font-size: 14px;
-  color: var(--ink);
+.studio__article :where(.profile-products__headline) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.studio__article :where(.profile-products__headline h3) {
+  min-width: 0;
+}
+
+.studio__article :where(.profile-products__icon),
+.studio__article :where(.profile-products__iconFallback) {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+}
+
+.studio__article :where(.profile-products__icon) {
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.studio__article :where(.profile-products__iconFallback) {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+}
+
+.studio__article :where(.profile-products__card h3) {
+  margin: 0;
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.1;
+  font-weight: 500;
+  color: #242421;
+}
+
+.studio__article :where(.profile-products__card p) {
+  margin: 0;
+  padding-left: 38px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-secondary);
+}
+
+.studio__article :where(.profile-products__tags) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.studio__article :where(.profile-products__tags span) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(250, 250, 250, 0.48);
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+}
+
+.studio__article :where(.profile-products__toggle) {
+  justify-self: center;
+  width: fit-content;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  color: #2d2d29;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.studio__article :where(.profile-social) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.studio__article :where(.profile-social__item) {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.studio__article :where(.profile-social__icon) {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.72);
+  overflow: hidden;
+}
+
+.studio__article :where(.profile-social__iconImage) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.studio__article :where(.profile-social__copy) {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.studio__article :where(.profile-social__copy strong) {
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #242421;
+}
+
+.studio__article :where(.profile-social__copy span) {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-secondary);
+}
+
+@media (max-width: 720px) {
+  .studio__article :where(.profile-products__year) {
+    grid-template-columns: 12px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .studio__article :where(.profile-products__rail) {
+    display: block;
+  }
+
+  .studio__article :where(.profile-products__yearLabel) {
+    font-size: 20px;
+    text-align: left;
+  }
+
+  .studio__article :where(.profile-products__grid) {
+    grid-template-columns: 1fr;
+  }
+
+  .studio__article :where(.profile-products__headline) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .studio__article :where(.profile-products__tags) {
+    justify-content: flex-start;
+  }
+
+  .studio__article :where(.profile-social) {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,22 +1,21 @@
-<div class="os-window__scroll studio-sheet">
-  <section class="studio-sheet__intro">
-    <span class="studio-sheet__eyebrow">Profile</span>
-    <h2>Zhi Jie Gao</h2>
-    <p>产品设计、交互原型、前端实现。关注阅读体验、产品结构和可以被真实使用的界面系统。</p>
-  </section>
+---
+import { getCollection, render } from "astro:content";
 
-  <section class="studio-metrics">
-    <article class="studio-metric">
-      <span>Base</span>
-      <strong>Shanghai</strong>
-    </article>
-    <article class="studio-metric">
-      <span>Focus</span>
-      <strong>Product systems</strong>
-    </article>
-    <article class="studio-metric">
-      <span>Output</span>
-      <strong>Writing + prototypes</strong>
-    </article>
-  </section>
+const profile = (await getCollection("apps")).find(
+  (entry) => entry.id === "profile" || entry.filePath?.endsWith("profile.mdx")
+);
+if (!profile) throw new Error('App content "profile" not found');
+
+const { Content } = await render(profile);
+const { title } = profile.data;
+---
+
+<div class="os-window__scroll studio">
+  <header class="studio__hero">
+    <h2>{title}</h2>
+  </header>
+
+  <article class="studio__article">
+    <Content />
+  </article>
 </div>

@@ -27,8 +27,8 @@ export const desktopApps: DesktopApp[] = [
     glyph: "ZG",
     iconSrc: "/icons/pfp.png",
     dockPinned: true,
-    width: 420,
-    height: 320,
+    width: 920,
+    height: 640,
     x: 1080,
     y: 148,
     iconX: 68,
@@ -96,7 +96,7 @@ export const desktopApps: DesktopApp[] = [
     x: 620,
     y: 170,
     iconX: 404,
-    iconY: 246
+    iconY: 118
   },
   {
     id: "atten",
@@ -133,7 +133,7 @@ export const desktopApps: DesktopApp[] = [
     x: 776,
     y: 226,
     iconX: 180,
-    iconY: 374
+    iconY: 246
   },
   {
     id: "onesnap",
@@ -240,7 +240,7 @@ export const desktopApps: DesktopApp[] = [
     height: 360,
     x: 860,
     y: 280,
-    iconX: 180,
+    iconX: 292,
     iconY: 246
   },
   {
@@ -255,7 +255,7 @@ export const desktopApps: DesktopApp[] = [
     height: 360,
     x: 900,
     y: 310,
-    iconX: 292,
+    iconX: 404,
     iconY: 246
   },
   {
@@ -270,25 +270,8 @@ export const desktopApps: DesktopApp[] = [
     height: 360,
     x: 940,
     y: 300,
-    iconX: 292,
+    iconX: 180,
     iconY: 374
-  },
-  {
-    id: "social",
-    name: "Social",
-    glyph: "SOC",
-    groupMembers: [
-      { id: "okjk", glyph: "JK", name: "即刻", iconSrc: "/icons/okjk.jpg" },
-      { id: "xiaohongshu", glyph: "HS", name: "小红书", iconSrc: "/icons/xiaohongshu.jpg" },
-      { id: "x", glyph: "X", name: "X", iconSrc: "/icons/x.jpg" },
-      { id: "github", glyph: "GH", name: "GitHub", iconSrc: "/icons/github.jpg" }
-    ],
-    width: 980,
-    height: 470,
-    x: 912,
-    y: 344,
-    iconX: 404,
-    iconY: 118
   }
 ];
 

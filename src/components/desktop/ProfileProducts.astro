@@ -1,0 +1,158 @@
+---
+import { desktopApps } from "../../data/desktop";
+
+interface ProductItem {
+  name: string;
+  appId?: string;
+  note?: string;
+  tags?: string[];
+}
+
+interface ProductGroup {
+  label?: string;
+  items: ProductItem[];
+}
+
+interface ProductYear {
+  year: string;
+  groups: ProductGroup[];
+}
+
+interface Props {
+  years: ProductYear[];
+}
+
+const { years } = Astro.props;
+const appById = new Map(desktopApps.map((app) => [app.id, app]));
+const formatYearLabel = (value: string) => value.replace(/\D/g, "") || value;
+---
+
+<div
+  class="profile-products"
+  aria-label="Products timeline"
+  data-profile-products
+  data-expanded="false"
+>
+  <div class="profile-products__viewport" data-profile-products-viewport>
+    {years.map((year) => (
+      <section class="profile-products__year">
+        <div class="profile-products__rail" aria-hidden="true">
+          <span class="profile-products__dot"></span>
+        </div>
+
+        <div class="profile-products__content">
+          <div class="profile-products__yearLabel">{formatYearLabel(year.year)}</div>
+
+          {year.groups.map((group) => (
+            <div class="profile-products__group">
+              {group.label && <div class="profile-products__groupLabel">{group.label}</div>}
+
+              <div class="profile-products__grid">
+                {group.items.map((item) => (
+                  <article class="profile-products__card">
+                    {(() => {
+                      const iconSrc = appById.get(item.appId || "")?.iconSrc;
+
+                      return (
+                        <div class="profile-products__cardTop">
+                          <div class="profile-products__app">
+                            {iconSrc ? (
+                              <img
+                                class="profile-products__icon"
+                                src={iconSrc}
+                                alt={`${item.name} icon`}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <div class="profile-products__iconFallback" aria-hidden="true">
+                                {item.name.slice(0, 2)}
+                              </div>
+                            )}
+                            <div class="profile-products__headline">
+                              <h3>{item.name}</h3>
+                              {item.tags && item.tags.length > 0 && (
+                                <div class="profile-products__tags">
+                                  {item.tags.map((tag) => (
+                                    <span>{tag}</span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+
+                    {item.note && <p>{item.note}</p>}
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <button class="profile-products__toggle" type="button" data-profile-products-toggle hidden>
+    展开全部
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll("[data-profile-products]").forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+
+    const viewport = root.querySelector("[data-profile-products-viewport]");
+    const button = root.querySelector("[data-profile-products-toggle]");
+    const windowRoot = root.closest(".os-window");
+    if (!(viewport instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) return;
+
+    const collapsedHeight = 350;
+
+    const sync = () => {
+      const isVisible = root.offsetParent !== null || root.getClientRects().length > 0;
+      if (!isVisible) return;
+
+      const expanded = root.dataset.expanded === "true";
+      const overflowing = viewport.scrollHeight > collapsedHeight + 16;
+
+      root.dataset.overflowing = overflowing ? "true" : "false";
+      button.hidden = !overflowing;
+
+      if (!overflowing) {
+        root.dataset.expanded = "false";
+        viewport.style.removeProperty("--profile-products-collapsed-height");
+        button.textContent = "展开全部";
+        return;
+      }
+
+      root.dataset.expanded = expanded ? "true" : "false";
+      viewport.style.setProperty("--profile-products-collapsed-height", `${collapsedHeight}px`);
+      button.textContent = expanded ? "收起" : "展开全部";
+    };
+
+    button.addEventListener("click", () => {
+      const expanded = root.dataset.expanded === "true";
+      root.dataset.expanded = expanded ? "false" : "true";
+      sync();
+    });
+
+    const scheduleSync = () => window.requestAnimationFrame(sync);
+
+    scheduleSync();
+    window.addEventListener("resize", scheduleSync, { passive: true });
+
+    const resizeObserver = new ResizeObserver(() => scheduleSync());
+    resizeObserver.observe(viewport);
+
+    if (windowRoot instanceof HTMLElement) {
+      const mutationObserver = new MutationObserver(() => scheduleSync());
+      mutationObserver.observe(windowRoot, {
+        attributes: true,
+        attributeFilter: ["class", "style"]
+      });
+    }
+  });
+</script>

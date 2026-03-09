@@ -1,0 +1,21 @@
+---
+import { socialLinks } from "../../data/desktop";
+---
+
+<div class="profile-social" aria-label="How to find me">
+  {socialLinks.map((item) => (
+    <a class="profile-social__item" href={item.href} target="_blank" rel="noreferrer">
+      <span class="profile-social__icon">
+        {item.iconSrc ? (
+          <img class="profile-social__iconImage" src={item.iconSrc} alt={`${item.name} logo`} loading="lazy" decoding="async" />
+        ) : (
+          <span>{item.glyph}</span>
+        )}
+      </span>
+      <span class="profile-social__copy">
+        <strong>{item.name}</strong>
+        <span>{item.note}</span>
+      </span>
+    </a>
+  ))}
+</div>
