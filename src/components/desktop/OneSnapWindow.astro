@@ -1,0 +1,26 @@
+---
+import { getEntry, render } from "astro:content";
+
+const oneSnap = await getEntry("apps", "onesnap");
+if (!oneSnap) {
+  throw new Error('App content "onesnap" not found');
+}
+
+const { Content } = await render(oneSnap);
+const { title, year, platform, summary } = oneSnap.data;
+---
+
+<div class="os-window__scroll onesnap">
+  <header class="onesnap__hero">
+    <div class="onesnap__meta">
+      <span class="onesnap__eyebrow">{year}</span>
+      <span class="onesnap__eyebrow">{platform}</span>
+    </div>
+    <h2>{title}</h2>
+    <p>{summary}</p>
+  </header>
+
+  <article class="onesnap__article">
+    <Content />
+  </article>
+</div>

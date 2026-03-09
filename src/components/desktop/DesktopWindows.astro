@@ -1,15 +1,21 @@
 ---
 import type { DesktopApp } from "../../data/desktop";
+import AttenWindow from "./AttenWindow.astro";
 import DesktopBlogWindow from "./DesktopBlogWindow.astro";
 import AppGroupWindow from "./AppGroupWindow.astro";
+import DeepChatWindow from "./DeepChatWindow.astro";
 import ExistenceWindow from "./ExistenceWindow.astro";
+import InterludeWindow from "./InterludeWindow.astro";
+import MoldayWindow from "./MoldayWindow.astro";
 import SekaiWindow from "./SekaiWindow.astro";
 import JikeIdeasWindow from "./JikeIdeasWindow.astro";
+import OneSnapWindow from "./OneSnapWindow.astro";
 import ProductPlaceholderWindow from "./ProductPlaceholderWindow.astro";
 import ReadEasyWindow from "./ReadEasyWindow.astro";
 import SettingsWindow from "./SettingsWindow.astro";
 import SocialFolderWindow from "./SocialFolderWindow.astro";
 import StudioWindow from "./StudioWindow.astro";
+import TubeNitroWindow from "./TubeNitroWindow.astro";
 import VibaryWindow from "./VibaryWindow.astro";
 import WindowFrame from "./WindowFrame.astro";
 
@@ -29,7 +35,13 @@ interface WindowDefinition {
     | typeof VibaryWindow
     | typeof SettingsWindow
     | typeof JikeIdeasWindow
+    | typeof AttenWindow
+    | typeof DeepChatWindow
     | typeof ExistenceWindow
+    | typeof InterludeWindow
+    | typeof MoldayWindow
+    | typeof OneSnapWindow
+    | typeof TubeNitroWindow
     | typeof ProductPlaceholderWindow
     | typeof AppGroupWindow
     | typeof SocialFolderWindow;
@@ -63,32 +75,27 @@ const windowDefinitions: WindowDefinition[] = [
   {
     appId: "atten",
     title: "Atten",
-    component: ProductPlaceholderWindow,
-    componentProps: { name: "Atten" }
+    component: AttenWindow
   },
   {
     appId: "interlude",
     title: "Interlude",
-    component: ProductPlaceholderWindow,
-    componentProps: { name: "Interlude" }
+    component: InterludeWindow
   },
   {
     appId: "molday",
     title: "Molday",
-    component: ProductPlaceholderWindow,
-    componentProps: { name: "Molday" }
+    component: MoldayWindow
   },
   {
     appId: "onesnap",
     title: "OneSnap",
-    component: ProductPlaceholderWindow,
-    componentProps: { name: "OneSnap" }
+    component: OneSnapWindow
   },
   {
     appId: "tube-nitro",
     title: "TubeNitro",
-    component: ProductPlaceholderWindow,
-    componentProps: { name: "TubeNitro" }
+    component: TubeNitroWindow
   },
   {
     appId: "new-portal",
@@ -99,8 +106,7 @@ const windowDefinitions: WindowDefinition[] = [
   {
     appId: "deepchat",
     title: "DeepChat",
-    component: ProductPlaceholderWindow,
-    componentProps: { name: "DeepChat" }
+    component: DeepChatWindow
   },
   {
     appId: "dogcheck",
