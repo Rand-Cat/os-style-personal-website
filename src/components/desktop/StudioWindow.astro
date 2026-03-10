@@ -10,12 +10,14 @@ const { Content } = await render(profile);
 const { title } = profile.data;
 ---
 
-<div class="os-window__scroll studio">
-  <header class="studio__hero">
-    <h2>{title}</h2>
-  </header>
+<div class="os-window__scroll">
+  <div class="studio">
+    <header class="studio__hero">
+      <h2>{title}</h2>
+    </header>
 
-  <article class="studio__article">
-    <Content />
-  </article>
+    <article class="studio__article">
+      <Content />
+    </article>
+  </div>
 </div>

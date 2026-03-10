@@ -10,17 +10,19 @@ const { Content } = await render(atten);
 const { title, year, platform, summary } = atten.data;
 ---
 
-<div class="os-window__scroll atten">
-  <header class="atten__hero">
-    <div class="atten__meta">
-      <span class="atten__eyebrow">{year}</span>
-      <span class="atten__eyebrow">{platform}</span>
-    </div>
-    <h2>{title}</h2>
-    <p>{summary}</p>
-  </header>
+<div class="os-window__scroll">
+  <div class="atten">
+    <header class="atten__hero">
+      <div class="atten__meta">
+        <span class="atten__eyebrow">{year}</span>
+        <span class="atten__eyebrow">{platform}</span>
+      </div>
+      <h2>{title}</h2>
+      <p>{summary}</p>
+    </header>
 
-  <article class="atten__article">
-    <Content />
-  </article>
+    <article class="atten__article">
+      <Content />
+    </article>
+  </div>
 </div>

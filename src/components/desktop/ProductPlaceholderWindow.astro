@@ -124,8 +124,9 @@ const content = productContent[name] ?? {
 };
 ---
 
-<div class="os-window__scroll product-placeholder">
-  <section class="product-placeholder__hero">
+<div class="os-window__scroll">
+  <div class="product-placeholder">
+    <section class="product-placeholder__hero">
     {
       content.featureShot && (
         <figure class="product-placeholder__feature-shot">
@@ -150,28 +151,29 @@ const content = productContent[name] ?? {
         </a>
       )
     }
-  </section>
+    </section>
 
-  {
-    content.screenshots && content.screenshots.length > 0 && (
-      <section class="product-placeholder__gallery" aria-label={`${name} App Store screenshots`}>
-        {content.screenshots
-          .filter((shot) => shot.src !== content.featureShot?.src)
-          .map((shot) => (
-          <figure class="product-placeholder__shot">
-            <img src={shot.src} alt={shot.alt} />
-          </figure>
-        ))}
-      </section>
-    )
-  }
+    {
+      content.screenshots && content.screenshots.length > 0 && (
+        <section class="product-placeholder__gallery" aria-label={`${name} App Store screenshots`}>
+          {content.screenshots
+            .filter((shot) => shot.src !== content.featureShot?.src)
+            .map((shot) => (
+            <figure class="product-placeholder__shot">
+              <img src={shot.src} alt={shot.alt} />
+            </figure>
+          ))}
+        </section>
+      )
+    }
 
-  <section class="product-placeholder__cards">
-    {content.cards.map((card) => (
-      <article class="product-placeholder__card">
-        <strong>{card.title}</strong>
-        <span>{card.body}</span>
-      </article>
-    ))}
-  </section>
+    <section class="product-placeholder__cards">
+      {content.cards.map((card) => (
+        <article class="product-placeholder__card">
+          <strong>{card.title}</strong>
+          <span>{card.body}</span>
+        </article>
+      ))}
+    </section>
+  </div>
 </div>

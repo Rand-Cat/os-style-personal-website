@@ -2,44 +2,46 @@
 import { vibaryHighlights, vibaryLinks } from "../../data/desktop";
 ---
 
-<div class="os-window__scroll vibary">
-  <section class="vibary__hero">
-    <img class="vibary__logo" src="/icons/vibary.png" alt="Vibary logo" />
-    <div class="vibary__copy">
-      <span class="vibary__eyebrow">A Library of Book Vibes</span>
-      <h2>把一本书做成可以进入的阅读界面</h2>
-      <p>
-        Vibary 更像一个面向作品世界的阅读入口，而不是普通书单页。官网展示里，书被整理成章节、人物、
-        主题与交互片段，让阅读更像进入一个有结构的空间。
-      </p>
-      <div class="vibary__actions">
-        <a href={vibaryLinks.home} target="_blank" rel="noreferrer">Website</a>
-        <a href={vibaryLinks.threeBody} target="_blank" rel="noreferrer">Three-Body</a>
-        <a href={vibaryLinks.systemsThinking} target="_blank" rel="noreferrer">Thinking, Fast and Slow</a>
+<div class="os-window__scroll">
+  <div class="vibary">
+    <section class="vibary__hero">
+      <img class="vibary__logo" src="/icons/vibary.png" alt="Vibary logo" />
+      <div class="vibary__copy">
+        <span class="vibary__eyebrow">A Library of Book Vibes</span>
+        <h2>把一本书做成可以进入的阅读界面</h2>
+        <p>
+          Vibary 更像一个面向作品世界的阅读入口，而不是普通书单页。官网展示里，书被整理成章节、人物、
+          主题与交互片段，让阅读更像进入一个有结构的空间。
+        </p>
+        <div class="vibary__actions">
+          <a href={vibaryLinks.home} target="_blank" rel="noreferrer">Website</a>
+          <a href={vibaryLinks.threeBody} target="_blank" rel="noreferrer">Three-Body</a>
+          <a href={vibaryLinks.systemsThinking} target="_blank" rel="noreferrer">Thinking, Fast and Slow</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="vibary__source">
-    <div class="vibary__source-card">
-      <strong>From the official site</strong>
-      <span>A Library of Book Vibes.</span>
-    </div>
-  </section>
+    <section class="vibary__source">
+      <div class="vibary__source-card">
+        <strong>From the official site</strong>
+        <span>A Library of Book Vibes.</span>
+      </div>
+    </section>
 
-  <section class="vibary__grid">
-    {vibaryHighlights.map((item) => (
-      <article class="vibary__card">
-        <h3>{item.title}</h3>
-        <p>{item.note}</p>
+    <section class="vibary__grid">
+      {vibaryHighlights.map((item) => (
+        <article class="vibary__card">
+          <h3>{item.title}</h3>
+          <p>{item.note}</p>
+        </article>
+      ))}
+      <article class="vibary__card vibary__card--wide">
+        <h3>Explore</h3>
+        <p>
+          除了首页，官网里还能看到作品页、故事页和分章节路径。整体更像把“读书”重新包装成一个适合漫游和停留的产品。
+        </p>
+        <a href={vibaryLinks.story} target="_blank" rel="noreferrer">Open story view</a>
       </article>
-    ))}
-    <article class="vibary__card vibary__card--wide">
-      <h3>Explore</h3>
-      <p>
-        除了首页，官网里还能看到作品页、故事页和分章节路径。整体更像把“读书”重新包装成一个适合漫游和停留的产品。
-      </p>
-      <a href={vibaryLinks.story} target="_blank" rel="noreferrer">Open story view</a>
-    </article>
-  </section>
+    </section>
+  </div>
 </div>
