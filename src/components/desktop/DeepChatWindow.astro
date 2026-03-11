@@ -1,28 +1,5 @@
 ---
-import { getEntry, render } from "astro:content";
-
-const deepChat = await getEntry("apps", "deepchat");
-if (!deepChat) {
-  throw new Error('App content "deepchat" not found');
-}
-
-const { Content } = await render(deepChat);
-const { title, year, platform, summary } = deepChat.data;
+import ContentAppWindow from "./ContentAppWindow.astro";
 ---
 
-<div class="os-window__scroll">
-  <div class="deepchat">
-    <header class="deepchat__hero">
-      <div class="deepchat__meta">
-        <span class="deepchat__eyebrow">{year}</span>
-        <span class="deepchat__eyebrow">{platform}</span>
-      </div>
-      <h2>{title}</h2>
-      <p>{summary}</p>
-    </header>
-
-    <article class="deepchat__article">
-      <Content />
-    </article>
-  </div>
-</div>
+<ContentAppWindow id="deepchat" />
