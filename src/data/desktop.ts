@@ -342,31 +342,31 @@ export const socialLinks = [
     name: "即刻",
     glyph: "JK",
     iconSrc: "/icons/okjk.jpg",
-    href: "https://okjk.co/",
-    note: "占位链接，后面替换成你的即刻主页。"
+    href: "https://okjk.co/irLg6A",
+    note: "即刻主页"
   },
   {
     id: "xiaohongshu",
     name: "小红书",
     glyph: "XHS",
     iconSrc: "/icons/xiaohongshu.jpg",
-    href: "https://www.xiaohongshu.com/",
-    note: "占位链接，后面替换成你的小红书主页。"
+    href: "https://xhslink.com/m/43QGtkbYvOE",
+    note: "小红书主页"
   },
   {
     id: "x",
     name: "Twitter / X",
     glyph: "X",
     iconSrc: "/icons/x.jpg",
-    href: "https://x.com/",
-    note: "占位链接，后面替换成你的 X 主页。"
+    href: "https://x.com/rand_cat",
+    note: "X 主页"
   },
   {
     id: "github",
     name: "GitHub",
     glyph: "GH",
     iconSrc: "/icons/github.jpg",
-    href: "https://github.com/",
-    note: "占位链接，后面替换成你的 GitHub 主页。"
+    href: "https://github.com/Rand-Cat",
+    note: "GitHub 主页"
   }
 ];

@@ -236,28 +236,30 @@
 
 .studio__article :where(.profile-products__card) {
   display: grid;
-  gap: 4px;
+  gap: 0;
   padding: 6px 0 8px;
   border: 0;
   border-radius: 0;
   background: transparent;
 }
 
-.studio__article :where(.profile-products__cardTop) {
-  display: block;
-}
-
 .studio__article :where(.profile-products__app) {
   display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
-  gap: 8px;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
   align-items: center;
+}
+
+.studio__article :where(.profile-products__copy) {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
 }
 
 .studio__article :where(.profile-products__headline) {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   min-width: 0;
 }
@@ -269,15 +271,15 @@
 .studio__article :where(.profile-products__icon),
 .studio__article :where(.profile-products__iconFallback) {
   display: block;
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
 }
 
 .studio__article :where(.profile-products__icon) {
   object-fit: cover;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .studio__article :where(.profile-products__iconFallback) {
@@ -301,14 +303,13 @@
     Arial,
     sans-serif;
   font-size: 15px;
-  line-height: 1.1;
+  line-height: 1.2;
   font-weight: 500;
   color: #242421;
 }
 
-.studio__article :where(.profile-products__card p) {
+.studio__article :where(.profile-products__copy p) {
   margin: 0;
-  padding-left: 38px;
   font-size: 12px;
   line-height: 1.45;
   color: var(--ink-secondary);
@@ -316,23 +317,38 @@
 
 .studio__article :where(.profile-products__tags) {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
   justify-content: flex-end;
 }
 
-.studio__article :where(.profile-products__tags span) {
+.studio__article :where(.profile-products__tag) {
   display: inline-flex;
   align-items: center;
-  min-height: 18px;
-  padding: 0 6px;
+  gap: 5px;
+  min-height: 22px;
+  padding: 0 10px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  background: rgba(250, 250, 250, 0.48);
-  font-size: 9px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--ink-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  color: #2f2f2b;
+}
+
+.studio__article :where(.profile-products__tag-icon) {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.studio__article :where(.profile-products__tag-label) {
+  display: inline-block;
 }
 
 .studio__article :where(.profile-products__toggle) {
@@ -359,10 +375,10 @@
 
 .studio__article :where(.profile-social__item) {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 10px;
   align-items: center;
-  padding: 10px 0;
+  padding: 6px 0;
   color: inherit;
   text-decoration: none;
 }
@@ -370,27 +386,20 @@
 .studio__article :where(.profile-social__icon) {
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  background: rgba(255, 255, 255, 0.72);
-  overflow: hidden;
+  width: 18px;
+  height: 18px;
+  overflow: visible;
 }
 
 .studio__article :where(.profile-social__iconImage) {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
-.studio__article :where(.profile-social__copy) {
-  display: grid;
-  gap: 3px;
+.studio__article :where(.profile-social__label) {
   min-width: 0;
-}
-
-.studio__article :where(.profile-social__copy strong) {
   font-family:
     "SF Pro Display",
     "Helvetica Neue",
@@ -400,12 +409,6 @@
   font-size: 15px;
   font-weight: 500;
   color: #242421;
-}
-
-.studio__article :where(.profile-social__copy span) {
-  font-size: 12px;
-  line-height: 1.45;
-  color: var(--ink-secondary);
 }
 
 @media (max-width: 720px) {
@@ -428,11 +431,12 @@
   }
 
   .studio__article :where(.profile-products__headline) {
-    align-items: flex-start;
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 
   .studio__article :where(.profile-products__tags) {
+    flex-wrap: wrap;
     justify-content: flex-start;
   }
 

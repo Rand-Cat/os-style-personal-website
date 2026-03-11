@@ -25,6 +25,34 @@ interface Props {
 const { years } = Astro.props;
 const appById = new Map(desktopApps.map((app) => [app.id, app]));
 const formatYearLabel = (value: string) => value.replace(/\D/g, "") || value;
+
+type ProductTag = {
+  label: string;
+  iconSrc?: string;
+};
+
+const resolveProductTag = (tag: string): ProductTag => {
+  const label = tag.trim();
+  const normalized = label.toLowerCase();
+
+  if (normalized === "ios") {
+    return { label, iconSrc: "/icons/brand/apple-mark.svg" };
+  }
+
+  if (normalized === "web" || normalized.includes("网站")) {
+    return { label, iconSrc: "/icons/brand/web-globe.svg" };
+  }
+
+  if (
+    normalized.includes("chrome extension") ||
+    normalized === "extension" ||
+    normalized.includes("插件")
+  ) {
+    return { label, iconSrc: "/icons/brand/chrome-official-64.png" };
+  }
+
+  return { label };
+};
 ---
 
 <div
@@ -54,37 +82,51 @@ const formatYearLabel = (value: string) => value.replace(/\D/g, "") || value;
                       const iconSrc = appById.get(item.appId || "")?.iconSrc;
 
                       return (
-                        <div class="profile-products__cardTop">
-                          <div class="profile-products__app">
-                            {iconSrc ? (
-                              <img
-                                class="profile-products__icon"
-                                src={iconSrc}
-                                alt={`${item.name} icon`}
-                                loading="lazy"
-                                decoding="async"
-                              />
-                            ) : (
-                              <div class="profile-products__iconFallback" aria-hidden="true">
-                                {item.name.slice(0, 2)}
-                              </div>
-                            )}
+                        <div class="profile-products__app">
+                          {iconSrc ? (
+                            <img
+                              class="profile-products__icon"
+                              src={iconSrc}
+                              alt={`${item.name} icon`}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          ) : (
+                            <div class="profile-products__iconFallback" aria-hidden="true">
+                              {item.name.slice(0, 2)}
+                            </div>
+                          )}
+                          <div class="profile-products__copy">
                             <div class="profile-products__headline">
                               <h3>{item.name}</h3>
                               {item.tags && item.tags.length > 0 && (
                                 <div class="profile-products__tags">
-                                  {item.tags.map((tag) => (
-                                    <span>{tag}</span>
-                                  ))}
+                                  {item.tags.map((tag) => {
+                                    const resolvedTag = resolveProductTag(tag);
+
+                                    return (
+                                      <span class="profile-products__tag">
+                                        {resolvedTag.iconSrc ? (
+                                          <img
+                                            class="profile-products__tag-icon"
+                                            src={resolvedTag.iconSrc}
+                                            alt=""
+                                            loading="lazy"
+                                            decoding="async"
+                                          />
+                                        ) : null}
+                                        <span class="profile-products__tag-label">{resolvedTag.label}</span>
+                                      </span>
+                                    );
+                                  })}
                                 </div>
                               )}
                             </div>
+                            {item.note && <p>{item.note}</p>}
                           </div>
                         </div>
                       );
                     })()}
-
-                    {item.note && <p>{item.note}</p>}
                   </article>
                 ))}
               </div>
