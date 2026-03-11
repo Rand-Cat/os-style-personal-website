@@ -54,10 +54,10 @@
     Helvetica,
     Arial,
     sans-serif;
-  font-size: clamp(1.4rem, 2.1vw, 2.25rem);
-  line-height: 0.94;
+  font-size: clamp(1.6rem, 2.6vw, 2.6rem);
+  line-height: 1.02;
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   color: #182038;
 }
 

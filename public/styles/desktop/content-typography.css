@@ -1,9 +1,6 @@
 /* Align markdown/MDX app typography with the About Me (studio) window. */
 
-.atten__hero h2,
 .deepchat__hero h2,
-.existence__hero h2,
-.molday__hero h2,
 .read-easy__hero h2,
 .sekai__hero h2 {
   font-family:
@@ -19,10 +16,7 @@
   letter-spacing: -0.02em;
 }
 
-.atten__hero p,
 .deepchat__hero p,
-.existence__hero p,
-.molday__hero p,
 .read-easy__hero p,
 .sekai__hero p {
   max-width: none;
@@ -31,10 +25,7 @@
   color: #1f1f1d;
 }
 
-.atten__article :where(h2),
 .deepchat__article :where(h2),
-.existence__article :where(h2),
-.molday__article :where(h2),
 .read-easy__article :where(h2),
 .sekai__article :where(h2) {
   font-family:
@@ -49,7 +40,6 @@
   color: #2a2a27;
 }
 
-.atten__article :where(h3),
 .molday__article :where(h3) {
   font-family:
     "SF Pro Display",
@@ -62,10 +52,7 @@
   font-weight: 700;
 }
 
-.atten__article :where(p, li),
 .deepchat__article :where(p, li),
-.existence__article :where(p, li),
-.molday__article :where(p, li),
 .read-easy__article :where(p, li),
 .sekai__article :where(p, li) {
   font-size: 17px;
