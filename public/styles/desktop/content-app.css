@@ -84,6 +84,13 @@
   align-items: center;
 }
 
+.content-app__metaIcon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  object-fit: contain;
+}
+
 .content-app__meta span + span::before {
   content: "\00B7";
   margin: 0 10px;

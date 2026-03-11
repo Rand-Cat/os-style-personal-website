@@ -1,8 +1,11 @@
 ---
 title: Existence
 year: "2024"
-platform: "Web / Chrome 扩展"
 summary: "在任意网页上和你喜欢的角色聊天"
+tags:
+  - Web
+  - Extension
+titleTag: "by Reflex AI"
 heroImage: "/images/apps/existence/intro.png"
 heroAlt: "Existence 应用介绍横幅"
 webImage: "/images/apps/existence/web.png"

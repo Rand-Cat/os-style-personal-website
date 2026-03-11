@@ -1,8 +1,10 @@
 ---
 title: sekai
 year: "2024"
-platform: "iOS"
 summary: "结合 AI 角色的 IM"
+tags:
+  - IM
+titleTag: "by Reflex AI"
 heroImage: "/images/apps/sekai/landingpage.png"
 heroAlt: "sekai 官网介绍页面"
 webImage: "/images/apps/sekai/landingpage.png"

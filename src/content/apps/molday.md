@@ -1,8 +1,11 @@
 ---
 title: Molday
 year: "2024"
-platform: "iOS"
 summary: "当你在玩手机的时候，你可能在发霉"
+tags:
+  - 屏幕时间
+  - iOS
+titleTag: "by zhijie & wy"
 heroImage: "/images/apps/molday/home.png"
 heroAlt: "Molday 培养皿首页"
 webImage: "/images/apps/molday/apps-usage.png"

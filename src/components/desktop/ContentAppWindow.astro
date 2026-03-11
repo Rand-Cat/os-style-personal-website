@@ -16,9 +16,9 @@ const { Content } = await render(entry);
 const {
   title,
   year,
-  platform,
   summary,
   tags = [],
+  titleTag,
   websiteUrl,
   websiteLabel = "访问网站",
   heroImage,
@@ -28,6 +28,57 @@ const {
 const desktopApp = desktopApps.find((app) => app.id === id);
 const heroLogo = desktopApp?.iconSrc ?? heroImage;
 const heroLogoAlt = heroAlt ?? `${title} 图标`;
+
+type MetaTag = {
+  label: string;
+  iconSrc?: string;
+  iconKey?: "ios" | "web" | "extension";
+};
+
+const resolveMetaTag = (value?: string): MetaTag | undefined => {
+  if (!value) return;
+
+  const label = value.trim();
+  const normalized = label.toLowerCase();
+
+  if (!label) return;
+
+  if (normalized === "ios" || normalized.startsWith("ios ") || normalized.endsWith(" ios")) {
+    return { label, iconSrc: "/icons/brand/apple-mark.svg", iconKey: "ios" };
+  }
+
+  if (normalized === "web" || normalized.includes("网站")) {
+    return { label, iconSrc: "/icons/brand/web-globe.svg", iconKey: "web" };
+  }
+
+  if (
+    normalized.includes("chrome extension") ||
+    normalized === "extension" ||
+    normalized.includes("插件") ||
+    normalized.includes("chrome 扩展")
+  ) {
+    return { label, iconSrc: "/icons/brand/chrome-official-64.png", iconKey: "extension" };
+  }
+
+  return { label };
+};
+
+const metaTags: MetaTag[] = [];
+const seenMetaTagLabels = new Set<string>();
+
+const pushMetaTag = (tag?: MetaTag) => {
+  if (!tag) return;
+
+  const key = tag.iconKey ?? tag.label.trim().toLowerCase();
+  if (!key || seenMetaTagLabels.has(key)) return;
+
+  seenMetaTagLabels.add(key);
+  metaTags.push(tag);
+};
+
+pushMetaTag(year ? { label: year } : undefined);
+pushMetaTag(titleTag ? { label: titleTag } : undefined);
+tags.forEach((tag) => pushMetaTag(resolveMetaTag(tag)));
 ---
 
 <div class="os-window__scroll">
@@ -55,10 +106,19 @@ const heroLogoAlt = heroAlt ?? `${title} 图标`;
       </div>
 
       <div class:list={["content-app__meta", `${id}__meta`]}>
-        <span>{year}</span>
-        <span>{platform}</span>
-        {tags.map((tag) => (
-          <span>{tag}</span>
+        {metaTags.map(({ label, iconSrc }) => (
+          <span>
+            {iconSrc && (
+              <img
+                class="content-app__metaIcon"
+                src={iconSrc}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            {label}
+          </span>
         ))}
       </div>
     </header>

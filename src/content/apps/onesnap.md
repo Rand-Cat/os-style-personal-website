@@ -1,11 +1,10 @@
 ---
 title: OneSnap
 year: "2025"
-platform: "iOS"
 summary: "连接两台设备，将摄像头画面转发至另一台设备"
 tags:
+  - Vibe Coding
   - iOS
-  - 远程快门
   - 协同拍摄
 websiteUrl: "https://apps.apple.com/us/app/onesnap/id6754680962"
 websiteLabel: "App Store"

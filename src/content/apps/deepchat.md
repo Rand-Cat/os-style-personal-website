@@ -1,8 +1,10 @@
 ---
 title: DeepChat
 year: "2025"
-platform: "Concept / Messaging"
 summary: "2024 愚人节：微信将引入深度思考功能"
+tags:
+  - 愚人节
+  - For Fun
 heroImage: "/images/apps/deepchat/red-note-screenshot.PNG"
 heroAlt: "DeepChat 小红书截图"
 webImage: "/images/apps/deepchat/red-note-screenshot.PNG"

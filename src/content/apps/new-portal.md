@@ -1,7 +1,6 @@
 ---
 title: New Portal
 year: "2025"
-platform: "Web"
 summary: "根据问题自动判断使用 Google 还是问 ChatGPT"
 heroImage: "/icons/New Portal.png"
 heroAlt: "New Portal 图标"
@@ -10,6 +9,7 @@ webAlt: "New Portal 图标"
 extensionImage: "/icons/New Portal.png"
 extensionAlt: "New Portal 图标"
 tags:
+  - Extension
   - 实验
   - 占位
 ---

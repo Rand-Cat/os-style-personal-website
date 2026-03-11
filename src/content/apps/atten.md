@@ -1,8 +1,10 @@
 ---
 title: Atten
 year: "2023"
-platform: "Web"
 summary: "结合 GUI 和 LUI，用 AI 写作、学语言、编程"
+tags:
+  - AI
+  - Web
 heroImage: "/images/apps/atten/chat-ui.webp"
 heroAlt: "Atten Chat UI"
 webImage: "/images/apps/atten/noten.webp"
