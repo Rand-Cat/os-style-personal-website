@@ -300,17 +300,4 @@
     gap: 18px;
     padding: 0 0 8px;
   }
-
-  .content-app__article :where(h2) {
-    font-size: 21px;
-  }
-
-  .content-app__article :where(h3) {
-    font-size: 17px;
-  }
-
-  .content-app__article :where(p, li) {
-    font-size: 15px;
-    line-height: 1.8;
-  }
 }
