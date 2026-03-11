@@ -11,6 +11,9 @@ import SekaiWindow from "./SekaiWindow.astro";
 import JikeIdeasWindow from "./JikeIdeasWindow.astro";
 import OneSnapWindow from "./OneSnapWindow.astro";
 import ProductPlaceholderWindow from "./ProductPlaceholderWindow.astro";
+import ContentAppWindow from "./ContentAppWindow.astro";
+import DogcheckWindow from "./DogcheckWindow.astro";
+import NewPortalWindow from "./NewPortalWindow.astro";
 import ReadEasyWindow from "./ReadEasyWindow.astro";
 import SettingsWindow from "./SettingsWindow.astro";
 import StudioWindow from "./StudioWindow.astro";
@@ -95,23 +98,13 @@ const windowDefinitions: WindowDefinition[] = [
     title: "TubeNitro",
     component: TubeNitroWindow
   },
-  {
-    appId: "new-portal",
-    title: "New Portal",
-    component: ProductPlaceholderWindow,
-    componentProps: { name: "New Portal" }
-  },
+  { appId: "new-portal", title: "New Portal", component: NewPortalWindow },
   {
     appId: "deepchat",
     title: "DeepChat",
     component: DeepChatWindow
   },
-  {
-    appId: "dogcheck",
-    title: "DogCheck",
-    component: ProductPlaceholderWindow,
-    componentProps: { name: "DogCheck" }
-  },
+  { appId: "dogcheck", title: "DogCheck", component: DogcheckWindow },
   {
     appId: "existence",
     title: "Existence",
