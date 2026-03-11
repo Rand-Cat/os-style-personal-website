@@ -2,7 +2,7 @@
 title: sekai
 year: "2024"
 platform: "iOS"
-summary: "一个面向兴趣社群的在线游乐场，主打 persona chat、群组广场、限时消息和推荐动态。"
+summary: "结合 AI 角色的 IM"
 heroImage: "/images/apps/sekai/landingpage.png"
 heroAlt: "sekai 官网介绍页面"
 webImage: "/images/apps/sekai/landingpage.png"

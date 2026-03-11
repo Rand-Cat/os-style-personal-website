@@ -2,7 +2,7 @@
 title: TubeNitro
 year: "2025"
 platform: "Chrome Extension"
-summary: "一个给 YouTube 视频页增加长按滑动变速控制的浏览器扩展，把原本离散的倍速切换变成连续、直接的桌面手势。"
+summary: "调节 Youtube 倍速最自然的交互方式"
 tags:
   - Chrome 扩展
   - YouTube

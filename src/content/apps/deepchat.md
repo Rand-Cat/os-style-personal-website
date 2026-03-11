@@ -2,7 +2,7 @@
 title: DeepChat
 year: "2025"
 platform: "Concept / Messaging"
-summary: "一个从愚人节脑洞长出来的概念应用：先是“微信引入深度思考”的恶搞设定在社交媒体上爆火，后来又被继续往前推，变成一个可以让用户自己创作这类聊天段子的产品方向。"
+summary: "2024 愚人节：微信将引入深度思考功能"
 heroImage: "/images/apps/deepchat/red-note-screenshot.PNG"
 heroAlt: "DeepChat 小红书截图"
 webImage: "/images/apps/deepchat/red-note-screenshot.PNG"

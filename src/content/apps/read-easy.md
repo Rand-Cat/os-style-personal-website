@@ -2,7 +2,7 @@
 title: Read Easy
 year: "2025"
 platform: "Web / Chrome Extension"
-summary: "一个围绕英语阅读设计的产品：既有网页版信息源阅读器，也有浏览器插件阅读模式，还在内部用一套自定义 DSL 把 AI 标注转成可读、可交互的阅读界面。"
+summary: "让阅读英语变简单"
 heroImage: "/icons/read-easy.png"
 heroAlt: "Read Easy 图标"
 webImage: "/images/apps/read-easy/home.png"

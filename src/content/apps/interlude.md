@@ -2,7 +2,7 @@
 title: Interlude
 year: "2025"
 platform: "Chrome Extension"
-summary: "一个在 AI 思考或生图时自动弹出单词卡片的浏览器扩展，把等待时间变成轻量的微学习时刻。"
+summary: "等 AI 思考的时候，背个单词吧"
 tags:
   - 微学习
   - Chrome 扩展

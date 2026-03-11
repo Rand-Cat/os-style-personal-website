@@ -2,7 +2,7 @@
 title: Atten
 year: "2023"
 platform: "Web"
-summary: "一个由 AI 驱动的 all-in-one workspace，把聊天、写作、学习和浏览器内编程放进同一个产品里。"
+summary: "结合 GUI 和 LUI，用 AI 写作、学语言、编程"
 heroImage: "/images/apps/atten/chat-ui.webp"
 heroAlt: "Atten Chat UI"
 webImage: "/images/apps/atten/noten.webp"

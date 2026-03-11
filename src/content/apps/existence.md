@@ -2,7 +2,7 @@
 title: Existence
 year: "2024"
 platform: "Web / Chrome 扩展"
-summary: "让用户创造自己的 AI 角色，或者发现别人创造的角色，并和这些角色持续聊天。"
+summary: "在任意网页上和你喜欢的角色聊天"
 heroImage: "/images/apps/existence/intro.png"
 heroAlt: "Existence 应用介绍横幅"
 webImage: "/images/apps/existence/web.png"

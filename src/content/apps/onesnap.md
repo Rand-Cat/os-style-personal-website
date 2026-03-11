@@ -2,7 +2,7 @@
 title: OneSnap
 year: "2025"
 platform: "iOS"
-summary: "一个把双机拍摄做得更直接的相机工具：一台设备负责拍摄，另一台设备实时查看取景并远程按下快门。"
+summary: "连接两台设备，将摄像头画面转发至另一台设备"
 tags:
   - iOS
   - 远程快门

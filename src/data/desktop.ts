@@ -149,7 +149,7 @@ export const desktopApps: DesktopApp[] = [
     iconY: 118
   },
   {
-    id: "tube-nitro",
+    id: "tubenitro",
     name: "TubeNitro",
     glyph: "TN",
     iconSrc: "/icons/TubeNitro.png",
@@ -233,7 +233,7 @@ export const desktopApps: DesktopApp[] = [
     groupMembers: [
       { id: "interlude", glyph: "IN", name: "Interlude", iconSrc: "/icons/interlude.png" },
       { id: "onesnap", glyph: "OS", name: "OneSnap", iconSrc: "/icons/onesnap.png" },
-      { id: "tube-nitro", glyph: "TN", name: "TubeNitro", iconSrc: "/icons/TubeNitro.png" },
+      { id: "tubenitro", glyph: "TN", name: "TubeNitro", iconSrc: "/icons/TubeNitro.png" },
       { id: "new-portal", glyph: "NP", name: "New Portal", iconSrc: "/icons/New Portal.png" }
     ],
     width: 760,

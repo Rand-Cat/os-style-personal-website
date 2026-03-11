@@ -2,7 +2,7 @@
 title: Molday
 year: "2024"
 platform: "iOS"
-summary: "一个把每日手机使用时间可视化成“发霉”过程的 iOS companion app，把 Screen Time、健康数据和一点黑色幽默放进同一个界面里。"
+summary: "当你在玩手机的时候，你可能在发霉"
 heroImage: "/images/apps/molday/home.png"
 heroAlt: "Molday 培养皿首页"
 webImage: "/images/apps/molday/apps-usage.png"

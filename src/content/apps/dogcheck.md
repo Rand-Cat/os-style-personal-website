@@ -2,7 +2,7 @@
 title: DogCheck
 year: "2025"
 platform: "Web / Prototype"
-summary: "一个正在验证中的小工具，用来快速检查站点或脚本是否被『狗』住了，当前为占位版本。"
+summary: "你和狗有什么区别？"
 heroImage: "/icons/DogCheck.png"
 heroAlt: "DogCheck 图标"
 webImage: "/icons/DogCheck.png"

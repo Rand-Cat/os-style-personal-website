@@ -2,7 +2,7 @@
 title: New Portal
 year: "2025"
 platform: "Web"
-summary: "一个新的入口实验，后续会补充具体内容与展示。"
+summary: "根据问题自动判断使用 Google 还是问 ChatGPT"
 heroImage: "/icons/New Portal.png"
 heroAlt: "New Portal 图标"
 webImage: "/icons/New Portal.png"
