@@ -6,6 +6,7 @@ interface ProductItem {
   appId?: string;
   note?: string;
   tags?: string[];
+  titleTag?: string;
 }
 
 interface ProductGroup {
@@ -98,10 +99,13 @@ const resolveProductTag = (tag: string): ProductTag => {
                           )}
                           <div class="profile-products__copy">
                             <div class="profile-products__headline">
-                              <h3>{item.name}</h3>
-                              {item.tags && item.tags.length > 0 && (
+                              <div class="profile-products__titleRow">
+                                <h3>{item.name}</h3>
+                                {item.titleTag && <span class="profile-products__titleTag">{item.titleTag}</span>}
+                              </div>
+                              {item.tags && item.tags.length > 0 ? (
                                 <div class="profile-products__tags">
-                                  {item.tags.map((tag) => {
+                                  {item.tags?.map((tag) => {
                                     const resolvedTag = resolveProductTag(tag);
 
                                     return (
@@ -120,7 +124,7 @@ const resolveProductTag = (tag: string): ProductTag => {
                                     );
                                   })}
                                 </div>
-                              )}
+                              ) : null}
                             </div>
                             {item.note && <p>{item.note}</p>}
                           </div>
