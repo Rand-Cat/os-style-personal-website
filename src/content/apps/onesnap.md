@@ -3,6 +3,12 @@ title: OneSnap
 year: "2025"
 platform: "iOS"
 summary: "一个把双机拍摄做得更直接的相机工具：一台设备负责拍摄，另一台设备实时查看取景并远程按下快门。"
+tags:
+  - iOS
+  - 远程快门
+  - 协同拍摄
+websiteUrl: "https://apps.apple.com/us/app/onesnap/id6754680962"
+websiteLabel: "App Store"
 heroImage: "/images/apps/onesnap/appstore-1.jpg"
 heroAlt: "OneSnap App Store 首屏截图"
 webImage: "/images/apps/onesnap/appstore-2.jpg"

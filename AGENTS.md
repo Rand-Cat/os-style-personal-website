@@ -284,3 +284,11 @@ Optimize for:
 - clear structure
 - smooth interaction behavior
 - easy handoff for the next agent
+
+## Desktop Content Layout State (2026-03-11)
+
+- Vibary is the visual reference for app content windows. Its hero remains custom; its Markdown (`h2/h3/p`) now matches About Me typography (SF Pro Display, 26px/19px titles, 17px body).
+- Interlude, OneSnap, TubeNitro now render via `ContentAppWindow` using the shared `content-app.css` typography (same Markdown sizes as About Me) and keep their original desktop icons as hero logos.
+- `content-typography.css` no longer overrides these apps; Markdown sizing lives in `content-app.css` and each app’s own CSS (e.g., `vibary.css`).
+- OneSnap gallery layout restored: three-column grid on desktop, single column under 900px; images keep original aspect, no forced downsizing.
+- Reading widths: container 860px, text column 760px for content apps.

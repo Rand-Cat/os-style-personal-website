@@ -3,13 +3,9 @@
 .atten__hero h2,
 .deepchat__hero h2,
 .existence__hero h2,
-.interlude__hero h2,
 .molday__hero h2,
-.onesnap__hero h2,
 .read-easy__hero h2,
-.vibary__hero h2,
-.sekai__hero h2,
-.tubenitro__hero h2 {
+.sekai__hero h2 {
   font-family:
     "SF Pro Display",
     "Helvetica Neue",
@@ -26,13 +22,9 @@
 .atten__hero p,
 .deepchat__hero p,
 .existence__hero p,
-.interlude__hero p,
 .molday__hero p,
-.onesnap__hero p,
 .read-easy__hero p,
-.vibary__hero p,
-.sekai__hero p,
-.tubenitro__hero p {
+.sekai__hero p {
   max-width: none;
   font-size: 17px;
   line-height: 1.95;
@@ -42,13 +34,9 @@
 .atten__article :where(h2),
 .deepchat__article :where(h2),
 .existence__article :where(h2),
-.interlude__article :where(h2),
 .molday__article :where(h2),
-.onesnap__article :where(h2),
 .read-easy__article :where(h2),
-.vibary__article :where(h2),
-.sekai__article :where(h2),
-.tubenitro__article :where(h2) {
+.sekai__article :where(h2) {
   font-family:
     "SF Pro Display",
     "Helvetica Neue",
@@ -77,13 +65,9 @@
 .atten__article :where(p, li),
 .deepchat__article :where(p, li),
 .existence__article :where(p, li),
-.interlude__article :where(p, li),
 .molday__article :where(p, li),
-.onesnap__article :where(p, li),
 .read-easy__article :where(p, li),
-.vibary__article :where(p, li),
-.sekai__article :where(p, li),
-.tubenitro__article :where(p, li) {
+.sekai__article :where(p, li) {
   font-size: 17px;
   line-height: 1.95;
   color: #1f1f1d;

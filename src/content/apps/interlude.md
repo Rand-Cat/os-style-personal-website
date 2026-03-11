@@ -3,6 +3,12 @@ title: Interlude
 year: "2025"
 platform: "Chrome Extension"
 summary: "一个在 AI 思考或生图时自动弹出单词卡片的浏览器扩展，把等待时间变成轻量的微学习时刻。"
+tags:
+  - 微学习
+  - Chrome 扩展
+  - 等待时间
+websiteUrl: "https://chromewebstore.google.com/detail/interlude/oafhmpindfnaffeacgjohkkbpdbahgdn"
+websiteLabel: "访问商店"
 heroImage: "/images/apps/interlude/store-1.jpg"
 heroAlt: "Interlude 在 AI 页面中的单词卡片界面"
 webImage: "/images/apps/interlude/store-2.jpg"

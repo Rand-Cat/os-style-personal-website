@@ -1,29 +1,29 @@
-.onesnap {
+.content-app {
   display: grid;
   gap: 26px;
   width: min(100%, 860px);
-  --onesnap-reading-max: 760px;
+  --content-app-reading-max: 760px;
   min-width: 0;
   margin: 0 auto;
   padding: 22px;
 }
 
-.onesnap__hero {
+.content-app__hero {
   padding: 6px 2px 0;
   display: grid;
   gap: 12px;
-  width: min(100%, var(--onesnap-reading-max));
+  width: min(100%, var(--content-app-reading-max));
   margin: 0 auto;
 }
 
-.onesnap__heroMain {
+.content-app__heroMain {
   display: grid;
   grid-template-columns: 74px minmax(0, 1fr) auto;
   gap: 16px;
   align-items: center;
 }
 
-.onesnap__heroLogo {
+.content-app__heroLogo {
   display: block;
   width: 74px;
   height: 74px;
@@ -33,7 +33,7 @@
   background: rgba(255, 255, 255, 0.82);
 }
 
-.onesnap__heroCopy {
+.content-app__heroCopy {
   display: grid;
   align-content: center;
   gap: 10px;
@@ -41,13 +41,13 @@
   min-width: 0;
 }
 
-.onesnap__hero h2,
-.onesnap__hero p,
-.onesnap__article :where(h2, p, figure, ul) {
+.content-app__hero h2,
+.content-app__hero p,
+.content-app__article :where(h2, p, ul, figure, a) {
   margin: 0;
 }
 
-.onesnap__hero h2 {
+.content-app__hero h2 {
   font-family:
     "SF Pro Display",
     "Helvetica Neue",
@@ -61,14 +61,14 @@
   color: #182038;
 }
 
-.onesnap__hero p {
+.content-app__hero p {
   max-width: 34ch;
   font-size: 15px;
   line-height: 1.28;
   color: #45506a;
 }
 
-.onesnap__meta {
+.content-app__meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -79,18 +79,18 @@
   padding-left: 0;
 }
 
-.onesnap__meta span {
+.content-app__meta span {
   display: inline-flex;
   align-items: center;
 }
 
-.onesnap__meta span + span::before {
+.content-app__meta span + span::before {
   content: "\00B7";
   margin: 0 10px;
   color: rgba(88, 98, 122, 0.55);
 }
 
-.onesnap__heroLink {
+.content-app__heroLink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -117,98 +117,114 @@
     color 160ms ease;
 }
 
-.onesnap__heroLink:hover {
+.content-app__heroLink:hover {
   border-color: rgba(31, 41, 68, 0.18);
   background: rgba(255, 255, 255, 0.9);
   color: #1f2944;
 }
 
-.onesnap__article {
+.content-app__article {
   display: grid;
   gap: 22px;
-  width: min(100%, var(--onesnap-reading-max));
+  width: min(100%, var(--content-app-reading-max));
   margin: 0 auto;
   padding: 0 2px 8px;
   min-width: 0;
 }
 
-.onesnap__article > :where(h2, p, img, ul, a) {
+.content-app__article > :where(h2, p, img, ul, a) {
   display: grid;
 }
 
-.onesnap__article > :where(.onesnap-gallery) {
-  display: grid;
+.content-app__article :where(h2) {
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 26px;
+  line-height: 1.12;
+  font-weight: 600;
+  color: #2a2a27;
 }
 
-.onesnap__article :where(h2) {
-  font-size: 22px;
-  line-height: 1.15;
+.content-app__article :where(h3) {
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 19px;
+  line-height: 1.22;
+  font-weight: 700;
 }
 
-.onesnap__article :where(p, li) {
-  font-size: 13px;
-  line-height: 1.75;
-  color: var(--ink-secondary);
+.content-app__article :where(p, li) {
+  font-size: 17px;
+  line-height: 1.95;
+  color: #1f1f1d;
 }
 
-.onesnap__article :where(ul) {
+.content-app__article :where(ul) {
   gap: 10px;
   padding-left: 18px;
 }
 
-.onesnap__article :where(img) {
+.content-app__article img {
   display: block;
   width: 100%;
-  max-height: 340px;
-  border-radius: 14px;
   height: auto;
+  border-radius: 16px;
   object-fit: contain;
-  object-position: center;
 }
 
-.onesnap__article :where(.onesnap-gallery) {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  align-items: start;
-}
-
-.onesnap__article :where(.onesnap-gallery img) {
-  max-height: none;
-  aspect-ratio: 600 / 1299;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  background: rgba(255, 255, 255, 0.82);
-  object-fit: cover;
-  object-position: top center;
-}
-
-.onesnap__article :where(a) {
+.content-app__article :where(a) {
   color: #2c4e92;
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
 
+/* OneSnap gallery restore */
+.content-app__article .onesnap-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.content-app__article .onesnap-gallery img {
+  aspect-ratio: 600 / 1299;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.82);
+  object-fit: cover;
+  object-position: top center;
+  max-height: none;
+}
+
 @media (max-width: 900px) {
-  .onesnap__article :where(.onesnap-gallery) {
+  .content-app__article .onesnap-gallery {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 820px) {
-  .onesnap__heroMain {
+  .content-app__heroMain {
     grid-template-columns: 72px minmax(0, 1fr);
   }
 
-  .onesnap__heroLogo {
+  .content-app__heroLogo {
     width: 68px;
     height: 68px;
     border-radius: 18px;
   }
 
-  .onesnap__heroCopy {
+  .content-app__heroCopy {
     min-height: 68px;
   }
 
-  .onesnap__heroLink {
+  .content-app__heroLink {
     grid-column: 1 / -1;
     justify-self: start;
     margin-left: 0;
@@ -216,11 +232,11 @@
 }
 
 @media (max-width: 560px) {
-  .onesnap__heroMain {
+  .content-app__heroMain {
     grid-template-columns: 1fr;
   }
 
-  .onesnap__heroLink {
+  .content-app__heroLink {
     margin-left: 0;
   }
 }
