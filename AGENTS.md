@@ -287,8 +287,21 @@ Optimize for:
 
 ## Desktop Content Layout State (2026-03-11)
 
-- Vibary is the visual reference for app content windows. Its hero remains custom; its Markdown (`h2/h3/p`) now matches About Me typography (SF Pro Display, 26px/19px titles, 17px body).
-- Interlude, OneSnap, TubeNitro now render via `ContentAppWindow` using the shared `content-app.css` typography (same Markdown sizes as About Me) and keep their original desktop icons as hero logos.
-- `content-typography.css` no longer overrides these apps; Markdown sizing lives in `content-app.css` and each app’s own CSS (e.g., `vibary.css`).
-- OneSnap gallery layout restored: three-column grid on desktop, single column under 900px; images keep original aspect, no forced downsizing.
-- Reading widths: container 860px, text column 760px for content apps.
+- Content apps should use the shared `ContentAppWindow.astro` + `/styles/desktop/content-app.css`. This sets a unified hero layout (logo from desktop iconSrc, title, summary, optional link, meta line) and Markdown sizing (h2 26px, h3 19px, body 17px).
+- Avoid per-app typography overrides; do not reintroduce app-specific font/size overrides in shared panes unless absolutely necessary and documented here.
+- Reading widths: container 860px max, text column 760px max.
+- OneSnap gallery: three columns on desktop, single column under 900px; keep original aspect and size (no downscaling).
+- If an app needs bespoke visuals, keep them scoped to unique selectors and do not touch hero/body font sizes set by `content-app.css`.
+
+### Mobile hero layout (≤ 560px)
+
+The `ContentAppWindow` hero adapts to a compact Product Hunt-style layout at narrow widths. All rules live in the `@media (max-width: 560px)` block inside `content-app.css`.
+
+Structure at ≤ 560px:
+
+- **Row 1**: App icon (36 px, rounded) + product name, vertically centered with each other.
+- **Row 2**: Summary text, spanning the full grid width and left-aligned with the icon.
+- **Row 3**: Full-width CTA button (stretches edge-to-edge, 44 px tall, 12 px radius).
+- **Below**: Meta line (year · platform · tags), same compact dot-separated style as desktop.
+
+Implementation detail: `.content-app__heroCopy` is set to `display: contents` on mobile so that the `h2` and `p` it wraps participate directly in the parent grid and can be placed on separate rows via explicit `grid-row` / `grid-column` values. Do not remove this or wrap the children in an extra element — it would break the two-row title/summary split.
