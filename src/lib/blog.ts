@@ -14,34 +14,28 @@ export const BLOG_COPY: Record<
   BlogLocale,
   {
     htmlLang: string;
-    listTitle: string;
-    listEyebrow: string;
-    listDescription: string;
-    readArticle: string;
     backToBlog: string;
     moreArticles: string;
     embeddedDescription: string;
+    emptyStateTitle: string;
+    emptyStateDescription: string;
   }
 > = {
   zh: {
     htmlLang: "zh-CN",
-    listTitle: "一些关于产品、空间感和个人网站表达方式的示例文章。",
-    listEyebrow: "Minimal Notes",
-    listDescription: "这一页故意做得很安静。没有窗口、没有游戏机制，只保留标题、时间、摘要和阅读入口，让文章自己承担注意力。",
-    readArticle: "阅读文章 →",
     backToBlog: "← 返回博客",
     moreArticles: "查看更多文章",
-    embeddedDescription: "左边选文章，右边直接在窗口内阅读。独立的 `/blog` 入口也继续保留。"
+    embeddedDescription: "左边选文章，右边直接在窗口内阅读。独立的 `/blog` 入口也继续保留。",
+    emptyStateTitle: "还没有文章",
+    emptyStateDescription: "这个语言下暂时没有可读内容。"
   },
   en: {
     htmlLang: "en",
-    listTitle: "Sample essays on products, spatial interfaces, and how a personal site can feel inhabited.",
-    listEyebrow: "Minimal Notes",
-    listDescription: "This version stays intentionally quiet. Just titles, dates, summaries, and the writing itself.",
-    readArticle: "Read article →",
     backToBlog: "← Back to blog",
     moreArticles: "Browse more articles",
-    embeddedDescription: "Pick an article on the left and read it inside the desktop window. The standalone `/blog` entry still stays available."
+    embeddedDescription: "Pick an article on the left and read it inside the desktop window. The standalone `/blog` entry still stays available.",
+    emptyStateTitle: "No posts yet",
+    emptyStateDescription: "There is nothing to read in this locale for now."
   }
 };
 

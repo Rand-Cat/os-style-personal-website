@@ -1,6 +1,7 @@
 ---
 import {
   BLOG_LOCALES,
+  BLOG_COPY,
   DEFAULT_BLOG_LOCALE,
   BLOG_LANGUAGE_LABELS,
   formatBlogDate,
@@ -26,19 +27,26 @@ const { postsByLocale, defaultHref } = Astro.props;
   <aside class="blog-browser__sidebar" data-scroll-lock>
     {BLOG_LOCALES.map((locale) => (
       <div class="blog-browser__list" data-blog-list={locale} hidden={locale !== DEFAULT_BLOG_LOCALE}>
-        {postsByLocale[locale].map((post, index) => (
-          <button
-            class:list={["blog-browser__item", locale === DEFAULT_BLOG_LOCALE && index === 0 && "is-active"]}
-            type="button"
-            data-blog-locale={locale}
-            data-blog-target={getBlogEmbedPath(locale, post.data.translationKey)}
-            aria-label={`${BLOG_LANGUAGE_LABELS[locale]} ${post.data.title}`}
-          >
-            <span class="blog-browser__item-title">{post.data.title}</span>
-            <p class="blog-browser__item-excerpt">{post.data.excerpt}</p>
-            <time>{formatBlogDate(post.data.date)}</time>
-          </button>
-        ))}
+        {postsByLocale[locale].length > 0 ? (
+          postsByLocale[locale].map((post, index) => (
+            <button
+              class:list={["blog-browser__item", locale === DEFAULT_BLOG_LOCALE && index === 0 && "is-active"]}
+              type="button"
+              data-blog-locale={locale}
+              data-blog-target={getBlogEmbedPath(locale, post.data.translationKey)}
+              aria-label={`${BLOG_LANGUAGE_LABELS[locale]} ${post.data.title}`}
+            >
+              <span class="blog-browser__item-title">{post.data.title}</span>
+              <p class="blog-browser__item-excerpt">{post.data.excerpt}</p>
+              <time>{formatBlogDate(post.data.date)}</time>
+            </button>
+          ))
+        ) : (
+          <section class="blog-browser__empty">
+            <h3>{BLOG_COPY[locale].emptyStateTitle}</h3>
+            <p>{BLOG_COPY[locale].emptyStateDescription}</p>
+          </section>
+        )}
       </div>
     ))}
   </aside>

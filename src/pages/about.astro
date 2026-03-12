@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import SystemBreadcrumbs from "../components/shared/SystemBreadcrumbs.astro";
 
 const profile = (await getCollection("apps")).find(
   (entry) => entry.id === "profile" || entry.filePath?.endsWith("profile.mdx")
@@ -86,9 +87,10 @@ const { title } = profile.data;
       <header class="system-bar">
         <div class="system-left">
           <a class="os-logo" href="/" aria-label="Back to home"></a>
-        </div>
-        <div class="system-right">
-          <span>About Me</span>
+          <SystemBreadcrumbs items={[
+            { label: "Desktop", href: "/" },
+            { label: "About", current: true }
+          ]} />
         </div>
       </header>
 

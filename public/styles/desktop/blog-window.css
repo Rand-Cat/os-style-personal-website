@@ -86,6 +86,30 @@
   overflow: hidden;
 }
 
+.blog-browser__empty {
+  display: grid;
+  gap: 8px;
+  padding: 16px 6px 0;
+  color: #6f675c;
+}
+
+.blog-browser__empty h3 {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: #24211d;
+}
+
+.blog-browser__empty p {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
 .blog-browser__content,
 .blog-browser__frame {
   min-height: 100%;
@@ -106,6 +130,87 @@
 
 .blog-browser__back {
   display: none;
+}
+
+.blog-window__title-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.blog-window__title-actionWrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.blog-window__title-actionWrap::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%) translateY(-4px);
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: rgba(28, 28, 28, 0.9);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 8;
+  transition:
+    opacity 0.14s ease,
+    transform 0.14s ease;
+}
+
+.blog-window__title-actionWrap:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.blog-window__title-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(52, 47, 42, 0.5);
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    opacity 0.16s ease;
+}
+
+.blog-window__title-action:hover {
+  background: rgba(24, 24, 24, 0.06);
+  color: rgba(24, 24, 24, 0.72);
+}
+
+.blog-window__title-action:disabled {
+  opacity: 0.34;
+  cursor: default;
+}
+
+.blog-window__title-action svg {
+  width: 18px;
+  height: 18px;
+}
+
+.blog-window__title-action--link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.blog-window__title-action--open svg {
+  width: 18px;
+  height: 18px;
 }
 
 @media (max-width: 980px) {

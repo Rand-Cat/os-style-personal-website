@@ -142,6 +142,38 @@ const windowDefinitions: WindowDefinition[] = [
 <div class="desktop-window-layer">
   {windowDefinitions.map(({ appId, title, component: Component, componentProps = {}, variant, zIndex }) => (
     <WindowFrame app={getApp(appId)} title={title} variant={variant} zIndex={zIndex}>
+      {appId === "blog" && (
+        <div slot="trailing" class="blog-window__title-actions">
+          <span class="blog-window__title-actionWrap" data-tooltip="复制文章链接">
+            <button
+              class="blog-window__title-action blog-window__title-action--link"
+              type="button"
+              data-blog-copy-link
+              aria-label="复制文章链接"
+              disabled
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07L11 5"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07L13 19"></path>
+              </svg>
+            </button>
+          </span>
+          <span class="blog-window__title-actionWrap" data-tooltip="打开独立页面">
+            <button
+              class="blog-window__title-action blog-window__title-action--open"
+              type="button"
+              data-blog-open-page
+              aria-label="打开独立页面"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 5h5v5"></path>
+                <path d="M10 14 19 5"></path>
+                <path d="M19 14v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3"></path>
+              </svg>
+            </button>
+          </span>
+        </div>
+      )}
       <Component {...componentProps} />
     </WindowFrame>
   ))}

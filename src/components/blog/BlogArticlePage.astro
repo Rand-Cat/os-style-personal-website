@@ -1,5 +1,6 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
+import SystemBreadcrumbs from "../shared/SystemBreadcrumbs.astro";
 import type { BlogLocale } from "../../lib/blog";
 import {
   BLOG_COPY,
@@ -83,30 +84,6 @@ const { Content } = await render(post);
       .page {
         width: min(100%, 760px);
         margin: 0 auto;
-      }
-
-      .article-tools {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 6px 2px 18px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .article-tools__nav {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        color: var(--dim);
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .article-tools__nav a:hover {
-        color: var(--ink);
       }
 
       .system-right {
@@ -290,14 +267,6 @@ const { Content } = await render(post);
           padding-top: 0;
         }
 
-        .article-tools {
-          align-items: start;
-          flex-direction: column;
-        }
-
-        .article-tools__nav {
-          flex-wrap: wrap;
-        }
       }
     </style>
   </head>
@@ -311,6 +280,11 @@ const { Content } = await render(post);
       <header class="system-bar">
         <div class="system-left">
           <a class="os-logo" href="/" aria-label="Back to home"></a>
+          <SystemBreadcrumbs items={[
+            { label: "Desktop", href: "/" },
+            { label: "Blog", href: getBlogIndexPath(locale) },
+            { label: post.data.title, current: true }
+          ]} />
         </div>
         <div class="system-right">
           <div class="system-locale" aria-label="Blog language switch">
@@ -329,20 +303,12 @@ const { Content } = await render(post);
               {BLOG_LANGUAGE_LABELS.en}
             </a>
           </div>
-          <span>Blog</span>
         </div>
       </header>
 
       <section class="blog-stage">
         <div class="blog-content">
           <main class="page">
-            <header class="article-tools">
-              <div class="article-tools__nav">
-                <a href={getBlogIndexPath(locale)}>{copy.backToBlog}</a>
-                <a href="/">Home</a>
-              </div>
-            </header>
-
             <div class="meta">
               <span>{formatBlogDate(post.data.date)}</span>
             </div>

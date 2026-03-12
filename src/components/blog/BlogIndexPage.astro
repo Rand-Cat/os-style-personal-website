@@ -1,5 +1,6 @@
 ---
 import type { BlogLocale, BlogPost } from "../../lib/blog";
+import SystemBreadcrumbs from "../shared/SystemBreadcrumbs.astro";
 import {
   BLOG_COPY,
   BLOG_LANGUAGE_LABELS,
@@ -83,47 +84,6 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
         margin: 0 auto;
       }
 
-      .hero {
-        padding: 6px 2px 34px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .hero__row {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
-      }
-
-      .hero p {
-        margin: 0;
-        color: var(--dim);
-        font-family: var(--font-ui);
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-
-      .hero h1 {
-        margin: 16px 0 0;
-        max-width: 560px;
-        font-family: var(--font-display);
-        font-size: clamp(2rem, 4.3vw, 3.8rem);
-        line-height: 0.96;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        color: #232320;
-      }
-
-      .hero__note {
-        margin-top: 14px;
-        max-width: 42ch;
-        color: var(--secondary);
-        line-height: 1.95;
-        font-size: 17px;
-      }
-
       .system-right {
         gap: 14px;
       }
@@ -163,7 +123,7 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
 
       .list {
         display: grid;
-        padding: 10px 0 56px;
+        padding: 0 0 56px;
       }
 
       .item {
@@ -211,19 +171,29 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
         font-size: 17px;
       }
 
-      .item__link {
-        display: inline-flex;
-        width: fit-content;
-        align-items: center;
-        gap: 5px;
-        color: var(--accent);
-        font-size: 13px;
-        font-weight: 600;
-        opacity: 0.85;
-        transition: opacity 0.12s;
+      .blog-empty {
+        display: grid;
+        gap: 8px;
+        padding: 28px 2px 0;
+        color: var(--secondary);
       }
 
-      .item__link:hover { opacity: 1; }
+      .blog-empty h2 {
+        margin: 0;
+        font-family: var(--font-ui);
+        font-size: 17px;
+        line-height: 1.5;
+        font-weight: 600;
+        letter-spacing: 0;
+        color: #171716;
+      }
+
+      .blog-empty p {
+        margin: 0;
+        max-width: 34ch;
+        line-height: 1.8;
+        font-size: 16px;
+      }
 
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: transparent; }
@@ -238,10 +208,6 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
           padding-top: 0;
         }
 
-        .hero__row {
-          align-items: start;
-          flex-direction: column;
-        }
       }
     </style>
   </head>
@@ -255,6 +221,10 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
       <header class="system-bar">
         <div class="system-left">
           <a class="os-logo" href="/" aria-label="Back to home"></a>
+          <SystemBreadcrumbs items={[
+            { label: "Desktop", href: "/" },
+            { label: "Blog", current: true }
+          ]} />
         </div>
         <div class="system-right">
           <div class="system-locale" aria-label="Blog language switch">
@@ -273,36 +243,31 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
               {BLOG_LANGUAGE_LABELS.en}
             </a>
           </div>
-          <span>Blog</span>
         </div>
       </header>
 
       <section class="blog-stage">
         <div class="blog-content">
           <main class="page">
-            <section class="hero">
-              <div class="hero__row">
-                <p>{copy.listEyebrow}</p>
-              </div>
-              <h1>{copy.listTitle}</h1>
-              <div class="hero__note">{copy.listDescription}</div>
-            </section>
-
             <section class="list">
-              {posts.map((post) => (
-                <article class="item">
-                  <div class="item__meta">
-                    <span>{formatBlogDate(post.data.date)}</span>
-                  </div>
-                  <h2>
-                    <a href={getBlogPostPath(locale, post.data.translationKey)}>{post.data.title}</a>
-                  </h2>
-                  <p>{post.data.excerpt}</p>
-                  <a class="item__link" href={getBlogPostPath(locale, post.data.translationKey)}>
-                    {copy.readArticle}
-                  </a>
-                </article>
-              ))}
+              {posts.length > 0 ? (
+                posts.map((post) => (
+                  <article class="item">
+                    <div class="item__meta">
+                      <span>{formatBlogDate(post.data.date)}</span>
+                    </div>
+                    <h2>
+                      <a href={getBlogPostPath(locale, post.data.translationKey)}>{post.data.title}</a>
+                    </h2>
+                    <p>{post.data.excerpt}</p>
+                  </article>
+                ))
+              ) : (
+                <section class="blog-empty">
+                  <h2>{copy.emptyStateTitle}</h2>
+                  <p>{copy.emptyStateDescription}</p>
+                </section>
+              )}
             </section>
           </main>
         </div>
