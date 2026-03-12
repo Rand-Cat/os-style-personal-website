@@ -13,40 +13,89 @@ extensionImage: "/images/apps/atten/coden.webp"
 extensionAlt: "Atten Coden HTML prototyping"
 ---
 
-Atten 是我之前做过的一个 AI workspace。它不是只解决单一点需求，而是想把“和 AI 一起思考”拆成几个更具体的场景，然后在同一个产品里把这些场景串起来。
+Atten 尝试将 GUI 与 LUI 结合，以此做为一种范式，去做一个 App Store，开发者可以在平台上创建应用，并给消费者使用。
 
-从仓库里的官网文案和首页结构来看，Atten 当时的核心定位很明确: 它想成为一个由 AI 驱动的 all-in-one place，让用户用新的方式去思考、学习、写作和编程。
+但是在当时，我不确定  GUI 与 LUI 的结合可以产生什么样的结果，以及如果这个产品没有流量，是没有开发者愿意来开发应用的。
 
-## 我比较在意的点
+于是，就想着在做铲子之前，自己先用铲子挖几下，看看有没有金子。
 
-- 它不是只有一个聊天框，而是试图把不同任务拆成不同工作区。
-- 写作、记录、发散想法和实际运行代码，可以在同一个产品里连续发生。
-- 产品价值不只来自模型本身，也来自更贴合任务的交互设计，比如拖拽写作、浏览器内运行代码、围绕上下文持续推进对话。
+Atten 围绕 AI 辅助写作、学语言、AI 编程 几个场景，做了一些应用。并且其提供强大 AI 聊天功能。
 
-## 首页概览
+其中 AI 编程的功能，具体指可以在浏览器上直接编辑和预览 AI 生成的代码，也就是后面出现的 Claude Artifact 以及 ChatGPT 的 Canvas。
 
-<div class="atten-gallery">
-  <img src="/images/apps/atten/chat-ui.webp" alt="Atten Chat UI" />
-  <img src="/images/apps/atten/noten.webp" alt="Atten Noten writing workflow" />
-  <img src="/images/apps/atten/coden.webp" alt="Atten Coden HTML prototyping" />
+## AI 编程
+
+Atten的功能 Coden 的定位，让人们可以使用自然语言完成一些简单的编程任务，不论你是编程经验丰富，想要借助AI更高效完成代码的人，或是编程小白，想要学习和使用编程语言，Coden都可以满足你的需求。
+
+你可以向AI描述需求，AI将完成代码的编写，编写完成后将自动运行，你可以直接看到运行的结果。
+
+Coden支持在浏览器上直接运行Python，HTML，Mermaid让你可以无需下载安装其它软件，就能使用。
+
+而且代码的运行和文件都停留在本地浏览器中，可以保证你的数据安全。
+
+为了让更多人可以使用，我们还做了许多优化，例如可以根据代码或报错信息自动安装所需的库或包。
+
+和ChatGPT的代码解释器对比，Coden支持更丰富的库、语言、代码能力，还支持编辑代码，以及实时显示可互动的HTML页面等。
+
+
+- `AI Code Generation`：用自然语言描述需求，直接生成代码。
+- `Run in browser`：不用本地安装环境，直接在浏览器运行。
+- `Local File System`：文件留在本地浏览器，避免上传云端。
+- `Package Management`：根据代码自动安装 Python 包，也支持手动查找。
+- `Python / HTML / Mermaid`：脚本、网页原型、小游戏和图表都能覆盖。
+
+
+<div class="atten-gallery atten-gallery--wide">
+  <img src="/images/apps/atten/coden.webp" alt="Atten Coden HTML 原型截图" />
+  <img src="/images/apps/atten/coden-python.webp" alt="Atten Coden Python 数据抓取截图" />
+  <img src="/images/apps/atten/coden-mermaid.webp" alt="Atten Coden Mermaid 思维导图截图" />
 </div>
 
-## 主要模块
+## AI 辅助写作
+
+
+Atten 的另一个功能 Noten， Noten 在思考的问题是如何与 AI 协作创作文章。
+
+Notion 也在做类似的事情，但在当时，Notion 并不强调对话，而是直接生成一个结果，导致 AI 给的常常不是自己想要的。而 Noten 则强调 AI 对话，你可以在创作的过程中在一个对话里面持续和 AI 沟通，让 AI 对本次创作有更深的理解，从而有更好的输出。
+
+在界面上，左边是和 AI 的对话区域，而右边则是一个富文本编辑器，两边的数据如何进行流通呢？
+
+在今天 LLM 的工具调用已经很成熟了，LLM 可以通过工具直接编辑文档的内容，但在当时 LLM 工具调用还不成熟，让 LLM 直接编辑文档不是一个靠谱的方案。
+
+Noten 使用拖拽交互来解决这个问题。你有一篇文章，但是你现在想要处理某个段落，你可以把这个段落直接拖拽到对话区域，然后松开鼠标，就可以把这个段落发送给 AI 了。如果 AI 给了一长串的回复，而你只想要其中的某一部分呢，没问题，你只需要把想要的部分拖拽到文章中想要的位置就行了。通过拖拽的方式，你可以很方便且自然地与 AI 进行协作。 
+
+除了拖拽之外，在 Noten 中，也可以用鼠标选择一段文本，然后选择或输入指令，这个也会自动发送到对话区域。两种交互方式区别在与，拖拽用于一些高频的文本处理，而选取文本则适用于更自定义更临时的场景。
+
+
+<div class="atten-gallery atten-gallery--wide">
+  <img src="/images/apps/atten/noten.webp" alt="Atten Noten 拖拽写作界面" />
+  <img src="/images/apps/atten/noten-ask-ai.webp" alt="Atten Ask AI Anything 功能截图" />
+  <img src="/images/apps/atten/noten-focus.webp" alt="Atten Noten Markdown 专注模式截图" />
+</div>
+
+
+
+## AI 学语言
+
+Atten 提供的功能 Auto X，可以让你在和 AI 的聊天过程中学习语言。
+
+Auto X 里面的 X 意味着，这个功能并不是固定的，而是可以通过 Prompt 自定义。具体而言，在学语言这个场景下，你可以使用 Auto Translate 和 Auto Proofread。
+
+每次你或者AI发送一条消息之后，会有一个独立于对话上下文的 LLM，会去分析发送的消息。对于 Auto Proofread，可以校对你发送的文本，检查当中是否有拼写或语法错误。而 Auto Translate 则可以翻译 AI 的回复，让 AI 回复变成双语版本。
+
+由于 X 是自定义的，因此它也可以用于学语言之外的场景。
+
+
+<div class="atten-gallery atten-gallery--single">
+  <img src="/images/apps/atten/auto-translate.webp" alt="Atten Auto Translate 功能截图" />
+</div>
+
+
 
 ### Chat UI
 
-Atten 的聊天部分强调的是更完整的 AI 使用体验，而不只是“发一条消息，收一条回复”。官网里主打了对话历史、多模型、编辑消息、重新生成、Markdown 渲染和 multiverse 这些能力，目标是让 AI 对话变成一个能持续推进项目的工作界面。
+Atten 基础的聊天功能也十分强大。 
 
-官网里这一块写得很明确: 它希望用户不是一次性问答，而是把历史对话、上下文修改和多分支探索都留在同一个系统里。这样 AI 才更像一个持续协作的界面，而不只是一个回复框。
-
-<div class="atten-gallery atten-gallery--wide">
-  <img src="/images/apps/atten/chat-ui.webp" alt="Atten Chat UI 首页截图" />
-  <img src="/images/apps/atten/chat-edit.webp" alt="Atten 编辑消息功能截图" />
-  <img src="/images/apps/atten/chat-regenerate.webp" alt="Atten 重新生成回复功能截图" />
-  <img src="/images/apps/atten/chat-multiverse.webp" alt="Atten multiverse 多分支对话截图" />
-</div>
-
-这一部分当时的功能重点大致可以归纳成：
 
 - `Chat History`：保留对话历史，方便回到旧项目继续推进。
 - `GPT-4 / 多模型`：让高质量回答成为工作流的一部分。
@@ -55,55 +104,9 @@ Atten 的聊天部分强调的是更完整的 AI 使用体验，而不只是“�
 - `Markdown Render`：让长文本、代码和结构化内容更易读。
 - `Multiverse`：把一个对话拆成多条思路分支，适合发散想法和推进复杂问题。
 
-### Noten
-
-Noten 是面向写作和记录的部分。相比传统文档，它更强调一边写、一边问 AI、一边拖拽内容来组织想法，让写作、润色和发散思路发生在一个连续流里。
-
-从官网描述看，Noten 不是单纯的 AI 写作补全，而是试图重新组织“写作时怎么和 AI 协作”这件事。它把拖拽、选中文本提问、Markdown 专注模式这些能力放在一起，让文档和 AI 不再是两个分开的界面。
-
 <div class="atten-gallery atten-gallery--wide">
-  <img src="/images/apps/atten/noten.webp" alt="Atten Noten 拖拽写作界面" />
-  <img src="/images/apps/atten/noten-ask-ai.webp" alt="Atten Ask AI Anything 功能截图" />
-  <img src="/images/apps/atten/noten-focus.webp" alt="Atten Noten Markdown 专注模式截图" />
+  <img src="/images/apps/atten/chat-ui.webp" alt="Atten Chat UI 首页截图" />
+  <img src="/images/apps/atten/chat-edit.webp" alt="Atten 编辑消息功能截图" />
+  <img src="/images/apps/atten/chat-regenerate.webp" alt="Atten 重新生成回复功能截图" />
+  <img src="/images/apps/atten/chat-multiverse.webp" alt="Atten multiverse 多分支对话截图" />
 </div>
-
-官网里比较突出的功能点包括：
-
-- `Drag and Drop`：把笔记、问题或者 prompt 直接拖给 AI，而不是反复复制粘贴。
-- `Ask AI Anything`：针对某一行或某几行文字继续追问、润色、检查逻辑或发散思路。
-- `Markdown / Focus`：用更轻量的写作界面保持专注，把格式感降到更低。
-- `AI Reading Assistance`：把需要精读的内容贴进来，配合 AI 一段段理解。
-
-### Coden
-
-Coden 负责把“描述需求”直接延伸到“生成并运行代码”。官网里的方向是支持 Python、HTML 和 Mermaid，让用户可以在浏览器里直接做脚本、页面原型、小游戏或者图表。
-
-它有意思的地方在于，它不是只停留在“AI 给你一段代码”，而是把代码编辑、运行、文件系统和包管理都包进浏览器里，让生成、修改、运行形成闭环。
-
-<div class="atten-gallery atten-gallery--wide">
-  <img src="/images/apps/atten/coden.webp" alt="Atten Coden HTML 原型截图" />
-  <img src="/images/apps/atten/coden-python.webp" alt="Atten Coden Python 数据抓取截图" />
-  <img src="/images/apps/atten/coden-mermaid.webp" alt="Atten Coden Mermaid 思维导图截图" />
-</div>
-
-官网对 Coden 的介绍基本围绕这些点展开：
-
-- `AI Code Generation`：用自然语言描述需求，直接生成代码。
-- `Run in browser`：不用本地安装环境，直接在浏览器运行。
-- `Local File System`：文件留在本地浏览器，避免上传云端。
-- `Package Management`：根据代码自动安装 Python 包，也支持手动查找。
-- `Python / HTML / Mermaid`：脚本、网页原型、小游戏和图表都能覆盖。
-
-### Auto Translate / Proofread
-
-除了三个主模块，官网里还单独提到过 `Auto Translate` 和 `Auto Proofread`。这部分更像是把 AI 的语言能力做成一个可随时调用的小工具，不只为翻译服务，也为语言学习和日常表达服务。
-
-<div class="atten-gallery atten-gallery--single">
-  <img src="/images/apps/atten/auto-translate.webp" alt="Atten Auto Translate 功能截图" />
-</div>
-
-按官网原本的说法，这一块既能自动识别语言做翻译，也能直接对输入内容做语法和拼写纠正。它想表达的不是“多一个按钮”，而是让 AI 语言处理直接进入用户的日常工作流。
-
-## 官网
-
-[Visit atten.ai](https://atten.ai)
