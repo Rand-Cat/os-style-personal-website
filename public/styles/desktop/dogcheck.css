@@ -1,0 +1,14 @@
+.content-app--dogcheck .content-app__article img {
+  width: auto;
+  max-width: 100%;
+  max-height: min(420px, 60vh);
+  margin: 0 auto;
+  object-fit: contain;
+  object-position: top center;
+}
+
+@media (max-width: 720px) {
+  .content-app--dogcheck .content-app__article img {
+    max-height: 48vh;
+  }
+}

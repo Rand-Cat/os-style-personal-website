@@ -7,6 +7,15 @@
   gap: 20px;
 }
 
+.read-easy__article :where(img) {
+  width: auto;
+  max-width: 100%;
+  max-height: min(460px, 62vh);
+  margin: 0 auto;
+  object-fit: contain;
+  object-position: top center;
+}
+
 .read-easy__article :where(pre) {
   overflow-x: auto;
   padding: 16px 18px;
@@ -355,6 +364,10 @@
 }
 
 @media (max-width: 900px) {
+  .read-easy__article :where(img) {
+    max-height: 48vh;
+  }
+
   .read-easy__dsl-entry,
   .read-easy-guide__overview,
   .read-easy-guide__lessonGrid,

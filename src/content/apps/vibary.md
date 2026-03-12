@@ -33,3 +33,12 @@ Vibary 是其中一个粗浅的尝试，我试图把另一更加古老的媒介�
 我会同时开多个编辑器，并行让不同 AI 做不同的事情。sonnet 4.5 负责想一个故事线来讲述一本书，gemini 3 负责设计和前端，codex 负责剩下的脏话累活。
 
 由于代码是AI写的，加上时间有限加上，现在的 Vibary 的内容和体验是不完善甚至有误的，所以游玩时请小心，但请不要恐慌，这个网站基本无害。
+
+
+## 更多资料
+
+V2EX 热门帖子：
+<a href="https://www.v2ex.com/t/1178280#reply163" target="_blank" rel="noreferrer">查看讨论</a>
+
+小红书：
+<a href="http://xhslink.com/o/AdIA9gZguiB" target="_blank" rel="noreferrer">查看帖子</a>

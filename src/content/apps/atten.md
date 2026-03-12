@@ -2,9 +2,12 @@
 title: Atten
 year: "2023"
 summary: "结合 GUI 和 LUI，用 AI 写作、学语言、编程"
+websiteUrl: "https://www.producthunt.com/products/atten-ai/launches/atten-ai"
+websiteLabel: "在 PH 查看视频介绍"
 tags:
   - AI
   - Web
+  - 已下线
 heroImage: "/images/apps/atten/chat-ui.webp"
 heroAlt: "Atten Chat UI"
 webImage: "/images/apps/atten/noten.webp"
@@ -22,6 +25,8 @@ Atten 尝试将 GUI 与 LUI 结合，以此做为一种范式，去做一个 App
 Atten 围绕 AI 辅助写作、学语言、AI 编程 几个场景，做了一些应用。并且其提供强大 AI 聊天功能。
 
 其中 AI 编程的功能，具体指可以在浏览器上直接编辑和预览 AI 生成的代码，也就是后面出现的 Claude Artifact 以及 ChatGPT 的 Canvas。
+
+目前产品已下线，你可以在 Product Hunt 上查看视频介绍。
 
 ## AI 编程
 

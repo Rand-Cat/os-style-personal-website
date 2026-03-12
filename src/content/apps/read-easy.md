@@ -2,16 +2,15 @@
 title: Read Easy
 year: "2025"
 summary: "让阅读英语变简单"
+websiteUrl: "https://read-easy.zhijie.app/"
+websiteLabel: "访问网站"
 tags:
   - Web
   - Extension
 heroImage: "/icons/read-easy.png"
 heroAlt: "Read Easy 图标"
-webImage: "/images/apps/read-easy/home.png"
-webAlt: "Read Easy 官网首页截图"
-extensionImage: "/images/apps/read-easy/open-extension.png"
-extensionAlt: "Read Easy 浏览器插件打开阅读模式的引导截图"
 ---
+
 
 这是一款可以「让阅读英语变简单」的产品。
 
@@ -29,7 +28,14 @@ Read Easy 围绕阅读英语这件事，结合了 AI，做了很多实用的功�
 
 一开始提供的是浏览器插件，后面提供了网页版本。
 
+在开发时，我在即刻上发了一条帖子，展示了一篇文章渲染后的效果，来了解大家的需求。
+
+<a href="https://m.okjike.com/originalPosts/67f53496062d2d80a4f51ed3?s=ewoidSI6ICI1YTE4ZmM1YTlkYjAzZDAwMTZlZjZlNjQiCn0=" target="_blank" rel="noreferrer">即刻帖子：文章渲染效果</a>
+
 ## 浏览器插件
+
+产品在即刻发布的原贴：
+<a href="https://m.okjike.com/originalPosts/682452f6ca977f7fc75157c0?s=ewoidSI6ICI1YTE4ZmM1YTlkYjAzZDAwMTZlZjZlNjQiCn0=" target="_blank" rel="noreferrer">查看原帖</a>
 
 在你不需要的时候，Read Easy 只会默默躺着，没有任何牛皮癣，不会干扰你。
 
@@ -65,8 +71,12 @@ A ：那你可以直接选取不理解的文本，然后问 AI 任何问题。
 Q ：如果我有个单词不懂，你没有标记出来呢？
 A ：哦，这是我自己很喜欢的一个功能，叫做「即划即译」，只需选取不懂的单词，无需任何额外的点击，翻译结果就会自动出来，而且还是结合语境的。比 Mac 自带的查词功能好用多了
 
-
 ## 网页版本
+
+![小红书图片](/images/apps/read-easy/red-note.jpeg)
+
+小红书上的发布帖子：
+<a href="http://xhslink.com/o/6cSugRhpuTI" target="_blank" rel="noreferrer">查看帖子</a>
 
 现在你可以直接在 Read Easy 的网页上，阅读近 50 个随缘挑选的英语信息源了，并且支持 AI 总结，可以用于判断一篇文章是否值得花时间阅读。
 
@@ -93,6 +103,11 @@ RSS 总让人联想到知识管理，一堆已读未读稍后读，阅读的负�
 重要的不是形态本身或者定义，重要的是它是否对你有用。
 
 如果你想获取中文互联网之外的信息，或者你想要学英语，那或许对你有一点点用处。
+
+## 更多资料
+
+APPSO 四楼的访谈
+<a href="https://mp.weixin.qq.com/s/cBKF8aS_RIAszsafyQLCbw#:~:text=Read%20Easy%EF%BC%9A%E9%98%85%E8%AF%BB%E4%B8%8D%E6%98%AF%E9%80%83%E9%81%BF%E5%8E%9F%E6%96%87%EF%BC%8C%E8%80%8C%E6%98%AF%E9%9D%A0%E8%BF%91%E5%8E%9F%E6%96%87" target="_blank" rel="noreferrer">查看访谈</a>
 
 ## The DSL Layer
 

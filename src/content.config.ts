@@ -23,10 +23,10 @@ const apps = defineCollection({
     websiteLabel: z.string().optional(),
     heroImage: z.string(),
     heroAlt: z.string(),
-    webImage: z.string(),
-    webAlt: z.string(),
-    extensionImage: z.string(),
-    extensionAlt: z.string()
+    webImage: z.string().optional(),
+    webAlt: z.string().optional(),
+    extensionImage: z.string().optional(),
+    extensionAlt: z.string().optional()
   })
 });
 

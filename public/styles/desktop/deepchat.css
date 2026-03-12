@@ -1,0 +1,14 @@
+.content-app--deepchat .content-app__article img {
+  width: auto;
+  max-width: 100%;
+  max-height: min(560px, 68vh);
+  margin: 0 auto;
+  object-fit: contain;
+  object-position: top center;
+}
+
+@media (max-width: 720px) {
+  .content-app--deepchat .content-app__article img {
+    max-height: 52vh;
+  }
+}

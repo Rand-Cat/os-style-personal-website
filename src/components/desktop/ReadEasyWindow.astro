@@ -14,6 +14,8 @@ const {
   summary,
   tags = [],
   titleTag,
+  websiteUrl,
+  websiteLabel = "访问网站",
   heroImage,
   heroAlt = "Read Easy"
 } = readEasy.data;
@@ -81,6 +83,12 @@ tags.forEach((tag) => pushMetaTag(resolveMetaTag(tag)));
             <h2>{title}</h2>
             <p>{summary}</p>
           </div>
+
+          {websiteUrl && (
+            <a class="content-app__heroLink" href={websiteUrl} target="_blank" rel="noreferrer">
+              {websiteLabel}
+            </a>
+          )}
         </div>
 
         <div class="content-app__meta">
