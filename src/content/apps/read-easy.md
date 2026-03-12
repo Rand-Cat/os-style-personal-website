@@ -108,11 +108,3 @@ RSS 总让人联想到知识管理，一堆已读未读稍后读，阅读的负�
 
 APPSO 四楼的访谈
 <a href="https://mp.weixin.qq.com/s/cBKF8aS_RIAszsafyQLCbw#:~:text=Read%20Easy%EF%BC%9A%E9%98%85%E8%AF%BB%E4%B8%8D%E6%98%AF%E9%80%83%E9%81%BF%E5%8E%9F%E6%96%87%EF%BC%8C%E8%80%8C%E6%98%AF%E9%9D%A0%E8%BF%91%E5%8E%9F%E6%96%87" target="_blank" rel="noreferrer">查看访谈</a>
-
-## The DSL Layer
-
-Read Easy 里有一层我自己定义的 DSL，用来把 AI 生成的阅读标注变成结构化界面，而不是一大段散乱的解释文本。
-
-对用户来说，他们看到的是更容易进入的阅读界面；对我来说，这层 DSL 更像一个中间层，让模型输出先变成稳定的结构，再由前端去决定它最后长成什么样子。
-
-这也是为什么我后来想把它单独拿出来讲。因为它不是一个孤立的小技巧，而是整个阅读体验能成立的基础设施之一。

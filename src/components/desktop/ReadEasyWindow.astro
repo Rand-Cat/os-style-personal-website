@@ -1,6 +1,5 @@
 ---
 import { getEntry, render } from "astro:content";
-import ReadEasyDslTutorial from "./ReadEasyDslTutorial.astro";
 
 const readEasy = await getEntry("apps", "read-easy");
 if (!readEasy) {
@@ -74,90 +73,42 @@ tags.forEach((tag) => pushMetaTag(resolveMetaTag(tag)));
 
 <div class="os-window__scroll">
   <div class:list={["content-app", "content-app--read-easy", "read-easy"]} data-read-easy-window>
-    <section class="read-easy__page" data-read-easy-page="overview">
-      <header class="content-app__hero read-easy__hero">
-        <div class="content-app__heroMain">
-          <img class="content-app__heroLogo" src={heroImage} alt={heroAlt} loading="lazy" decoding="async" />
+    <header class="content-app__hero read-easy__hero">
+      <div class="content-app__heroMain">
+        <img class="content-app__heroLogo" src={heroImage} alt={heroAlt} loading="lazy" decoding="async" />
 
-          <div class="content-app__heroCopy">
-            <h2>{title}</h2>
-            <p>{summary}</p>
-          </div>
-
-          {websiteUrl && (
-            <a class="content-app__heroLink" href={websiteUrl} target="_blank" rel="noreferrer">
-              {websiteLabel}
-            </a>
-          )}
+        <div class="content-app__heroCopy">
+          <h2>{title}</h2>
+          <p>{summary}</p>
         </div>
 
-        <div class="content-app__meta">
-          {metaTags.map(({ label, iconSrc }) => (
-            <span>
-              {iconSrc && (
-                <img
-                  class="content-app__metaIcon"
-                  src={iconSrc}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              )}
-              {label}
-            </span>
-          ))}
-        </div>
-      </header>
+        {websiteUrl && (
+          <a class="content-app__heroLink" href={websiteUrl} target="_blank" rel="noreferrer">
+            {websiteLabel}
+          </a>
+        )}
+      </div>
 
-      <article class="content-app__article read-easy__article">
-        <Content />
-      </article>
+      <div class="content-app__meta">
+        {metaTags.map(({ label, iconSrc }) => (
+          <span>
+            {iconSrc && (
+              <img
+                class="content-app__metaIcon"
+                src={iconSrc}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            {label}
+          </span>
+        ))}
+      </div>
+    </header>
 
-      <section class="read-easy__dsl-entry">
-        <div class="read-easy__dsl-copy">
-          <span class="read-easy__dsl-kicker">How It Works</span>
-          <h3>DSL 不是附属说明，而是这个阅读体验真正成立的方式</h3>
-          <p>
-            我把这部分单独拆成了一个小教程。点进去之后，会从最基础的标记开始，一步一步讲到 block
-            结构，最后再进入可交互的 playground。
-          </p>
-        </div>
-        <button type="button" class="read-easy__dsl-button" data-read-easy-open-guide>
-          Open DSL Guide
-        </button>
-      </section>
-    </section>
-
-    <section class="read-easy__page" data-read-easy-page="guide" hidden>
-      <ReadEasyDslTutorial />
-    </section>
+    <article class="content-app__article read-easy__article">
+      <Content />
+    </article>
   </div>
 </div>
-
-<script>
-  function setView(root, nextView) {
-    const pages = root.querySelectorAll("[data-read-easy-page]");
-    const scroller = root.closest(".os-window__scroll");
-
-    pages.forEach((page) => {
-      if (!(page instanceof HTMLElement)) return;
-      page.hidden = page.dataset.readEasyPage !== nextView;
-    });
-
-    if (scroller instanceof HTMLElement) {
-      scroller.scrollTop = 0;
-    }
-  }
-
-  document.querySelectorAll("[data-read-easy-window]").forEach((root) => {
-    if (!(root instanceof HTMLElement)) return;
-
-    root.querySelectorAll("[data-read-easy-open-guide]").forEach((button) => {
-      button.addEventListener("click", () => setView(root, "guide"));
-    });
-
-    root.querySelectorAll("[data-read-easy-close-guide]").forEach((button) => {
-      button.addEventListener("click", () => setView(root, "overview"));
-    });
-  });
-</script>
