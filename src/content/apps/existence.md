@@ -5,6 +5,7 @@ summary: "在任意网页上和你喜欢的角色聊天"
 tags:
   - Web
   - Extension
+  - 已下线
 titleTag: "by Reflex AI"
 heroImage: "/images/apps/existence/intro.png"
 heroAlt: "Existence 应用介绍横幅"
@@ -16,20 +17,18 @@ extensionAlt: "Existence 浏览器插件在网页中的使用方式"
 
 ![Existence 应用介绍横幅](/images/apps/existence/intro.png)
 
+这是我在 Relfex AI 参与的一个项目。
+
 Existence 是一个围绕 AI 角色展开的产品。用户既可以创造自己的角色，也可以发现别人创造的角色，然后直接和这些角色聊天。
 
-我比较在意它的一点是，这些角色不是一次性的 prompt，而更像是一个可以持续相处、持续对话的对象。产品因此不只是“生成内容”，而是在尝试建立一种更长期的角色关系。
-
-## Web
-
-![Existence 网页界面](/images/apps/existence/web.png)
-
-在 Web 端，用户可以浏览角色、进入聊天，并逐步形成一个可以被探索和发现的角色库。你既可以从“我想创造一个什么样的角色”出发，也可以从“别人已经创造了哪些角色”出发。
-
-## Browser Extension
+与其它产品的核心区别在于：
+1. 我们可以把你喜欢的角色，Pin 在网页上，无论用户正在浏览哪个网页，都可以随时呼出角色继续聊天，网页可以为聊天提供话题。
+2. 我们采用了角色共创的机制，提供类似于 github 的功能，不同用户可以针对同一个角色进行优化，当对角色有不同意见时还可以分叉。对于同一个角色，还支持设置角色在不同时期下的设定。
 
 ![Existence 浏览器插件在网页中的使用方式](/images/apps/existence/extension.png)
 
-Existence 还提供了浏览器插件。无论用户正在浏览哪个网页，都可以随时呼出角色继续聊天。
+在 Web 端，你可以创建或浏览角色、进入聊天，并和其它用户一起创作。
 
-这一点很重要，因为它让 AI 角色不再只存在于产品自己的网页里。角色可以跟着用户一起出现在更日常的使用场景中，变成一种更轻、更持续的陪伴。
+
+![Existence 网页界面](/images/apps/existence/web.png)
+

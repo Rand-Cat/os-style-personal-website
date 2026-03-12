@@ -5,8 +5,6 @@ summary: "用网页去呈现每本书独特的 Vibe"
 tags:
   - Vibe Coding
   - Web
-  - 网页实验
-  - 书籍体验
   - 互动内容
 websiteUrl: "https://www.vibary.art/"
 websiteLabel: "访问网站"
