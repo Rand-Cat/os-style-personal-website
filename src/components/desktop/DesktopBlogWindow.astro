@@ -36,7 +36,7 @@ const { postsByLocale, defaultHref } = Astro.props;
           >
             <span class="blog-browser__item-title">{post.data.title}</span>
             <p class="blog-browser__item-excerpt">{post.data.excerpt}</p>
-            <time>{formatBlogDate(post.data.date)} · {post.data.readTime}</time>
+            <time>{formatBlogDate(post.data.date)}</time>
           </button>
         ))}
       </div>

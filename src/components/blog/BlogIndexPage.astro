@@ -293,7 +293,6 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
                 <article class="item">
                   <div class="item__meta">
                     <span>{formatBlogDate(post.data.date)}</span>
-                    <span>{post.data.readTime}</span>
                   </div>
                   <h2>
                     <a href={getBlogPostPath(locale, post.data.translationKey)}>{post.data.title}</a>
