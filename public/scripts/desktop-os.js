@@ -1,3 +1,4 @@
+import { initAppLocale } from "./desktop/app-locale.js";
 import { initBlogBrowser } from "./desktop/blog-browser.js";
 import { initClock } from "./desktop/clock.js";
 import { initDockMagnification } from "./desktop/dock.js";
@@ -8,6 +9,7 @@ import { initCatInteraction } from "./desktop/cat-interaction.js";
 
 initWindowManager();
 initBlogBrowser();
+initAppLocale();
 initDockMagnification();
 initClock();
 initJikeArchive();

@@ -14,6 +14,8 @@ const blog = defineCollection({
 const apps = defineCollection({
   schema: z.object({
     title: z.string(),
+    locale: z.enum(["zh", "en"]).default("zh"),
+    translationKey: z.string().optional(),
     year: z.string().optional(),
     summary: z.string().optional(),
     tags: z.array(z.string()).optional(),

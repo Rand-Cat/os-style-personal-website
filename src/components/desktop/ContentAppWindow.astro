@@ -1,33 +1,32 @@
 ---
-import { getEntry, render } from "astro:content";
+import { render } from "astro:content";
 import { desktopApps } from "../../data/desktop";
+import { APP_LOCALES, getLocalizedAppEntries } from "../../lib/apps";
 
 interface Props {
   id: string;
 }
 
 const { id } = Astro.props;
-const entry = await getEntry("apps", id);
-if (!entry) {
-  throw new Error(`App content "${id}" not found`);
-}
+const { entriesByLocale, fallbackEntry } = await getLocalizedAppEntries(id);
 
-const { Content } = await render(entry);
-const {
-  title,
-  year,
-  summary,
-  tags = [],
-  titleTag,
-  websiteUrl,
-  websiteLabel = "访问网站",
-  heroImage,
-  heroAlt
-} = entry.data;
+const localizedEntries = await Promise.all(
+  APP_LOCALES.map(async (locale) => {
+    const entry = entriesByLocale[locale];
+    if (!entry) return null;
+
+    const { Content } = await render(entry);
+
+    return {
+      locale,
+      entry,
+      Content
+    };
+  })
+);
 
 const desktopApp = desktopApps.find((app) => app.id === id);
-const heroLogo = desktopApp?.iconSrc ?? heroImage;
-const heroLogoAlt = heroAlt ?? `${title} 图标`;
+const heroLogo = desktopApp?.iconSrc ?? fallbackEntry.data.heroImage;
 
 type MetaTag = {
   label: string;
@@ -63,68 +62,102 @@ const resolveMetaTag = (value?: string): MetaTag | undefined => {
   return { label };
 };
 
-const metaTags: MetaTag[] = [];
-const seenMetaTagLabels = new Set<string>();
+const localizedViews = localizedEntries
+  .filter((localizedEntry): localizedEntry is NonNullable<(typeof localizedEntries)[number]> => Boolean(localizedEntry))
+  .map((localizedEntry) => {
+    const { locale, entry, Content } = localizedEntry;
+    const {
+      title,
+      year,
+      summary,
+      tags = [],
+      titleTag,
+      websiteUrl,
+      websiteLabel = locale === "en" ? "Visit Website" : "访问网站",
+      heroAlt
+    } = entry.data;
+    const heroLogoAlt = heroAlt ?? (locale === "en" ? `${title} icon` : `${title} 图标`);
+    const metaTags: MetaTag[] = [];
+    const seenMetaTagLabels = new Set<string>();
 
-const pushMetaTag = (tag?: MetaTag) => {
-  if (!tag) return;
+    const pushMetaTag = (tag?: MetaTag) => {
+      if (!tag) return;
 
-  const key = tag.iconKey ?? tag.label.trim().toLowerCase();
-  if (!key || seenMetaTagLabels.has(key)) return;
+      const key = tag.iconKey ?? tag.label.trim().toLowerCase();
+      if (!key || seenMetaTagLabels.has(key)) return;
 
-  seenMetaTagLabels.add(key);
-  metaTags.push(tag);
-};
+      seenMetaTagLabels.add(key);
+      metaTags.push(tag);
+    };
 
-pushMetaTag(year ? { label: year } : undefined);
-pushMetaTag(titleTag ? { label: titleTag } : undefined);
-tags.forEach((tag) => pushMetaTag(resolveMetaTag(tag)));
+    pushMetaTag(year ? { label: year } : undefined);
+    pushMetaTag(titleTag ? { label: titleTag } : undefined);
+    tags.forEach((tag) => pushMetaTag(resolveMetaTag(tag)));
+
+    return {
+      locale,
+      Content,
+      title,
+      summary,
+      websiteUrl,
+      websiteLabel,
+      heroLogoAlt,
+      metaTags
+    };
+  });
 ---
 
 <div class="os-window__scroll">
-  <div class:list={["content-app", `content-app--${id}`]}>
-    <header class:list={["content-app__hero", `${id}__hero`]}>
-      <div class:list={["content-app__heroMain", `${id}__heroMain`]}>
-        <img
-          class:list={["content-app__heroLogo", `${id}__heroLogo`]}
-          src={heroLogo}
-          alt={heroLogoAlt}
-          loading="lazy"
-          decoding="async"
-        />
+  <div class:list={["content-app", `content-app--${id}`]} data-app-locale-root data-app-id={id}>
+    {localizedViews.map(({ locale, Content, title, summary, websiteUrl, websiteLabel, heroLogoAlt, metaTags }) => (
+      <section
+        data-app-locale={locale}
+        hidden={locale !== "zh"}
+      >
+        <header class:list={["content-app__hero", `${id}__hero`]}>
+          <div class:list={["content-app__heroMain", `${id}__heroMain`]}>
+            <img
+              class:list={["content-app__heroLogo", `${id}__heroLogo`]}
+              src={heroLogo}
+              alt={heroLogoAlt}
+              loading="lazy"
+              decoding="async"
+            />
 
-        <div class:list={["content-app__heroCopy", `${id}__heroCopy`]}>
-          <h2>{title}</h2>
-          <p>{summary}</p>
-        </div>
+            <div class:list={["content-app__heroCopy", `${id}__heroCopy`]}>
+              <h2>{title}</h2>
+              <p>{summary}</p>
+            </div>
 
-        {websiteUrl && (
-          <a class:list={["content-app__heroLink", `${id}__heroLink`]} href={websiteUrl} target="_blank" rel="noreferrer">
-            {websiteLabel}
-          </a>
-        )}
-      </div>
-
-      <div class:list={["content-app__meta", `${id}__meta`]}>
-        {metaTags.map(({ label, iconSrc }) => (
-          <span>
-            {iconSrc && (
-              <img
-                class="content-app__metaIcon"
-                src={iconSrc}
-                alt=""
-                loading="lazy"
-                decoding="async"
-              />
+            {websiteUrl && (
+              <a class:list={["content-app__heroLink", `${id}__heroLink`]} href={websiteUrl} target="_blank" rel="noreferrer">
+                {websiteLabel}
+              </a>
             )}
-            {label}
-          </span>
-        ))}
-      </div>
-    </header>
+          </div>
 
-    <article class:list={["content-app__article", `${id}__article`]}>
-      <Content />
-    </article>
+          <div class:list={["content-app__meta", `${id}__meta`]}>
+            {metaTags.map(({ label, iconSrc }) => (
+              <span>
+                {iconSrc && (
+                  <img
+                    class="content-app__metaIcon"
+                    src={iconSrc}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+                {label}
+              </span>
+            ))}
+          </div>
+        </header>
+
+        <article class:list={["content-app__article", `${id}__article`]}>
+          <Content />
+        </article>
+      </section>
+    ))}
   </div>
 </div>
