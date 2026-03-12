@@ -13,9 +13,10 @@ import {
 interface Props {
   locale: BlogLocale;
   post: CollectionEntry<"blog">;
+  fallbackLocale?: BlogLocale | null;
 }
 
-const { locale, post } = Astro.props;
+const { locale, post, fallbackLocale = null } = Astro.props;
 const copy = BLOG_COPY[locale];
 const { Content } = await render(post);
 ---
@@ -133,6 +134,34 @@ const { Content } = await render(post);
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
+      }
+
+      .translation-note {
+        margin-top: 18px;
+        padding: 12px 14px;
+        border: 1px solid rgba(24, 24, 24, 0.08);
+        border-radius: 12px;
+        background: rgba(24, 24, 24, 0.035);
+      }
+
+      .translation-note strong,
+      .translation-note p {
+        display: block;
+        margin: 0;
+        font-family: var(--font-ui);
+      }
+
+      .translation-note strong {
+        font-size: 14px;
+        font-weight: 600;
+        color: #171716;
+      }
+
+      .translation-note p {
+        margin-top: 4px;
+        font-size: 14px;
+        line-height: 1.65;
+        color: #4f4a42;
       }
 
       h1 {
@@ -335,6 +364,13 @@ const { Content } = await render(post);
             <div class="meta">
               <span>{formatBlogDate(post.data.date)}</span>
             </div>
+
+            {fallbackLocale && (
+              <div class="translation-note">
+                <strong>{copy.missingTranslationTitle}</strong>
+                <p>{copy.missingTranslationDescription(BLOG_LANGUAGE_LABELS[fallbackLocale])}</p>
+              </div>
+            )}
 
             <h1>{post.data.title}</h1>
             <article class="content">

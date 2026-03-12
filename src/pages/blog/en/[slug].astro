@@ -1,16 +1,32 @@
 ---
 import BlogArticlePage from "../../../components/blog/BlogArticlePage.astro";
-import { getPublishedBlogPosts } from "../../../lib/blog";
+import {
+  getAllPublishedBlogTranslationKeys,
+  resolveBlogPostForLocale,
+  type BlogLocale
+} from "../../../lib/blog";
 
 export async function getStaticPaths() {
-  const posts = await getPublishedBlogPosts("en");
-  return posts.map((post) => ({
-    params: { slug: post.data.translationKey },
-    props: { post }
-  }));
+  const translationKeys = await getAllPublishedBlogTranslationKeys();
+  const locale: BlogLocale = "en";
+  const entries = await Promise.all(
+    translationKeys.map(async (translationKey) => {
+      const resolved = await resolveBlogPostForLocale(locale, translationKey);
+      if (!resolved) return null;
+      return {
+        params: { slug: translationKey },
+        props: {
+          post: resolved.post,
+          fallbackLocale: resolved.isFallback ? resolved.actualLocale : null
+        }
+      };
+    })
+  );
+
+  return entries.filter(Boolean);
 }
 
-const { post } = Astro.props;
+const { post, fallbackLocale } = Astro.props;
 ---
 
-<BlogArticlePage locale="en" post={post} />
+<BlogArticlePage locale="en" post={post} fallbackLocale={fallbackLocale} />
