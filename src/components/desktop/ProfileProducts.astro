@@ -103,29 +103,29 @@ const resolveProductTag = (tag: string): ProductTag => {
                                 <h3>{item.name}</h3>
                                 {item.titleTag && <span class="profile-products__titleTag">{item.titleTag}</span>}
                               </div>
-                              {item.tags && item.tags.length > 0 ? (
-                                <div class="profile-products__tags">
-                                  {item.tags?.map((tag) => {
-                                    const resolvedTag = resolveProductTag(tag);
-
-                                    return (
-                                      <span class="profile-products__tag">
-                                        {resolvedTag.iconSrc ? (
-                                          <img
-                                            class="profile-products__tag-icon"
-                                            src={resolvedTag.iconSrc}
-                                            alt=""
-                                            loading="lazy"
-                                            decoding="async"
-                                          />
-                                        ) : null}
-                                        <span class="profile-products__tag-label">{resolvedTag.label}</span>
-                                      </span>
-                                    );
-                                  })}
-                                </div>
-                              ) : null}
                             </div>
+                            {item.tags && item.tags.length > 0 ? (
+                              <div class="profile-products__tags">
+                                {item.tags?.map((tag) => {
+                                  const resolvedTag = resolveProductTag(tag);
+
+                                  return (
+                                    <span class="profile-products__tag">
+                                      {resolvedTag.iconSrc ? (
+                                        <img
+                                          class="profile-products__tag-icon"
+                                          src={resolvedTag.iconSrc}
+                                          alt=""
+                                          loading="lazy"
+                                          decoding="async"
+                                        />
+                                      ) : null}
+                                      <span class="profile-products__tag-label">{resolvedTag.label}</span>
+                                    </span>
+                                  );
+                                })}
+                              </div>
+                            ) : null}
                             {item.note && <p>{item.note}</p>}
                           </div>
                         </div>
