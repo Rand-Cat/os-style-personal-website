@@ -20,6 +20,8 @@ export function initJikeArchive() {
     label: ""
   };
 
+  const getLocale = () => (localStorage.getItem("blog-locale") === "en" ? "en" : "zh");
+
   const renderLightbox = () => {
     const currentImage = state.images[state.index];
     if (!currentImage) return;
@@ -27,7 +29,9 @@ export function initJikeArchive() {
     lightboxImage.src = currentImage;
     lightboxImage.alt = state.label
       ? `${state.label} ${state.index + 1} / ${state.images.length}`
-      : `第 ${state.index + 1} 张，共 ${state.images.length} 张`;
+      : getLocale() === "en"
+        ? `Image ${state.index + 1} of ${state.images.length}`
+        : `第 ${state.index + 1} 张，共 ${state.images.length} 张`;
 
     if (lightboxCounter instanceof HTMLElement) {
       lightboxCounter.textContent = `${state.index + 1} / ${state.images.length}`;
@@ -74,8 +78,11 @@ export function initJikeArchive() {
 
     const expandButton = target.closest("[data-jike-expand-button]");
     if (expandButton instanceof HTMLButtonElement) {
+      const localePane = expandButton.closest("[data-app-locale]");
       const card = expandButton.closest(".jike-card");
-      const expandable = card?.querySelector("[data-jike-expandable]");
+      const expandable =
+        localePane?.querySelector("[data-jike-expandable]") ??
+        card?.querySelector("[data-jike-expandable]");
       if (expandable instanceof HTMLElement) {
         expandable.classList.remove("is-collapsed");
       }

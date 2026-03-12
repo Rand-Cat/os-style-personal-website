@@ -1,166 +1,111 @@
 ---
 import {
-  jikeArchiveStats,
-  jikeArchiveFeed,
-  renderJikeContent
+  getJikeUiCopy,
+  getLocalizedJikePost,
+  hasJikeTranslation,
+  jikeArchiveFeed
 } from "../../data/jike";
+import JikeCardContent from "./JikeCardContent.astro";
+
+const zhCopy = getJikeUiCopy("zh");
+const enCopy = getJikeUiCopy("en");
+
+const localizedFeed = jikeArchiveFeed.map((post) => ({
+  year: post.year,
+  zh: getLocalizedJikePost(post, "zh"),
+  en: getLocalizedJikePost(post, "en"),
+  hasEnTranslation: hasJikeTranslation(post.id)
+}));
 ---
 
 <div class="os-window__scroll">
   <div class="jike-archive">
-  <section class="jike-archive__intro">
-    <span class="jike-archive__eyebrow">Jike Archive</span>
-    <h2>动态</h2>
-    <p>
-      展示在即刻上发布的内容，非实时更新
-    </p>
-  </section>
-
-  <div class="jike-archive__feed">
-    {jikeArchiveFeed.map((post, index) => (
-      <>
-        {index === 0 || jikeArchiveFeed[index - 1].year !== post.year ? (
-          <div class="jike-archive__year-label">{post.year}</div>
-        ) : null}
-
-        <article class="jike-card">
-          <div class="jike-card__row">
-            <img class="jike-card__avatar" src="/icons/pfp.png" alt="" loading="lazy" decoding="async" />
-            <div class="jike-card__main">
-              <header class="jike-card__header">
-                <div class="jike-card__meta">
-                  <span>{post.dateLabel}</span>
-                  {post.repost ? <span class="jike-card__flag">转发</span> : null}
-                </div>
-              </header>
-
-              {
-                post.content ? (
-                  post.content.length > 280 ? (
-                    <div class="jike-card__copy">
-                      <div
-                        class="jike-card__body is-collapsed"
-                        data-jike-expandable
-                        set:html={renderJikeContent(post.content)}
-                      ></div>
-                      <button class="jike-card__expand" type="button" data-jike-expand-button>
-                        展开全文
-                      </button>
-                    </div>
-                  ) : (
-                    <div class="jike-card__body" set:html={renderJikeContent(post.content)}></div>
-                  )
-                ) : null
-              }
-
-              {
-                post.pictureCount && !post.repost ? (
-                  <figure class="jike-card__media">
-                    <div class:list={["jike-card__media-grid", `is-${Math.min(post.pictureCount, 4)}-up`]}>
-                      {post.pictures.slice(0, 4).map((picture, pictureIndex) => (
-                        <button
-                          class="jike-card__media-trigger"
-                          type="button"
-                          data-jike-lightbox-trigger
-                          data-jike-lightbox-src={picture}
-                          data-jike-lightbox-images={JSON.stringify(post.pictures)}
-                          data-jike-lightbox-index={pictureIndex}
-                          data-jike-lightbox-alt={`即刻配图 ${pictureIndex + 1} / ${post.pictureCount}，${post.dateLabel}`}
-                        >
-                          <img src={picture} alt="" loading="lazy" decoding="async" />
-                          {
-                            pictureIndex === 3 && post.pictureCount > 4 ? (
-                              <span class="jike-card__media-more">+{post.pictureCount - 4}</span>
-                            ) : null
-                          }
-                        </button>
-                      ))}
-                    </div>
-                  </figure>
-                ) : null
-              }
-
-              {
-                post.repost ? (
-                  <div class="jike-card__repost">
-                    <span>转发自 {post.repost.author || "即刻用户"}</span>
-                    <div class="jike-card__repost-content" set:html={renderJikeContent(post.repost.content)}></div>
-                  </div>
-                ) : null
-              }
-
-              {post.topic !== "未分类" || post.link ? (
-                <footer class="jike-card__footer">
-                  {post.topic !== "未分类" ? <span class="jike-card__topic">{post.topic}</span> : null}
-                  <a class="jike-card__origin" href={post.link} target="_blank" rel="noreferrer">
-                    <span>原帖</span>
-                    <svg viewBox="0 0 16 16" aria-hidden="true">
-                      <path
-                        d="M5 11 11.25 4.75M7.25 4.75h4v4"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.35"
-                      ></path>
-                    </svg>
-                  </a>
-                </footer>
-              ) : null}
-            </div>
-          </div>
-        </article>
-      </>
-    ))}
-  </div>
-
-  <div class="jike-lightbox" hidden data-jike-lightbox>
-    <div class="jike-lightbox__backdrop" data-jike-lightbox-close></div>
-    <div class="jike-lightbox__dialog">
-      <div class="jike-lightbox__toolbar">
-        <span class="jike-lightbox__counter" data-jike-lightbox-counter></span>
-        <button class="jike-lightbox__close" type="button" aria-label="关闭图片预览" data-jike-lightbox-close>
-          关闭
-        </button>
+    <section class="jike-archive__intro" data-app-locale-root>
+      <div data-app-locale="zh">
+        <span class="jike-archive__eyebrow">{zhCopy.eyebrow}</span>
+        <h2>{zhCopy.title}</h2>
+        <p>{zhCopy.description}</p>
       </div>
-      <div class="jike-lightbox__viewport">
-        <button
-          class="jike-lightbox__nav is-prev"
-          type="button"
-          aria-label="查看上一张"
-          data-jike-lightbox-prev
-        >
-          <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path
-              d="M9.75 3.5 5.25 8l4.5 4.5"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-            ></path>
-          </svg>
-        </button>
-        <img class="jike-lightbox__image" alt="" data-jike-lightbox-image />
-        <button
-          class="jike-lightbox__nav is-next"
-          type="button"
-          aria-label="查看下一张"
-          data-jike-lightbox-next
-        >
-          <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path
-              d="m6.25 3.5 4.5 4.5-4.5 4.5"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-            ></path>
-          </svg>
-        </button>
+      <div data-app-locale="en" hidden>
+        <span class="jike-archive__eyebrow">{enCopy.eyebrow}</span>
+        <h2>{enCopy.title}</h2>
+        <p>{enCopy.description}</p>
+      </div>
+    </section>
+
+    <div class="jike-archive__feed">
+      {localizedFeed.map((post, index) => (
+        <>
+          {index === 0 || localizedFeed[index - 1].year !== post.year ? (
+            <div class="jike-archive__year-label">{post.year}</div>
+          ) : null}
+
+          <article class="jike-card" data-app-locale-root>
+            <div data-app-locale="zh">
+              <JikeCardContent post={post.zh} copy={zhCopy} />
+            </div>
+            {
+              post.hasEnTranslation ? (
+                <div data-app-locale="en" hidden>
+                  <JikeCardContent post={post.en} copy={enCopy} />
+                </div>
+              ) : null
+            }
+          </article>
+        </>
+      ))}
+    </div>
+
+    <div class="jike-lightbox" hidden data-jike-lightbox>
+      <div class="jike-lightbox__backdrop" data-jike-lightbox-close></div>
+      <div class="jike-lightbox__dialog">
+        <div class="jike-lightbox__toolbar">
+          <span class="jike-lightbox__counter" data-jike-lightbox-counter></span>
+          <button class="jike-lightbox__close" type="button" aria-label="Close image preview" data-jike-lightbox-close>
+            <span data-app-locale-root>
+              <span data-app-locale="zh">{zhCopy.closePreview}</span>
+              <span data-app-locale="en" hidden>{enCopy.closePreview}</span>
+            </span>
+          </button>
+        </div>
+        <div class="jike-lightbox__viewport">
+          <button
+            class="jike-lightbox__nav is-prev"
+            type="button"
+            aria-label="View previous image"
+            data-jike-lightbox-prev
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M9.75 3.5 5.25 8l4.5 4.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              ></path>
+            </svg>
+          </button>
+          <img class="jike-lightbox__image" alt="" data-jike-lightbox-image />
+          <button
+            class="jike-lightbox__nav is-next"
+            type="button"
+            aria-label="View next image"
+            data-jike-lightbox-next
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="m6.25 3.5 4.5 4.5-4.5 4.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              ></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </div>

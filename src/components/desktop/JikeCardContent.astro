@@ -1,0 +1,105 @@
+---
+import { renderJikeContent, type JikePostWithAnchor } from "../../data/jike";
+
+interface Copy {
+  repostFlag: string;
+  expand: string;
+  repostBy: string;
+  jikeUser: string;
+  origin: string;
+  imageAltLabel: string;
+}
+
+interface Props {
+  post: JikePostWithAnchor;
+  copy: Copy;
+}
+
+const { post, copy } = Astro.props as Props;
+---
+
+<div class="jike-card__row">
+  <img class="jike-card__avatar" src="/icons/pfp.png" alt="" loading="lazy" decoding="async" />
+  <div class="jike-card__main">
+    <header class="jike-card__header">
+      <div class="jike-card__meta">
+        <span>{post.dateLabel}</span>
+        {post.repost ? <span class="jike-card__flag">{copy.repostFlag}</span> : null}
+      </div>
+    </header>
+
+    {
+      post.content ? (
+        post.content.length > 280 ? (
+          <div class="jike-card__copy">
+            <div
+              class="jike-card__body is-collapsed"
+              data-jike-expandable
+              set:html={renderJikeContent(post.content)}
+            ></div>
+            <button class="jike-card__expand" type="button" data-jike-expand-button>
+              {copy.expand}
+            </button>
+          </div>
+        ) : (
+          <div class="jike-card__body" set:html={renderJikeContent(post.content)}></div>
+        )
+      ) : null
+    }
+
+    {
+      post.pictureCount && !post.repost ? (
+        <figure class="jike-card__media">
+          <div class:list={["jike-card__media-grid", `is-${Math.min(post.pictureCount, 4)}-up`]}>
+            {post.pictures.slice(0, 4).map((picture, pictureIndex) => (
+              <button
+                class="jike-card__media-trigger"
+                type="button"
+                data-jike-lightbox-trigger
+                data-jike-lightbox-src={picture}
+                data-jike-lightbox-images={JSON.stringify(post.pictures)}
+                data-jike-lightbox-index={pictureIndex}
+                data-jike-lightbox-alt={`${copy.imageAltLabel} ${pictureIndex + 1} / ${post.pictureCount}, ${post.dateLabel}`}
+              >
+                <img src={picture} alt="" loading="lazy" decoding="async" />
+                {
+                  pictureIndex === 3 && post.pictureCount > 4 ? (
+                    <span class="jike-card__media-more">+{post.pictureCount - 4}</span>
+                  ) : null
+                }
+              </button>
+            ))}
+          </div>
+        </figure>
+      ) : null
+    }
+
+    {
+      post.repost ? (
+        <div class="jike-card__repost">
+          <span>{copy.repostBy} {post.repost.author || copy.jikeUser}</span>
+          <div class="jike-card__repost-content" set:html={renderJikeContent(post.repost.content)}></div>
+        </div>
+      ) : null
+    }
+
+    {post.topic !== "未分类" || post.link ? (
+      <footer class="jike-card__footer">
+        {post.topic !== "未分类" ? <span class="jike-card__topic">{post.topic}</span> : null}
+        <a class="jike-card__origin" href={post.link} target="_blank" rel="noreferrer">
+          <span>{copy.origin}</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M5 11 11.25 4.75M7.25 4.75h4v4"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.35"
+            ></path>
+          </svg>
+        </a>
+      </footer>
+    ) : null}
+  </div>
+</div>

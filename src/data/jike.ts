@@ -1,4 +1,10 @@
 import { jikePosts } from "./jike-posts.generated";
+import {
+  jikePostTranslations,
+  jikeTopicTranslations,
+  jikeUiCopy,
+  type JikeLocale
+} from "./jike-translations";
 
 export interface JikeRepost {
   author: string;
@@ -115,3 +121,43 @@ export const jikeArchiveStats = {
   latestDate: posts[0]?.dateLabel ?? "",
   earliestDate: posts[posts.length - 1]?.dateLabel ?? ""
 };
+
+export function hasJikeTranslation(postId: string) {
+  return Boolean(jikePostTranslations[postId]);
+}
+
+export function getJikeUiCopy(locale: JikeLocale) {
+  return jikeUiCopy[locale];
+}
+
+function formatJikeDateLabel(createdAt: string, locale: JikeLocale) {
+  if (locale === "zh") return "";
+
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  }).format(new Date(createdAt));
+}
+
+export function getLocalizedJikePost<T extends JikePostWithAnchor>(post: T, locale: JikeLocale): T {
+  if (locale === "zh") return post;
+
+  const translation = jikePostTranslations[post.id];
+  const localizedRepost = post.repost
+    ? {
+        author: translation?.repost?.author ?? post.repost.author,
+        content: translation?.repost?.content ?? post.repost.content
+      }
+    : null;
+
+  return {
+    ...post,
+    dateLabel: formatJikeDateLabel(post.createdAt, locale),
+    topic: translation?.topic ?? jikeTopicTranslations[post.topic] ?? post.topic,
+    content: translation?.content ?? post.content,
+    excerpt: translation?.excerpt ?? post.excerpt,
+    repost: localizedRepost
+  };
+}
