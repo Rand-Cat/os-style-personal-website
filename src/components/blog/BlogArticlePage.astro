@@ -27,17 +27,16 @@ const { Content } = await render(post);
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles/desktop-os.css" />
     <style>
       :root {
-        --bg: #0f0f12;
-        --fg: #F5F0EB;
-        --secondary: rgba(245, 240, 235, 0.55);
-        --dim: rgba(245, 240, 235, 0.28);
-        --border: rgba(255, 255, 255, 0.06);
-        --accent: #FF6B3D;
-        --accent-soft: rgba(255, 107, 61, 0.1);
-        --font-display: "Iowan Old Style", "Baskerville", "Palatino Linotype", "Noto Serif SC", "Songti SC", "STSong", serif;
-        --font-ui: "Avenir Next", "SF Pro Text", "Segoe UI", "PingFang SC", sans-serif;
+        --secondary: #4f4a42;
+        --dim: #867e71;
+        --border: rgba(24, 24, 24, 0.06);
+        --accent: #181818;
+        --accent-soft: rgba(24, 24, 24, 0.04);
+        --font-display: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --font-ui: Inter, -apple-system, "PingFang SC", sans-serif;
         --font-mono: "SF Mono", "JetBrains Mono", "Menlo", monospace;
       }
 
@@ -46,46 +45,115 @@ const { Content } = await render(post);
       html, body {
         margin: 0;
         min-height: 100%;
-        background: var(--bg);
-        color: var(--fg);
+        color: var(--ink);
         -webkit-font-smoothing: antialiased;
       }
 
-      body { padding: 28px; font-family: var(--font-display); font-size: 16px; }
+      body {
+        overflow: auto;
+        font-family: var(--font-ui);
+        font-size: 16px;
+      }
 
       a { color: inherit; text-decoration: none; }
 
-      .page { max-width: 640px; margin: 0 auto; }
+      .blog-page {
+        min-height: 100vh;
+      }
 
-      .topbar {
+      .blog-page .system-bar {
+        position: sticky;
+      }
+
+      .blog-stage {
+        position: relative;
+        z-index: 2;
+        min-height: calc(100vh - 44px);
+        padding: 36px 24px 56px;
+        background: var(--bg-window-strong, rgba(250, 250, 250, 0.96));
+      }
+
+      .blog-content {
+        width: min(100%, 980px);
+        margin: 0 auto;
+        padding: 8px 0 0;
+      }
+
+      .page {
+        width: min(100%, 760px);
+        margin: 0 auto;
+      }
+
+      .article-tools {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        padding: 8px 0 24px;
+        padding: 6px 2px 18px;
         border-bottom: 1px solid var(--border);
-        font-family: var(--font-ui);
       }
 
-      .topbar__nav {
+      .article-tools__nav {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
         color: var(--dim);
         font-size: 11px;
-        letter-spacing: 0.03em;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
-      .topbar__nav a:hover { color: var(--fg); }
+      .article-tools__nav a:hover {
+        color: var(--ink);
+      }
+
+      .system-right {
+        gap: 14px;
+      }
+
+      .system-locale {
+        gap: 14px;
+      }
+
+      .system-locale a {
+        position: relative;
+        color: var(--ink-dim);
+        font-size: 13px;
+        transition: color 0.18s ease;
+      }
+
+      .system-locale a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -3px;
+        height: 1px;
+        background: currentColor;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+      }
+
+      .system-locale a:hover,
+      .system-locale a.is-active {
+        color: var(--ink);
+      }
+
+      .system-locale a:hover::after,
+      .system-locale a.is-active::after {
+        opacity: 1;
+      }
 
       .meta {
-        margin-top: 48px;
+        margin-top: 28px;
         display: flex;
         gap: 8px;
         color: var(--dim);
-        font-family: var(--font-mono);
-        font-size: 10px;
-        letter-spacing: 0.06em;
+        font-family: var(--font-ui);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
@@ -96,7 +164,7 @@ const { Content } = await render(post);
         line-height: 1.08;
         font-weight: 600;
         letter-spacing: -0.03em;
-        color: var(--fg);
+        color: #171716;
       }
 
       .content {
@@ -107,10 +175,10 @@ const { Content } = await render(post);
 
       .content :global(p) {
         margin: 0 0 20px;
-        color: rgba(245, 240, 235, 0.72);
-        line-height: 1.9;
-        font-size: 16px;
-        font-weight: 300;
+        color: #302c27;
+        line-height: 1.95;
+        font-size: 17px;
+        font-weight: 400;
       }
 
       .content :global(blockquote) {
@@ -119,20 +187,29 @@ const { Content } = await render(post);
         border-left: 2px solid var(--accent);
         background: var(--accent-soft);
         border-radius: 0 6px 6px 0;
-        font-size: 15px;
-        font-style: italic;
-        line-height: 1.75;
-        color: var(--accent);
+        font-size: 16px;
+        line-height: 1.8;
+        color: #302c27;
       }
 
       .content :global(h2) {
         padding: 28px 0 0;
         margin: 0 0 14px;
-        font-size: 1.4rem;
+        font-size: 26px;
+        line-height: 1.12;
         font-weight: 600;
         font-family: var(--font-display);
         letter-spacing: -0.02em;
-        color: var(--fg);
+        color: #171716;
+      }
+
+      .content :global(h3) {
+        margin: 0 0 12px;
+        font-size: 19px;
+        line-height: 1.22;
+        font-weight: 700;
+        font-family: var(--font-display);
+        color: #1e1e1c;
       }
 
       .content :global(code) {
@@ -140,31 +217,21 @@ const { Content } = await render(post);
         font-size: 0.82em;
         padding: 2px 6px;
         border-radius: 4px;
-        background: rgba(255,255,255,0.05);
-        color: rgba(245,240,235,0.75);
+        background: rgba(24, 24, 24, 0.05);
+        color: #4b463f;
       }
 
-      .locale-switch {
-        display: inline-flex;
-        gap: 2px;
-        padding: 3px;
-        border-radius: 6px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid var(--border);
+      .content :global(ul),
+      .content :global(ol) {
+        margin: 0 0 20px;
+        padding-left: 22px;
+        color: #302c27;
+        font-size: 17px;
+        line-height: 1.95;
       }
 
-      .locale-switch a {
-        padding: 4px 10px;
-        border-radius: 4px;
-        font-size: 10px;
-        font-weight: 500;
-        color: var(--dim);
-        transition: all 0.12s;
-      }
-
-      .locale-switch a.is-active {
-        background: var(--accent);
-        color: white;
+      .content :global(li) {
+        margin-bottom: 10px;
       }
 
       .footer {
@@ -172,9 +239,10 @@ const { Content } = await render(post);
         padding-top: 20px;
         border-top: 1px solid var(--border);
         color: var(--dim);
-        font-family: var(--font-mono);
-        font-size: 10px;
-        letter-spacing: 0.04em;
+        font-family: var(--font-ui);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
       }
 
       .footer a { color: var(--accent); }
@@ -182,54 +250,87 @@ const { Content } = await render(post);
 
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+      ::-webkit-scrollbar-thumb { background: rgba(24, 24, 24, 0.12); border-radius: 10px; }
 
       @media (max-width: 720px) {
-        body { padding: 18px; }
-        .topbar { align-items: start; flex-direction: column; }
-        .topbar__nav { flex-wrap: wrap; }
+        .blog-stage {
+          padding: 18px 12px 28px;
+        }
+
+        .blog-content {
+          padding-top: 0;
+        }
+
+        .article-tools {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .article-tools__nav {
+          flex-wrap: wrap;
+        }
       }
     </style>
   </head>
   <body>
-    <main class="page">
-      <header class="topbar">
-        <div class="topbar__nav">
-          <a href={getBlogIndexPath(locale)}>{copy.backToBlog}</a>
-          <a href="/">Home</a>
+    <main class="desktop-page blog-page" data-desktop-wallpaper="paper">
+      <div class="desktop-bg" aria-hidden="true">
+        <div class="bg-texture"></div>
+        <div class="editorial-line"></div>
+      </div>
+
+      <header class="system-bar">
+        <div class="system-left">
+          <a class="os-logo" href="/" aria-label="Back to home"></a>
         </div>
-        <div class="locale-switch" aria-label="Language switch">
-          <a
-            class={locale === "zh" ? "is-active" : ""}
-            data-blog-locale-switch="zh"
-            href={getBlogPostPath("zh", post.data.translationKey)}
-          >
-            {BLOG_LANGUAGE_LABELS.zh}
-          </a>
-          <a
-            class={locale === "en" ? "is-active" : ""}
-            data-blog-locale-switch="en"
-            href={getBlogPostPath("en", post.data.translationKey)}
-          >
-            {BLOG_LANGUAGE_LABELS.en}
-          </a>
+        <div class="system-right">
+          <div class="system-locale" aria-label="Blog language switch">
+            <a
+              class={locale === "zh" ? "is-active" : ""}
+              data-blog-locale-switch="zh"
+              href={getBlogPostPath("zh", post.data.translationKey)}
+            >
+              {BLOG_LANGUAGE_LABELS.zh}
+            </a>
+            <a
+              class={locale === "en" ? "is-active" : ""}
+              data-blog-locale-switch="en"
+              href={getBlogPostPath("en", post.data.translationKey)}
+            >
+              {BLOG_LANGUAGE_LABELS.en}
+            </a>
+          </div>
+          <span>Blog</span>
         </div>
       </header>
 
-      <div class="meta">
-        <span>{formatBlogDate(post.data.date)}</span>
-        <span> · </span>
-        <span>{post.data.readTime}</span>
-      </div>
+      <section class="blog-stage">
+        <div class="blog-content">
+          <main class="page">
+            <header class="article-tools">
+              <div class="article-tools__nav">
+                <a href={getBlogIndexPath(locale)}>{copy.backToBlog}</a>
+                <a href="/">Home</a>
+              </div>
+            </header>
 
-      <h1>{post.data.title}</h1>
-      <article class="content">
-        <Content />
-      </article>
+            <div class="meta">
+              <span>{formatBlogDate(post.data.date)}</span>
+              <span> · </span>
+              <span>{post.data.readTime}</span>
+            </div>
 
-      <footer class="footer">
-        <a href={getBlogIndexPath(locale)}>{copy.moreArticles}</a>
-      </footer>
+            <h1>{post.data.title}</h1>
+            <article class="content">
+              <Content />
+            </article>
+
+            <footer class="footer">
+              <a href={getBlogIndexPath(locale)}>{copy.moreArticles}</a>
+            </footer>
+          </main>
+        </div>
+      </section>
     </main>
 
     <script is:inline define:vars={{ locale }}>

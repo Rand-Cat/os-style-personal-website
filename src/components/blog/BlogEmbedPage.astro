@@ -27,8 +27,8 @@ const { Content } = await render(post);
         --border: rgba(24, 24, 24, 0.06);
         --accent: #181818;
         --accent-soft: rgba(24, 24, 24, 0.04);
-        --font-display: "Iowan Old Style", "Baskerville", "Palatino Linotype", "Noto Serif SC", "Songti SC", "STSong", serif;
-        --font-ui: "Avenir Next", "SF Pro Text", "Segoe UI", "PingFang SC", sans-serif;
+        --font-display: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --font-ui: Inter, -apple-system, "PingFang SC", sans-serif;
         --font-mono: "SF Mono", "JetBrains Mono", "Menlo", monospace;
       }
 
@@ -42,7 +42,7 @@ const { Content } = await render(post);
         -webkit-font-smoothing: antialiased;
       }
 
-      body { font-family: var(--font-display); font-size: 16px; }
+      body { font-family: var(--font-ui); font-size: 16px; }
 
       .page {
         max-width: 760px;
@@ -65,7 +65,7 @@ const { Content } = await render(post);
         font-family: var(--font-display);
         font-size: clamp(2rem, 3vw, 2.45rem);
         line-height: 1.08;
-        font-weight: 400;
+        font-weight: 600;
         letter-spacing: -0.02em;
         color: var(--fg);
       }
@@ -76,8 +76,8 @@ const { Content } = await render(post);
 
       .content :global(p) {
         margin: 0 0 20px;
-        line-height: 1.65;
-        font-size: 19px;
+        line-height: 1.95;
+        font-size: 17px;
         font-weight: 400;
         color: #302c27;
       }
@@ -85,11 +85,21 @@ const { Content } = await render(post);
       .content :global(h2) {
         margin: 0;
         padding: 30px 0 12px;
-        font-size: 32px;
-        line-height: 1.2;
-        font-weight: 400;
+        font-size: 26px;
+        line-height: 1.12;
+        font-weight: 600;
         font-family: var(--font-display);
         letter-spacing: -0.02em;
+        color: var(--fg);
+      }
+
+      .content :global(h3) {
+        margin: 0;
+        padding: 20px 0 10px;
+        font-size: 19px;
+        line-height: 1.22;
+        font-weight: 700;
+        font-family: var(--font-display);
         color: var(--fg);
       }
 
@@ -99,9 +109,8 @@ const { Content } = await render(post);
         border-left: 1px solid var(--accent);
         background: transparent;
         border-radius: 0;
-        line-height: 1.65;
-        font-size: 19px;
-        font-style: italic;
+        line-height: 1.8;
+        font-size: 16px;
         color: #302c27;
       }
 
@@ -119,8 +128,8 @@ const { Content } = await render(post);
         margin: 0 0 20px;
         padding-left: 22px;
         color: #302c27;
-        font-size: 19px;
-        line-height: 1.65;
+        font-size: 17px;
+        line-height: 1.95;
       }
 
       .content :global(li) {
@@ -142,7 +151,7 @@ const { Content } = await render(post);
         .content :global(blockquote),
         .content :global(ul),
         .content :global(ol) {
-          font-size: 18px;
+          font-size: 17px;
         }
       }
     </style>
