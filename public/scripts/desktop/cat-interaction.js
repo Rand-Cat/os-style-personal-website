@@ -17,16 +17,17 @@ export function initCatInteraction() {
   };
 
   const appPhrases = {
-    'profile': '这是我的工作室哦。',
-    'read-easy': '要一起读点英语吗？',
-    'blog': '这里有很多文章，慢慢看。',
-    'vibary': '来翻翻这些书吧。',
+    'profile': '这是人类的介绍',
+    'read-easy': 'AI 如何让阅读英语变简单？',
+    'blog': '长文章，不过目前只有几篇内容',
+    'vibary': 'AI 的前端水平超乎想象',
+    'molday':"都发霉了，还玩手机？",
     'settings': '想调整点什么？',
-    'jike': '一些平时的碎碎念。',
-    'atten': '嘘，要保持专注。',
-    'sprint': '这里藏着几个小工具。',
-    'fun': '找点乐子？',
-    'reflex-ai': 'AI 相关的奇思妙想。',
+    'jike': '在即刻App上发布过一些想法',
+    'atten': '23 年想做 App Store',
+    'sprint': '1-5天快速做的东西',
+    'fun': '有趣而无用？',
+    'reflex-ai': '在 Reflex AI 和团队一起做的产品',
   };
 
   const appMoods = {
@@ -74,10 +75,14 @@ export function initCatInteraction() {
 
   if (catHover) {
     const catPhrases = [
-      '喵，你发现我啦。',
-      '嘿嘿，被注意到啦。',
-      '摸摸我？',
-      '喵~',
+      '能看出来我是一只猫吧？',
+      '我是 Vibe Coding 出来的',
+      '有什么事吗？',
+      '我想吃猫条了',
+      '不要乱摸我',
+      '去看其它东西吧',
+      '你好，再见',
+
     ];
     let lastPhraseIndex = -1;
 
