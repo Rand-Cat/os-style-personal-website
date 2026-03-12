@@ -227,6 +227,24 @@ const { Content } = await render(post);
         color: #4b463f;
       }
 
+      .content :global(pre) {
+        margin: 24px 0;
+        padding: 18px 20px;
+        border-radius: 14px;
+        background: #20262f;
+        overflow-x: auto;
+      }
+
+      .content :global(pre code) {
+        display: block;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        color: inherit;
+        font-size: 0.95em;
+        line-height: 1.75;
+      }
+
       .content :global(ul),
       .content :global(ol) {
         margin: 0 0 20px;
@@ -265,6 +283,11 @@ const { Content } = await render(post);
 
         .blog-content {
           padding-top: 0;
+        }
+
+        .content :global(pre) {
+          padding: 16px;
+          border-radius: 12px;
         }
 
       }
