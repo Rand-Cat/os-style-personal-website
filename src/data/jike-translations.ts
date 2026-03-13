@@ -18,6 +18,9 @@ export const jikeTopicTranslations: Record<string, string> = {
   "设计师的日常": "Designer's Daily",
   "Chrome插件分享站": "Chrome Extensions",
   "产品经理的日常": "Product Manager's Daily",
+  "广告人的日常": "Advertiser's Daily",
+  "无用但有趣的冷知识": "Useless but Fun Trivia",
+  "一起学英语": "Learn English Together",
   "未分类": "Uncategorized"
 };
 
@@ -36,7 +39,7 @@ export const jikeUiCopy = {
   },
   en: {
     eyebrow: "Jike Archive",
-    title: "Updates",
+    title: "Posts",
     description: "A selection of posts published on Jike. Not updated in real time.",
     repostFlag: "Repost",
     expand: "Read more",
@@ -60,6 +63,119 @@ export const jikeUiCopy = {
 }>;
 
 export const jikePostTranslations: Record<string, JikeTranslation> = {
+  "6937836c9c33f01a98054074": {
+    content: `Humans are only the third smartest species on Earth.`,
+    excerpt: `Humans are only the third smartest species on Earth.`
+  },
+  "693632b2f9f2475875c4473f": {
+    content: `What if every book had its own website?`,
+    excerpt: `What if every book had its own website?`
+  },
+  "693158549aafa14b71928fd1": {
+    content: `I made a website for *The Three-Body Problem* with Gemini 3.
+
+All I can say is that Gemini 3 is absurdly strong at frontend work.`,
+    excerpt: `I made a website for *The Three-Body Problem* with Gemini 3.`
+  },
+  "6921634762623cfa89335358": {
+    content: `I made a Chrome extension for watching YouTube at variable speed: TubeNitro.
+
+What makes it different from other extensions is that the interaction feels more natural. Just press and hold on the video, then move up or down to adjust the playback speed.
+
+You can crank it up to 10x and turn a one-hour video into six minutes, quickly deciding whether it is worth watching closely. You can also skip through the boring parts and slow down again when it gets interesting.
+
+Compared with AI summaries, which may leave out visuals you personally care about, changing the speed lets you keep the important parts of the video in view.
+
+https://chromewebstore.google.com/detail/tubenitro/dijolhechakpkdmkooadbimhmmljkbmf?authuser=0&hl=en`,
+    excerpt: `I made a Chrome extension for watching YouTube at variable speed: TubeNitro.`
+  },
+  "69212694d9abb9785d9ca2e5": {
+    content: `You can hold a correct idea and still receive reality's denial.
+You can hold a wrong idea and still receive reality's confirmation.
+
+The first case, for example:
+Correct idea: an object not acted on by an external force will continue in uniform straight-line motion.
+Reality's denial: a ball rolls on a wooden board for a while and then stops.
+
+The second case, for example:
+Wrong idea: an external force is needed to keep an object moving at constant speed.
+Reality's confirmation: a ball rolls on a wooden board for a while and then stops.
+
+But in fact, the first bit of reality does not refute the idea, and the second bit of reality does not confirm it. Both ignore other variables in reality, such as friction from the wooden board.
+
+Starting from an idea and finding it incompatible with reality may mean that what needs to change is not the idea, but "reality."
+
+Starting from reality and trying to infer an idea will naturally line up with reality, but only with "part of reality."
+
+If you trust the second idea and want to build a spaceship, good luck.`,
+    excerpt: `You can hold a correct idea and still receive reality's denial. You can hold a wrong idea and still receive reality's confirmation.`
+  },
+  "691fdc021ed9b53c781df506": {
+    content: `Back when I was learning the driving test's reverse parking maneuver, I was confused about why the steering wheel had to be turned that way, so I looked into the math behind how cars move and turn. I sketched some crooked diagrams, did some calculations, and eventually figured it out.
+
+Later, whenever a new AI model came out, I would occasionally use this as a test case. None of the previous models produced anything convincing. They often could not even draw the relative sizes and positions of the car and the parking space correctly.
+
+A day or two ago, while everyone was praising Gemini 3, I still had not seen anything especially striking, so today I tried this example.
+
+The result was not exactly what I wanted in a strict sense, but it was still a pleasant surprise. Gemini 3 built an interactive page where I could adjust the steering wheel and see the car's projected path. After playing with it a few times, I could roughly understand the underlying idea.
+
+🔗 https://parking-math-master-717109000466.us-west1.run.app/`,
+    excerpt: `While learning reverse parking, I once dug into the math behind how cars move and turn, and now I sometimes use that problem to test new AI models.`
+  },
+  "6916a94fd9abb9785db8f933": {
+    content: `Each biological mutation is so tiny on its own, yet accumulated across billions of years it can turn the earliest single-celled organisms into all kinds of astonishing life. Eyes and brains are products of evolution too, but their intricacy is taken by some people as proof that a creator must exist, that "there must be a designer behind it."
+
+Products and organisms, iteration and mutation, markets and nature: there are so many parallels between them that I started wondering:
+
+Could we begin with an extremely simple product, iterate on it hundreds or thousands of times, and eventually arrive at a great product?
+
+Since this is only an analogy, we may as well push it a little further.
+
+Each biological mutation is always based on at least one living individual, and those individuals belong to species that have already secured some ecological niche, either now or in the past. Their existence has already been "validated" by nature.
+
+A completely different, unvalidated organism does not just appear out of nowhere and wait for nature to validate it. Even a major mutation that makes an organism leap far away from its parents is often fatal.
+
+Before life steps onto the next stair, it always has a stair beneath its feet. If a product is a continuation of something already validated, it has a stair to stand on too. The stair may be small, and it may still get squeezed off it. But a product aiming for breakthrough innovation may find that, after it jumps, there is no stair at all beneath it and it falls into the valley. In the rare cases, though, it may open up an entirely new path.
+
+Also, not every organism validated by nature has the same degree of complexity or the same state of survival. Some lineages keep evolving and still never produce a brain comparable to that of mammals. Even some organisms favored by nature for hundreds of millions of years can only meet us today as fossils.
+
+If we look at only one single evolutionary path, starting from a single-celled organism does not guarantee something beautiful, or even something with a good niche. Starting from an extremely simple product does not guarantee something great, or even something that survives.
+
+But if we look at the sprawling whole tree of evolution, perhaps some branches do bear sweet fruit.
+
+(Enough to feed a monkey well.)`,
+    excerpt: `Products and organisms, iteration and mutation, markets and nature: there are so many parallels between them that I started wondering whether a great product could emerge from countless tiny iterations.`
+  },
+  "691152608b22275ef8ae8a9b": {
+    content: `If a product is a pile of crap, how do you sell it?
+
+Artist: First let me tape it to a wall.
+
+Serious person: Vegetables grown with this organic fertilizer sell really well.
+
+Elevator ad: Nitrogen-rich poop. Feed your plants. Nutrients high high high high high high high high high high high high high high high high high high.
+
+Ordinary person: I would not sell it.
+
+Mediocre person: Just look at the sheen, the color, the moisture, the feel. Now take a sniff. Purely natural, handmade, no industrial additives.
+
+Goofball: Give one to your dog.
+
+Someone with unusual taste: It is a melted chocolate.
+
+Scammer: It is a melted chocolate.`,
+    excerpt: `If a product is a pile of crap, how do you sell it?`
+  },
+  "691011f13ea7571a781f9b9b": {
+    content: `What happens when you point a camera at its own screen?
+
+Is it a Russian doll, or self-reference, an infinite corridor, or a spiral galaxy?`,
+    excerpt: `What happens when you point a camera at its own screen?`
+  },
+  "690eb2ecd9abb9785d0be56e": {
+    content: `Did OpenAI just release a new app?`,
+    excerpt: `Did OpenAI just release a new app?`
+  },
   "698b46d35a3e1a5df31f1329": {
     content: `Lately I have been seeing more and more discussion and products around "interactive content." I find the direction quite interesting, but so far I still have not seen a product in this space that people can really get hooked on and keep scrolling through.
 
@@ -221,5 +337,83 @@ This site is not meant to replace reading. It is meant to spark the desire to re
 
 Now, please help me build this project.`,
     excerpt: `Prompt: I want every book to have its own one-of-a-kind webpage. I do not want structured, generic webpages. Each page should match the vibe of the specific book it represents.`
+  },
+  "68673d8991c7e8c1b95127e4": {
+    content: `I made a little extension so you have something to do while AI is thinking.
+
+Waiting for AI to think is like waiting for an elevator. Sometimes it takes forever, sometimes only a moment, but it is boring either way.
+
+Ever since I started using o3 more often, I have been waiting for that elevator many times every day.
+
+So I made an extension called interlude to take the edge off the boredom.
+
+After you install interlude, whenever you use ChatGPT or DeepSeek, if it detects that the AI is thinking or generating an image, a small vocabulary card pops up in the lower-right corner. You can use that little slice of time to study English words, and it disappears automatically when the AI finishes thinking.
+
+I do not know how many words it will help you learn, but it will definitely make the waiting less boring.
+
+https://chromewebstore.google.com/detail/interlude/oafhmpindfnaffeacgjohkkbpdbahgdn?hl=en&authuser=0
+
+(You can also click the extension icon manually on any site to open the card.)`,
+    excerpt: `I made a little extension so you have something to do while AI is thinking.`
+  },
+  "68556fbff0d718ce7af8b90c": {
+    content: `If AI can generate UI fast enough, do you get a natural-language-driven Duolingo?`,
+    excerpt: `If AI can generate UI fast enough, do you get a natural-language-driven Duolingo?`
+  },
+  "68552e8ad82bae994aecfb8d": {
+    content: `How do we find each other in an ocean of words?`,
+    excerpt: `How do we find each other in an ocean of words?`
+  },
+  "685205ebdecb244934cafc29": {
+    content: `An article about natural language interaction.`,
+    excerpt: `An article about natural language interaction.`
+  },
+  "685131cab7f4ddcfdfa6c328": {
+    content: `A new experiment in reading English:
+
+1. Break paragraphs and sentences into smaller pieces, then translate them line by line.
+
+Keep the translation as close as possible to the original, so your eyes can switch between the two more quickly and compare them more easily.
+
+2. Mark certain words or phrases in both the original text and the translation.
+
+Could this design make it easier for you to read English?`,
+    excerpt: `A new experiment in reading English: break paragraphs and sentences into smaller pieces, then translate them line by line.`
+  },
+  "68456681380c5253de2cf58e": {
+    content: `A bit more on this:
+
+How choices differ across different levels of abstraction.`,
+    excerpt: `How choices differ across different levels of abstraction.`
+  },
+  "6841591dbb87512bfaa155b5": {
+    content: `You can now read nearly 50 handpicked English information sources directly on the Read Easy website, and it also supports AI summaries so you can decide whether an article is worth your time.
+
+The new feature makes it easier to access and read English information, and also to learn English by reading things you actually care about.
+
+🔗 https://www.read-easy.io/
+
+The earlier form of the product was a browser extension. It used AI-generated annotations to lower the difficulty of reading English, but the extension still was not quite easy enough. Many people do not have a habit of reading English articles, or do not know what is worth reading, or find that extensions do not work well with content on certain sites. That led to this new feature.
+
+Although the new feature is powered by an old technology, RSS, I would rather think of it as a lightweight browser.
+
+Really, opening sources in the sidebar is not so different from opening websites in Arc's sidebar. It is just a different content format for the site.
+
+RSS tends to make people think of knowledge management: a pile of read, unread, and read-later items, which makes reading feel heavy. A website feels lighter. You can open it casually and close it casually.
+
+Yes, RSS does provide extra utility by letting you know when a site has updated, so you are less likely to miss an article.
+
+But I do not think there is any book you must read or any article you cannot afford to miss, especially in an age when information can be found so quickly.
+
+I call it a lightweight browser because its capabilities are still limited for now. It does not yet support opening any site you want, and it is mainly oriented around English information sources. The rest of the product is also designed around the same goal: making English reading easier.
+
+In short, it is like a lightweight browser for exploring the English internet.
+
+But none of that is the important part.
+
+What matters is not the form itself or what definition you give it. What matters is whether it is useful to you.
+
+If you want information beyond the Chinese internet, or if you want to learn English, maybe it can be a little useful to you.`,
+    excerpt: `You can now read nearly 50 handpicked English information sources directly on the Read Easy website, with AI summaries to help decide what is worth your time.`
   }
 };

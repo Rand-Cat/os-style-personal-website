@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "import:jike": "python3 scripts/import-jike-csv.py"
+    "import:jike": "python3 scripts/import-jike-csv.py",
+    "jike:translate:worklist": "node scripts/jike-translation-worklist.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",

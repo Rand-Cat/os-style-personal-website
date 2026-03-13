@@ -25,6 +25,7 @@ Useful commands:
 - `npm run build`
 - `npm run preview`
 - `npm run import:jike -- "/absolute/path/to/export.csv"`
+- `npm run jike:translate:worklist -- --limit 20`
 
 ## First Places To Read
 
@@ -175,13 +176,19 @@ Important files:
 - `public/styles/desktop/jike.css`
 - `public/scripts/desktop/jike-archive.js`
 - `scripts/import-jike-csv.py`
+- `scripts/jike-translation-worklist.mjs`
 
 Notes:
 
 - The generated data file should be treated as derived output, not hand-edited content.
 - When the CSV export changes, regenerate the data via `npm run import:jike -- "/absolute/path/to/export.csv"`.
-- English support for Jike is currently partial and hand-maintained in `src/data/jike-translations.ts`.
+- English support for Jike is still partial and hand-maintained in `src/data/jike-translations.ts`, but there is now a helper workflow for batching translation work.
+- Use `npm run jike:translate:worklist -- --limit 20` to list untranslated posts.
+- Use `npm run jike:translate:worklist -- --topic "AI探索站" --format markdown` when preparing a translation batch for review or external translation help.
+- Use `npm run jike:translate:worklist -- --ids "id1,id2" --format ts` to generate a paste-ready skeleton for `jikePostTranslations`.
+- Prefer translating recent, high-signal posts first: product updates, AI explorations, essays with durable value, and posts that are still understandable to English readers outside the original social context.
 - The Jike window renders English for translated recent posts and falls back to Chinese per-post when no translation exists; do not replace untranslated cards with blank states.
+- Topic names also need explicit entries in `jikeTopicTranslations` when new Chinese categories appear; otherwise English cards will show raw Chinese topic labels.
 - If the Jike UI changes, keep its structure, styles, and interactions isolated to the Jike-specific files instead of leaking logic into shared pane files.
 
 ## Design Direction
