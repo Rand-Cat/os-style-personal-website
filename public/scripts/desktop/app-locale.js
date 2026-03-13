@@ -3,6 +3,7 @@ import { getPreferredBlogLocale } from "../locale-preference.js";
 export function initAppLocale() {
   const localeButtons = Array.from(document.querySelectorAll("[data-blog-locale-switch]"));
   const localeRoots = Array.from(document.querySelectorAll("[data-app-locale-root]"));
+  const localizedNameTargets = Array.from(document.querySelectorAll("[data-localized-name-attrs]"));
 
   const applyLocale = (locale) => {
     const nextLocale = locale === "en" ? "en" : "zh";
@@ -21,6 +22,22 @@ export function initAppLocale() {
         } else {
           pane.setAttribute("hidden", "");
         }
+      });
+    });
+
+    localizedNameTargets.forEach((element) => {
+      const localizedLabel =
+        element.getAttribute(`data-localized-name-${nextLocale}`) ||
+        element.getAttribute("data-localized-name-zh");
+      const attrs = (element.getAttribute("data-localized-name-attrs") || "")
+        .split(",")
+        .map((value) => value.trim())
+        .filter(Boolean);
+
+      if (!localizedLabel || attrs.length === 0) return;
+
+      attrs.forEach((attr) => {
+        element.setAttribute(attr, localizedLabel);
       });
     });
   };

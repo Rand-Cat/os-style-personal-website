@@ -1,5 +1,5 @@
 ---
-import type { DesktopApp } from "../../data/desktop";
+import type { DesktopApp, DesktopLocalizedName } from "../../data/desktop";
 import AttenWindow from "./AttenWindow.astro";
 import DesktopBlogWindow from "./DesktopBlogWindow.astro";
 import AppGroupWindow from "./AppGroupWindow.astro";
@@ -29,7 +29,8 @@ interface Props {
 
 interface WindowDefinition {
   appId: string;
-  title: string;
+  title?: string;
+  localizedTitle?: DesktopLocalizedName;
   component:
     | typeof StudioWindow
     | typeof DesktopBlogWindow
@@ -61,10 +62,9 @@ const getApp = (id: string) => {
 };
 
 const windowDefinitions: WindowDefinition[] = [
-  { appId: "profile", title: "About Me", component: StudioWindow, zIndex: 12 },
+  { appId: "profile", component: StudioWindow, zIndex: 12 },
   {
     appId: "blog",
-    title: "Archive & Editor",
     component: DesktopBlogWindow,
     componentProps: { postsByLocale: blogPostsByLocale, defaultHref: defaultBlogHref },
     zIndex: 14
@@ -72,7 +72,7 @@ const windowDefinitions: WindowDefinition[] = [
   { appId: "read-easy", title: "Read Easy", component: ReadEasyWindow },
   { appId: "vibary", title: "Vibary", component: VibaryWindow },
   { appId: "settings", title: "Settings", component: SettingsWindow },
-  { appId: "jike", title: "Posts", component: JikeIdeasWindow },
+  { appId: "jike", component: JikeIdeasWindow },
   {
     appId: "atten",
     title: "Atten",
@@ -85,7 +85,7 @@ const windowDefinitions: WindowDefinition[] = [
   },
   {
     appId: "molday",
-    title: "Molday",
+    title: "Molday.",
     component: MoldayWindow
   },
   {
@@ -140,8 +140,14 @@ const windowDefinitions: WindowDefinition[] = [
 ---
 
 <div class="desktop-window-layer">
-  {windowDefinitions.map(({ appId, title, component: Component, componentProps = {}, variant, zIndex }) => (
-    <WindowFrame app={getApp(appId)} title={title} variant={variant} zIndex={zIndex}>
+  {windowDefinitions.map(({ appId, title, localizedTitle, component: Component, componentProps = {}, variant, zIndex }) => (
+    <WindowFrame
+      app={getApp(appId)}
+      title={title ?? getApp(appId).name}
+      localizedTitle={localizedTitle ?? getApp(appId).localizedName}
+      variant={variant}
+      zIndex={zIndex}
+    >
       {appId === "blog" && (
         <div slot="trailing" class="blog-window__title-actions">
           <span class="blog-window__title-actionWrap" data-tooltip="复制文章链接">

@@ -1,5 +1,5 @@
 ---
-title: Molday
+title: Molday.
 year: "2026"
 summary: "当你在玩手机的时候，你可能在发霉"
 tags:
@@ -9,11 +9,11 @@ titleTag: "by zhijie & wy"
 websiteUrl: "https://apps.apple.com/us/app/molday/id6754533732"
 websiteLabel: "App Store"
 heroImage: "/images/apps/molday/1-tab1.jpg"
-heroAlt: "Molday App Store 首页培养皿截图"
+heroAlt: "Molday. App Store 首页培养皿截图"
 webImage: "/images/apps/molday/2-tab2.jpg"
-webAlt: "Molday App Store 使用详情截图"
+webAlt: "Molday. App Store 使用详情截图"
 extensionImage: "/images/apps/molday/4-iMessage.jpg"
-extensionAlt: "Molday App Store iMessage 好友助力截图"
+extensionAlt: "Molday. App Store iMessage 好友助力截图"
 ---
 
 
@@ -41,10 +41,10 @@ Molday. 都同样支持你的决定
 ## App Store截图
 
 <div class="onesnap-gallery">
-  <img src="/images/apps/molday/1-tab1.jpg" alt="Molday App Store 截图 1，首页培养皿标签页" />
-  <img src="/images/apps/molday/2-tab2.jpg" alt="Molday App Store 截图 2，使用详情标签页" />
-  <img src="/images/apps/molday/3-limit.jpg" alt="Molday App Store 截图 3，应用限制设置页面" />
-  <img src="/images/apps/molday/4-iMessage.jpg" alt="Molday App Store 截图 4，iMessage 好友助力页面" />
-  <img src="/images/apps/molday/5-shiled.jpg" alt="Molday App Store 截图 5，屏幕时间限制遮罩页面" />
-  <img src="/images/apps/molday/6-tab3.jpg" alt="Molday App Store 截图 6，第三个主标签页" />
+  <img src="/images/apps/molday/1-tab1.jpg" alt="Molday. App Store 截图 1，首页培养皿标签页" />
+  <img src="/images/apps/molday/2-tab2.jpg" alt="Molday. App Store 截图 2，使用详情标签页" />
+  <img src="/images/apps/molday/3-limit.jpg" alt="Molday. App Store 截图 3，应用限制设置页面" />
+  <img src="/images/apps/molday/4-iMessage.jpg" alt="Molday. App Store 截图 4，iMessage 好友助力页面" />
+  <img src="/images/apps/molday/5-shiled.jpg" alt="Molday. App Store 截图 5，屏幕时间限制遮罩页面" />
+  <img src="/images/apps/molday/6-tab3.jpg" alt="Molday. App Store 截图 6，第三个主标签页" />
 </div>

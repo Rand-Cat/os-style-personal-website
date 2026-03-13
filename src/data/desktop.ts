@@ -1,6 +1,14 @@
+export type DesktopLocale = "zh" | "en";
+
+export interface DesktopLocalizedName {
+  zh: string;
+  en: string;
+}
+
 export interface DesktopApp {
   id: string;
   name: string;
+  localizedName?: DesktopLocalizedName;
   glyph: string;
   iconSrc?: string;
   dockPinned?: boolean;
@@ -24,6 +32,10 @@ export const desktopApps: DesktopApp[] = [
   {
     id: "profile",
     name: "About Me",
+    localizedName: {
+      zh: "关于我",
+      en: "About Me"
+    },
     glyph: "ZG",
     iconSrc: "/icons/pfp.png",
     dockPinned: true,
@@ -39,7 +51,6 @@ export const desktopApps: DesktopApp[] = [
     name: "Read Easy",
     glyph: "RE",
     iconSrc: "/icons/read-easy.png",
-    dockPinned: true,
     width: 980,
     height: 720,
     x: 846,
@@ -50,9 +61,12 @@ export const desktopApps: DesktopApp[] = [
   {
     id: "blog",
     name: "Blog",
+    localizedName: {
+      zh: "博客",
+      en: "Blog"
+    },
     glyph: "B",
     iconSrc: "/icons/blog-pencil.svg",
-    dockPinned: true,
     width: 1080,
     height: 700,
     x: 500,
@@ -89,8 +103,13 @@ export const desktopApps: DesktopApp[] = [
   {
     id: "jike",
     name: "动态",
+    localizedName: {
+      zh: "动态",
+      en: "Posts"
+    },
     glyph: "JK",
     iconSrc: "/icons/updates.svg",
+    dockPinned: true,
     width: 860,
     height: 620,
     x: 620,
@@ -125,9 +144,10 @@ export const desktopApps: DesktopApp[] = [
   },
   {
     id: "molday",
-    name: "Molday",
+    name: "Molday.",
     glyph: "MO",
     iconSrc: "/icons/molday.png",
+    dockPinned: true,
     width: 900,
     height: 640,
     x: 776,
@@ -137,7 +157,11 @@ export const desktopApps: DesktopApp[] = [
   },
   {
     id: "onesnap",
-    name: "OneSnap",
+    name: "OneSnap!",
+    localizedName: {
+      zh: "一拍相机!",
+      en: "OneSnap!"
+    },
     glyph: "OS",
     iconSrc: "/icons/onesnap.png",
     showOnDesktop: false,
@@ -232,7 +256,7 @@ export const desktopApps: DesktopApp[] = [
     glyph: "SPR",
     groupMembers: [
       { id: "interlude", glyph: "IN", name: "Interlude", iconSrc: "/icons/interlude.png" },
-      { id: "onesnap", glyph: "OS", name: "OneSnap", iconSrc: "/icons/onesnap.png" },
+      { id: "onesnap", glyph: "OS", name: "OneSnap!", iconSrc: "/icons/onesnap.png" },
       { id: "tubenitro", glyph: "TN", name: "TubeNitro", iconSrc: "/icons/TubeNitro.png" },
       { id: "new-portal", glyph: "NP", name: "New Portal", iconSrc: "/icons/New Portal.png" }
     ],
@@ -276,6 +300,10 @@ export const desktopApps: DesktopApp[] = [
 ];
 
 export const desktopAppsById = new Map(desktopApps.map((app) => [app.id, app]));
+
+export function getDesktopAppName(app: DesktopApp, locale: DesktopLocale) {
+  return app.localizedName?.[locale] ?? app.name;
+}
 
 export const readEasyLinks = {
   home: "https://www.read-easy.io/",

@@ -1,15 +1,16 @@
 ---
-import type { DesktopApp } from "../../data/desktop";
+import type { DesktopApp, DesktopLocalizedName } from "../../data/desktop";
 
 interface Props {
   app: DesktopApp;
   title: string;
+  localizedTitle?: DesktopLocalizedName;
   open?: boolean;
   zIndex?: number;
   variant?: "default" | "group";
 }
 
-const { app, title, open = false, zIndex, variant = "default" } = Astro.props;
+const { app, title, localizedTitle, open = false, zIndex, variant = "default" } = Astro.props;
 const zIndexStyle = zIndex ? `z-index:${zIndex};` : "";
 ---
 
@@ -28,9 +29,20 @@ const zIndexStyle = zIndex ? `z-index:${zIndex};` : "";
 >
   {
     variant === "group" ? (
-      <div class="os-window__group-overlay" data-group-overlay>
+        <div class="os-window__group-overlay" data-group-overlay>
         <div class="os-window__group-stack" data-group-stack>
-          <h2 class="os-window__group-title serif">{title}</h2>
+          <h2 class="os-window__group-title serif">
+            {
+              localizedTitle ? (
+                <span data-app-locale-root>
+                  <span data-app-locale="zh">{localizedTitle.zh}</span>
+                  <span data-app-locale="en" hidden>{localizedTitle.en}</span>
+                </span>
+              ) : (
+                title
+              )
+            }
+          </h2>
           <div class="os-window__group-panel" data-group-panel>
             <div class="os-window__body">
               <slot />
@@ -55,7 +67,18 @@ const zIndexStyle = zIndex ? `z-index:${zIndex};` : "";
           <slot name="leading" />
         </div>
         <div class="os-window__meta">
-          <strong>{title}</strong>
+          <strong>
+            {
+              localizedTitle ? (
+                <span data-app-locale-root>
+                  <span data-app-locale="zh">{localizedTitle.zh}</span>
+                  <span data-app-locale="en" hidden>{localizedTitle.en}</span>
+                </span>
+              ) : (
+                title
+              )
+            }
+          </strong>
         </div>
         <div class="os-window__toolbar os-window__toolbar--right">
           <slot name="trailing" />

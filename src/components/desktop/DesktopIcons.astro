@@ -1,5 +1,5 @@
 ---
-import type { DesktopApp } from "../../data/desktop";
+import { getDesktopAppName, type DesktopApp } from "../../data/desktop";
 
 interface Props {
   apps: DesktopApp[];
@@ -42,7 +42,16 @@ const visibleApps = apps.filter((app) => app.showOnDesktop !== false);
           <span class="desktop-icon__glyph serif">{app.glyph}</span>
         )}
       </span>
-      <span class="desktop-icon__label">{app.name}</span>
+      {
+        app.localizedName ? (
+          <span class="desktop-icon__label" data-app-locale-root>
+            <span data-app-locale="zh">{getDesktopAppName(app, "zh")}</span>
+            <span data-app-locale="en" hidden>{getDesktopAppName(app, "en")}</span>
+          </span>
+        ) : (
+          <span class="desktop-icon__label">{app.name}</span>
+        )
+      }
     </button>
   ))}
 </div>

@@ -1,5 +1,5 @@
 ---
-import type { DesktopApp } from "../../data/desktop";
+import { getDesktopAppName, type DesktopApp } from "../../data/desktop";
 
 interface Props {
   apps: DesktopApp[];
@@ -7,22 +7,48 @@ interface Props {
 
 const { apps } = Astro.props;
 const dockApps = apps.filter((app) => app.showInDock !== false);
-const mobileDockIds = new Set(["profile", "read-easy", "blog", "vibary"]);
+const dockPriority = ["profile", "jike", "molday", "vibary"];
+const mobileDockIds = new Set(dockPriority);
+const dockPriorityIndex = new Map(dockPriority.map((id, index) => [id, index]));
+const orderedDockApps = [...dockApps].sort((left, right) => {
+  const leftPriority = dockPriorityIndex.get(left.id);
+  const rightPriority = dockPriorityIndex.get(right.id);
+
+  if (leftPriority !== undefined && rightPriority !== undefined) {
+    return leftPriority - rightPriority;
+  }
+
+  if (leftPriority !== undefined) return -1;
+  if (rightPriority !== undefined) return 1;
+  return apps.indexOf(left) - apps.indexOf(right);
+});
 ---
 
 <div class="desktop-dock" data-dock aria-label="Open applications">
   <div class="desktop-dock__tray" data-dock-tray>
-    {dockApps.map((app) => (
+    {orderedDockApps.map((app) => (
       <button
         class="desktop-dock__item"
         type="button"
         data-dock-window={app.id}
         data-mobile-dock={mobileDockIds.has(app.id) ? "true" : "false"}
-        aria-label={app.name}
-        data-dock-label={app.name}
+        aria-label={getDesktopAppName(app, "zh")}
+        data-dock-label={getDesktopAppName(app, "zh")}
         data-dock-pinned={app.dockPinned ? "true" : "false"}
+        data-localized-name-zh={app.localizedName?.zh}
+        data-localized-name-en={app.localizedName?.en}
+        data-localized-name-attrs={app.localizedName ? "aria-label,data-dock-label" : undefined}
       >
-        <span class="desktop-dock__label">{app.name}</span>
+        {
+          app.localizedName ? (
+            <span class="desktop-dock__label" data-app-locale-root>
+              <span data-app-locale="zh">{getDesktopAppName(app, "zh")}</span>
+              <span data-app-locale="en" hidden>{getDesktopAppName(app, "en")}</span>
+            </span>
+          ) : (
+            <span class="desktop-dock__label">{app.name}</span>
+          )
+        }
         <span class="desktop-dock__icon">
           {app.iconSrc ? (
             <img src={app.iconSrc} alt={`${app.name} icon`} />
