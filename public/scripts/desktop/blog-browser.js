@@ -1,3 +1,8 @@
+import {
+  getPreferredBlogLocale,
+  setBlogLocalePreference
+} from "../locale-preference.js";
+
 export function initBlogBrowser() {
   const blogButtons = Array.from(document.querySelectorAll("[data-blog-target]"));
   const blogFrame = document.querySelector("[data-blog-frame]");
@@ -110,7 +115,7 @@ export function initBlogBrowser() {
   const setBlogLocale = (locale) => {
     if (locale !== "zh" && locale !== "en") return;
     blogLocale = locale;
-    localStorage.setItem("blog-locale", locale);
+    setBlogLocalePreference(locale);
 
     blogLists.forEach((list) => {
       const matches = list.getAttribute("data-blog-list") === locale;
@@ -218,7 +223,7 @@ export function initBlogBrowser() {
     );
   });
 
-  setBlogLocale(localStorage.getItem("blog-locale") === "en" ? "en" : "zh");
+  setBlogLocale(getPreferredBlogLocale());
   if (isMobile()) setMobileView("list");
   placeBackButton();
 }

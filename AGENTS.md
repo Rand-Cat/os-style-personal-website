@@ -63,8 +63,22 @@ Important files:
 - `src/components/blog/BlogArticlePage.astro`
 - `src/components/blog/BlogEmbedPage.astro`
 - `src/content/blog/*`
+- `public/scripts/locale-preference.js`
 
 If blog typography, locale switching, or article selection feels wrong, inspect both the desktop blog window and the underlying blog page components.
+
+Current locale behavior:
+
+- Blog routes remain path-based:
+  - `/blog` for Chinese
+  - `/blog/en` for English
+- On first visit, if `localStorage["blog-locale"]` is missing, the client now detects `navigator.languages` and stores either `zh` or `en`.
+- After the user manually switches once, the stored locale takes priority over browser language.
+- The same stored locale is reused across:
+  - desktop blog
+  - content-app windows
+  - Jike window localized UI
+  - desktop cat speech bubble copy
 
 ## Desktop Architecture
 
@@ -111,16 +125,22 @@ JS entry:
 
 JS modules:
 
+- `public/scripts/locale-preference.js`
+  Shared client-side locale preference helpers: first-visit browser-language detection, storage reads/writes, and locale normalization.
 - `public/scripts/desktop/window-manager.js`
   Open/close/focus/minimize/maximize, initial window placement, group overlay open/close, drag, and 8-direction resize.
 - `public/scripts/desktop/dock.js`
   Dock magnification and slot-width behavior.
 - `public/scripts/desktop/blog-browser.js`
   Blog locale switching, embedded article routing, and sidebar behavior.
+- `public/scripts/desktop/app-locale.js`
+  Locale switching for shared content-app windows and other desktop panes that render parallel zh/en blocks.
 - `public/scripts/desktop/clock.js`
   Top bar and desktop clock/date.
 - `public/scripts/desktop/jike-archive.js`
-  Jike window interactions such as text expand/collapse and image lightbox behavior.
+  Jike window interactions such as text expand/collapse, locale-aware expansion targeting, and image lightbox behavior.
+- `public/scripts/desktop/cat-interaction.js`
+  Desktop cat hover copy, app hover phrases, and locale-aware speech bubble behavior.
 
 ## Mobile/Tablet Behavior
 
@@ -148,8 +168,10 @@ The `jike` desktop app is a content app backed by generated data from an exporte
 Important files:
 
 - `src/components/desktop/JikeIdeasWindow.astro`
+- `src/components/desktop/JikeCardContent.astro`
 - `src/data/jike.ts`
 - `src/data/jike-posts.generated.ts`
+- `src/data/jike-translations.ts`
 - `public/styles/desktop/jike.css`
 - `public/scripts/desktop/jike-archive.js`
 - `scripts/import-jike-csv.py`
@@ -158,6 +180,8 @@ Notes:
 
 - The generated data file should be treated as derived output, not hand-edited content.
 - When the CSV export changes, regenerate the data via `npm run import:jike -- "/absolute/path/to/export.csv"`.
+- English support for Jike is currently partial and hand-maintained in `src/data/jike-translations.ts`.
+- The Jike window renders English for translated recent posts and falls back to Chinese per-post when no translation exists; do not replace untranslated cards with blank states.
 - If the Jike UI changes, keep its structure, styles, and interactions isolated to the Jike-specific files instead of leaking logic into shared pane files.
 
 ## Design Direction
@@ -288,10 +312,23 @@ Optimize for:
 ## Desktop Content Layout State (2026-03-11)
 
 - Content apps should use the shared `ContentAppWindow.astro` + `/styles/desktop/content-app.css`. This sets a unified hero layout (logo from desktop iconSrc, title, summary, optional link, meta line) and Markdown sizing (h2 26px, h3 19px, body 17px).
+- Content apps are now locale-aware. App entries in `src/content/apps/*` may ship as paired `*-en.md` files with `locale: en` and a shared `translationKey`; locale resolution lives in `src/lib/apps.ts`.
+- The shared locale renderer for content apps is `src/components/desktop/ContentAppWindow.astro`, and client-side switching is handled by `public/scripts/desktop/app-locale.js`.
+- If an app has only a Chinese entry, the desktop should continue showing the Chinese pane even when the global locale is English.
 - Avoid per-app typography overrides; do not reintroduce app-specific font/size overrides in shared panes unless absolutely necessary and documented here.
 - Reading widths: container 860px max, text column 760px max.
 - OneSnap gallery: three columns on desktop, single column under 900px; keep original aspect and size (no downscaling).
 - If an app needs bespoke visuals, keep them scoped to unique selectors and do not touch hero/body font sizes set by `content-app.css`.
+
+### Desktop Locale Notes (2026-03-13)
+
+- The desktop top-right `中文 / English` switch controls more than the blog. It also drives:
+  - shared content-app windows
+  - Jike window translated UI and translated post bodies where available
+  - desktop cat speech phrases
+- The first visit should honor browser language preference, but only until the user makes an explicit choice. After that, `localStorage["blog-locale"]` is the source of truth.
+- For blog index/article pages, keep route locale and stored locale in sync. The standalone pages should not silently render English content at the Chinese path or vice versa.
+- The desktop cat speech bubble lives in `public/styles/desktop/cat.css` and currently uses a constrained multi-line bubble width rather than single-line nowrap behavior.
 
 ### Mobile hero layout (≤ 560px)
 

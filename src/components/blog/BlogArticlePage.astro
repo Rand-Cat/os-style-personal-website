@@ -385,11 +385,13 @@ const { Content } = await render(post);
       </section>
     </main>
 
-    <script is:inline define:vars={{ locale }}>
-      localStorage.setItem("blog-locale", locale);
+    <script type="module" is:inline define:vars={{ locale }}>
+      import { setBlogLocalePreference } from "/scripts/locale-preference.js";
+
+      setBlogLocalePreference(locale);
       document.querySelectorAll("[data-blog-locale-switch]").forEach((link) => {
         link.addEventListener("click", () => {
-          localStorage.setItem("blog-locale", link.getAttribute("data-blog-locale-switch") || locale);
+          setBlogLocalePreference(link.getAttribute("data-blog-locale-switch") || locale);
         });
       });
     </script>

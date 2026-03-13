@@ -1,3 +1,8 @@
+import {
+  getPreferredBlogLocale,
+  setBlogLocalePreference
+} from "../locale-preference.js";
+
 export function initCatInteraction() {
   if (window.matchMedia('(max-width: 980px)').matches) return;
 
@@ -9,7 +14,7 @@ export function initCatInteraction() {
 
   if (!speechBubble || !speechText) return;
 
-  let activeLocale = localStorage.getItem('blog-locale') === 'en' ? 'en' : 'zh';
+  let activeLocale = getPreferredBlogLocale();
   let activeBubble = null;
 
   const setSpeech = (text) => {
@@ -177,7 +182,7 @@ export function initCatInteraction() {
 
   localeButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      activeLocale = button.getAttribute('data-blog-locale-switch') === 'en' ? 'en' : 'zh';
+      activeLocale = setBlogLocalePreference(button.getAttribute('data-blog-locale-switch'));
       refreshVisibleSpeech();
     });
   });

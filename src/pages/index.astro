@@ -87,6 +87,11 @@ const defaultBlogHref = defaultBlogPosts[0]
 
     </main>
 
+    <script type="module">
+      import { ensureBlogLocalePreference } from "/scripts/locale-preference.js";
+
+      ensureBlogLocalePreference();
+    </script>
     <script type="module" src="/scripts/desktop-os.js"></script>
   </body>
 </html>

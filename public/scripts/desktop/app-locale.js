@@ -1,3 +1,5 @@
+import { getPreferredBlogLocale } from "../locale-preference.js";
+
 export function initAppLocale() {
   const localeButtons = Array.from(document.querySelectorAll("[data-blog-locale-switch]"));
   const localeRoots = Array.from(document.querySelectorAll("[data-app-locale-root]"));
@@ -29,5 +31,5 @@ export function initAppLocale() {
     });
   });
 
-  applyLocale(localStorage.getItem("blog-locale"));
+  applyLocale(getPreferredBlogLocale());
 }

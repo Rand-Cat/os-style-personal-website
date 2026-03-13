@@ -274,11 +274,29 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
       </section>
     </main>
 
-    <script is:inline define:vars={{ locale, alternateLocale }}>
-      localStorage.setItem("blog-locale", locale);
+    <script type="module" is:inline define:vars={{ locale }}>
+      import {
+        detectBrowserBlogLocale,
+        getStoredBlogLocale,
+        setBlogLocalePreference
+      } from "/scripts/locale-preference.js";
+
+      const storedLocale = getStoredBlogLocale();
+      if (!storedLocale) {
+        const detectedLocale = detectBrowserBlogLocale();
+        setBlogLocalePreference(detectedLocale);
+
+        if (detectedLocale !== locale) {
+          const targetPath = detectedLocale === "en" ? "/blog/en" : "/blog";
+          window.location.replace(targetPath);
+        }
+      } else {
+        setBlogLocalePreference(locale);
+      }
+
       document.querySelectorAll("[data-blog-locale-switch]").forEach((link) => {
         link.addEventListener("click", () => {
-          localStorage.setItem("blog-locale", link.getAttribute("data-blog-locale-switch") || alternateLocale);
+          setBlogLocalePreference(link.getAttribute("data-blog-locale-switch"));
         });
       });
     </script>
