@@ -1,0 +1,49 @@
+---
+import JikeIdeasWindow from "../../components/desktop/JikeIdeasWindow.astro";
+import ContentAppWindow from "../../components/desktop/ContentAppWindow.astro";
+import {
+  DEFERRED_WINDOW_IDS,
+  getDeferredWindowContentPath,
+  isDeferredWindowId,
+  type DeferredWindowId
+} from "../../lib/deferred-window-content";
+
+export function getStaticPaths() {
+  return DEFERRED_WINDOW_IDS.map((id) => ({
+    params: { id }
+  }));
+}
+
+const { id } = Astro.params;
+
+if (!id || !isDeferredWindowId(id)) {
+  throw new Error(`Unknown deferred window content id: ${id}`);
+}
+
+const contentAppIds = new Set<DeferredWindowId>([
+  "read-easy",
+  "vibary",
+  "atten",
+  "interlude",
+  "molday",
+  "onesnap",
+  "tubenitro",
+  "new-portal",
+  "deepchat",
+  "dogcheck",
+  "existence",
+  "sekai"
+]);
+---
+
+{
+  id === "jike" ? (
+    <JikeIdeasWindow />
+  ) : contentAppIds.has(id) ? (
+    <ContentAppWindow id={id} />
+  ) : (
+    <div data-window-content-error>
+      Failed to resolve deferred window content for <code>{getDeferredWindowContentPath(id)}</code>.
+    </div>
+  )
+}

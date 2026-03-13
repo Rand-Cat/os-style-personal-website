@@ -1,3 +1,6 @@
+import { syncAppLocale } from "./app-locale.js";
+import { initJikeArchive } from "./jike-archive.js";
+
 export function initWindowManager() {
   const desktopPage = document.querySelector(".desktop-page");
   const stage = document.querySelector("[data-desktop-stage]");
@@ -10,6 +13,7 @@ export function initWindowManager() {
   const maximizers = Array.from(document.querySelectorAll("[data-toggle-maximize-window]"));
   const resizeHandles = Array.from(document.querySelectorAll("[data-resize-handle]"));
   const resetButtons = Array.from(document.querySelectorAll("[data-reset-windows]"));
+  const pendingWindowContentLoads = new Map();
 
   let topZ = 20;
 
@@ -370,6 +374,68 @@ export function initWindowManager() {
     setActiveWindow(target);
   };
 
+  const hydrateDeferredWindowContent = async (windowEl) => {
+    const src = windowEl.getAttribute("data-window-content-src");
+    const contentTarget = windowEl.querySelector("[data-window-content]");
+    const loadingMessage = windowEl.querySelector("[data-window-loading-message]");
+    const appId = windowEl.getAttribute("data-window");
+
+    if (!src || !(contentTarget instanceof HTMLElement) || !appId) {
+      return;
+    }
+
+    if (windowEl.dataset.windowLoaded === "true") {
+      return;
+    }
+
+    const existingLoad = pendingWindowContentLoads.get(appId);
+    if (existingLoad) {
+      return existingLoad;
+    }
+
+    windowEl.dataset.windowLoading = "true";
+    delete windowEl.dataset.windowLoaded;
+    if (loadingMessage instanceof HTMLElement) {
+      loadingMessage.textContent = "Loading…";
+    }
+
+    const loadPromise = fetch(src, {
+      credentials: "same-origin"
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`Request failed with ${response.status}`);
+        }
+
+        contentTarget.innerHTML = await response.text();
+        contentTarget.querySelectorAll("img").forEach((image) => {
+          if (!(image instanceof HTMLImageElement)) return;
+          if (!image.hasAttribute("loading")) image.loading = "lazy";
+          if (!image.hasAttribute("decoding")) image.decoding = "async";
+        });
+
+        syncAppLocale(windowEl);
+        if (appId === "jike") {
+          initJikeArchive();
+        }
+
+        windowEl.dataset.windowLoaded = "true";
+      })
+      .catch((error) => {
+        console.error(`Failed to load window content for "${appId}"`, error);
+        windowEl.dataset.windowLoaded = "error";
+        contentTarget.innerHTML =
+          '<div class="os-window__deferredPlaceholder">Failed to load content.</div>';
+      })
+      .finally(() => {
+        delete windowEl.dataset.windowLoading;
+        pendingWindowContentLoads.delete(appId);
+      });
+
+    pendingWindowContentLoads.set(appId, loadPromise);
+    return loadPromise;
+  };
+
   const openWindow = (appId) => {
     const target = document.querySelector(`[data-window="${appId}"]`);
     if (!target) return;
@@ -382,6 +448,7 @@ export function initWindowManager() {
       });
     }
     target.classList.add("is-open");
+    void hydrateDeferredWindowContent(target);
     restoreWindow(target);
     if (isGroupWindow(target)) {
       bringToFront(target);
