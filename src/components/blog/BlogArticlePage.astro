@@ -5,6 +5,7 @@ import type { BlogLocale } from "../../lib/blog";
 import {
   BLOG_COPY,
   BLOG_LANGUAGE_LABELS,
+  BLOG_LANGUAGE_SWITCH_LABELS,
   formatBlogDate,
   getBlogIndexPath,
   getBlogPostPath
@@ -345,14 +346,14 @@ const { Content } = await render(post);
               data-blog-locale-switch="zh"
               href={getBlogPostPath("zh", post.data.translationKey)}
             >
-              {BLOG_LANGUAGE_LABELS.zh}
+              {BLOG_LANGUAGE_SWITCH_LABELS.zh}
             </a>
             <a
               class={locale === "en" ? "is-active" : ""}
               data-blog-locale-switch="en"
               href={getBlogPostPath("en", post.data.translationKey)}
             >
-              {BLOG_LANGUAGE_LABELS.en}
+              {BLOG_LANGUAGE_SWITCH_LABELS.en}
             </a>
           </div>
         </div>

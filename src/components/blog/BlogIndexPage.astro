@@ -4,6 +4,7 @@ import SystemBreadcrumbs from "../shared/SystemBreadcrumbs.astro";
 import {
   BLOG_COPY,
   BLOG_LANGUAGE_LABELS,
+  BLOG_LANGUAGE_SWITCH_LABELS,
   formatBlogDate,
   getBlogIndexPath,
   getBlogPostPath
@@ -233,14 +234,14 @@ const alternateLocale = locale === "zh" ? "en" : "zh";
               data-blog-locale-switch="zh"
               href={getBlogIndexPath("zh")}
             >
-              {BLOG_LANGUAGE_LABELS.zh}
+              {BLOG_LANGUAGE_SWITCH_LABELS.zh}
             </a>
             <a
               class={locale === "en" ? "is-active" : ""}
               data-blog-locale-switch="en"
               href={getBlogIndexPath("en")}
             >
-              {BLOG_LANGUAGE_LABELS.en}
+              {BLOG_LANGUAGE_SWITCH_LABELS.en}
             </a>
           </div>
         </div>

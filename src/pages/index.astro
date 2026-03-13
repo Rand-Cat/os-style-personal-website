@@ -6,7 +6,7 @@ import DesktopWindows from "../components/desktop/DesktopWindows.astro";
 import { desktopApps } from "../data/desktop";
 import {
   BLOG_LOCALES,
-  BLOG_LANGUAGE_LABELS,
+  BLOG_LANGUAGE_SWITCH_LABELS,
   DEFAULT_BLOG_LOCALE,
   getBlogEmbedPath,
   getBlogIndexPath,
@@ -29,7 +29,7 @@ const defaultBlogHref = defaultBlogPosts[0]
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ZG OS</title>
+    <title>zhijie</title>
     <meta name="description" content="Zhi Jie Gao — Product designer, builder, writer." />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -58,7 +58,7 @@ const defaultBlogHref = defaultBlogPosts[0]
                 type="button"
                 data-blog-locale-switch={locale}
               >
-                {BLOG_LANGUAGE_LABELS[locale]}
+                {BLOG_LANGUAGE_SWITCH_LABELS[locale]}
               </button>
             ))}
           </div>

@@ -62,7 +62,7 @@
 }
 
 .content-app__hero p {
-  max-width: 34ch;
+  max-width: none;
   font-size: 15px;
   line-height: 1.28;
   color: #45506a;
@@ -137,6 +137,10 @@
   margin: 0 auto;
   padding: 0 2px 8px;
   min-width: 0;
+}
+
+.content-app__hero + .content-app__article {
+  margin-top: 24px;
 }
 
 .content-app__article > :where(h2, p, img, ul, a) {
@@ -306,5 +310,9 @@
   .content-app__article {
     gap: 18px;
     padding: 0 0 8px;
+  }
+
+  .content-app__hero + .content-app__article {
+    margin-top: 18px;
   }
 }

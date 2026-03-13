@@ -10,6 +10,11 @@ export const BLOG_LANGUAGE_LABELS: Record<BlogLocale, string> = {
   en: "English"
 };
 
+export const BLOG_LANGUAGE_SWITCH_LABELS: Record<BlogLocale, string> = {
+  zh: "中",
+  en: "EN"
+};
+
 export const BLOG_COPY: Record<
   BlogLocale,
   {
