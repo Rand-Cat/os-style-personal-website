@@ -97,7 +97,7 @@ export function initWindowManager() {
     stack.getAnimations().forEach((animation) => animation.cancel());
 
     overlay.animate([{ opacity: 0 }, { opacity: 1 }], {
-      duration: 220,
+      duration: 300,
       easing: "ease-out",
       fill: "forwards"
     });
@@ -105,7 +105,7 @@ export function initWindowManager() {
     stack.animate(
       [
         {
-          opacity: 0.18,
+          opacity: 0,
           transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`
         },
         {
@@ -114,8 +114,8 @@ export function initWindowManager() {
         }
       ],
       {
-        duration: 320,
-        easing: "cubic-bezier(0.2, 0.9, 0.24, 1)",
+        duration: 380,
+        easing: "cubic-bezier(0.2, 0.85, 0.15, 1)",
         fill: "forwards"
       }
     );
@@ -143,8 +143,8 @@ export function initWindowManager() {
     stack.getAnimations().forEach((animation) => animation.cancel());
 
     const overlayAnimation = overlay.animate([{ opacity: 1 }, { opacity: 0 }], {
-      duration: 180,
-      easing: "ease-in",
+      duration: 250,
+      easing: "ease-in-out",
       fill: "forwards"
     });
 
@@ -155,13 +155,13 @@ export function initWindowManager() {
           transform: "translate(0, 0) scale(1)"
         },
         {
-          opacity: 0.1,
+          opacity: 0,
           transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`
         }
       ],
       {
-        duration: 220,
-        easing: "cubic-bezier(0.55, 0, 0.8, 0.2)",
+        duration: 300,
+        easing: "cubic-bezier(0.4, 0, 0.2, 1)",
         fill: "forwards"
       }
     );
@@ -217,7 +217,7 @@ export function initWindowManager() {
     if (!isDesktopViewport()) {
       desktopPage?.classList.toggle(
         "is-mobile-app-open",
-        windows.some((windowEl) => isWindowVisible(windowEl))
+        windows.some((windowEl) => isWindowVisible(windowEl) && !windowEl.classList.contains("os-window--group"))
       );
     } else {
       desktopPage?.classList.remove("is-mobile-app-open");

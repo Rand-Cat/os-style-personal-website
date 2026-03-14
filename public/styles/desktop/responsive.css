@@ -128,6 +128,13 @@
   .desktop-page.is-mobile-app-open .display-text {
     opacity: 0;
     pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .desktop-icons,
+  .desktop-widget,
+  .display-text {
+    transition: opacity 0.3s ease;
   }
 
   .desktop-page.is-mobile-app-open .desktop-dock {
