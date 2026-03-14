@@ -447,9 +447,11 @@
 
 .os-window__group-title {
   margin: 0;
-  font-size: 48px;
+  font-family: var(--font-ui);
+  font-size: 34px;
   line-height: 1;
   letter-spacing: -0.02em;
+  font-weight: 400;
   color: rgba(24, 24, 24, 0.92);
   pointer-events: none;
 }

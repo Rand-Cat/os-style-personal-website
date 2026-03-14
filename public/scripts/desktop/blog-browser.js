@@ -7,6 +7,8 @@ export function initBlogBrowser() {
   const blogButtons = Array.from(document.querySelectorAll("[data-blog-target]"));
   const blogFrame = document.querySelector("[data-blog-frame]");
   const blogBrowser = document.querySelector("[data-blog-browser]");
+  const blogEmptyState = document.querySelector("[data-blog-empty-state]");
+  const blogEmptyCopies = Array.from(document.querySelectorAll("[data-blog-empty-copy]"));
   const blogBackButton = document.querySelector("[data-blog-back]");
   const blogCopyButton = document.querySelector("[data-blog-copy-link]");
   const blogOpenPageButton = document.querySelector("[data-blog-open-page]");
@@ -44,6 +46,33 @@ export function initBlogBrowser() {
   const isArticleHref = (href) => {
     if (!href) return false;
     return href !== "/blog" && href !== "/blog/en" && href.startsWith("/blog/");
+  };
+
+  const getTranslationKeyFromHref = (href) => {
+    if (!href) return "";
+
+    try {
+      const url = new URL(href, window.location.origin);
+      const match = url.pathname.match(/^\/blog\/(?:embed\/)?(?:en\/)?([^/]+)\/?$/);
+      return match?.[1] || "";
+    } catch {
+      return "";
+    }
+  };
+
+  const syncEmptyState = (show) => {
+    if (blogEmptyState instanceof HTMLElement) {
+      blogEmptyState.hidden = !show;
+    }
+    if (blogFrame instanceof HTMLIFrameElement) {
+      blogFrame.hidden = show;
+    }
+  };
+
+  const syncEmptyStateLocale = (locale) => {
+    blogEmptyCopies.forEach((copy) => {
+      copy.hidden = copy.getAttribute("data-blog-empty-copy") !== locale;
+    });
   };
 
   const syncActionButtons = (href) => {
@@ -99,7 +128,19 @@ export function initBlogBrowser() {
   };
 
   const setBlogTarget = (href) => {
-    if (!href || !blogFrame) return;
+    if (!blogFrame) return;
+
+    if (!href) {
+      syncEmptyState(true);
+      syncActionButtons("");
+      blogButtons.forEach((button) => {
+        button.classList.remove("is-active");
+      });
+      if (isMobile()) setMobileView("list");
+      return;
+    }
+
+    syncEmptyState(false);
     blogFrame.setAttribute("src", href);
     syncActionButtons(href);
     if (isMobile()) setMobileView("detail");
@@ -116,6 +157,7 @@ export function initBlogBrowser() {
     if (locale !== "zh" && locale !== "en") return;
     blogLocale = locale;
     setBlogLocalePreference(locale);
+    syncEmptyStateLocale(locale);
 
     blogLists.forEach((list) => {
       const matches = list.getAttribute("data-blog-list") === locale;
@@ -134,15 +176,15 @@ export function initBlogBrowser() {
     const localeItems = blogButtons.filter(
       (button) => button.getAttribute("data-blog-locale") === locale
     );
-    const hasCurrentMatch = localeItems.some(
-      (button) => button.getAttribute("data-blog-target") === currentHref
-    );
-    const nextHref = hasCurrentMatch
-      ? currentHref
-      : localeItems[0]?.getAttribute("data-blog-target") || blogCopy[locale].fallback;
+    const currentTranslationKey = getTranslationKeyFromHref(currentHref);
+    const nextHref =
+      localeItems.find(
+        (button) =>
+          getTranslationKeyFromHref(button.getAttribute("data-blog-target") || "") ===
+          currentTranslationKey
+      )?.getAttribute("data-blog-target") || "";
 
     setBlogTarget(nextHref);
-    if (isMobile()) setMobileView("list");
   };
 
   blogButtons.forEach((button) => {

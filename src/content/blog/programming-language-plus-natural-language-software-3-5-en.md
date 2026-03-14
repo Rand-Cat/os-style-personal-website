@@ -1,6 +1,6 @@
 ---
 title: Programming Language + Natural Language = Software 3.5?
-date: 2026-03-12
+date: 2023-03-12
 excerpt: Software 1.0 requires programmers who can code. Software 2.0 requires companies with data and compute. Software 3.0 only requires ordinary people who can type. So what is Software 3.5?
 locale: en
 translationKey: programming-language-plus-natural-language-software-3-5

@@ -22,6 +22,8 @@ export const BLOG_COPY: Record<
     backToBlog: string;
     moreArticles: string;
     embeddedDescription: string;
+    embeddedEmptyTitle: string;
+    embeddedEmptyDescription: string;
     emptyStateTitle: string;
     emptyStateDescription: string;
     missingTranslationTitle: string;
@@ -33,6 +35,8 @@ export const BLOG_COPY: Record<
     backToBlog: "← 返回博客",
     moreArticles: "查看更多文章",
     embeddedDescription: "左边选文章，右边直接在窗口内阅读。独立的 `/blog` 入口也继续保留。",
+    embeddedEmptyTitle: "选择一篇文章",
+    embeddedEmptyDescription: "先从左侧挑一篇，再在这个窗口里阅读。",
     emptyStateTitle: "还没有文章",
     emptyStateDescription: "这个语言下暂时没有可读内容。",
     missingTranslationTitle: "当前语言版本暂未提供",
@@ -43,6 +47,8 @@ export const BLOG_COPY: Record<
     backToBlog: "← Back to blog",
     moreArticles: "Browse more articles",
     embeddedDescription: "Pick an article on the left and read it inside the desktop window. The standalone `/blog` entry still stays available.",
+    embeddedEmptyTitle: "Choose an article",
+    embeddedEmptyDescription: "Pick one from the list on the left to start reading here.",
     emptyStateTitle: "No posts yet",
     emptyStateDescription: "There is nothing to read in this locale for now.",
     missingTranslationTitle: "This translation is not available yet",

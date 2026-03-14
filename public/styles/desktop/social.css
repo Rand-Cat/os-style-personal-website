@@ -25,9 +25,9 @@
 }
 
 .social-group__item:hover .social-group__icon {
-  transform: translateY(-4px) scale(1.02);
-  border-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 16px 28px -12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1);
+  transform: scale(1.02);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .social-group__icon {

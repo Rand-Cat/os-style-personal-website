@@ -7,9 +7,6 @@ import { desktopApps } from "../data/desktop";
 import {
   BLOG_LOCALES,
   BLOG_LANGUAGE_SWITCH_LABELS,
-  DEFAULT_BLOG_LOCALE,
-  getBlogEmbedPath,
-  getBlogIndexPath,
   getPublishedBlogPosts
 } from "../lib/blog";
 
@@ -19,10 +16,6 @@ const blogPostsByLocale = Object.fromEntries(
   )
 );
 
-const defaultBlogPosts = blogPostsByLocale[DEFAULT_BLOG_LOCALE];
-const defaultBlogHref = defaultBlogPosts[0]
-  ? getBlogEmbedPath(DEFAULT_BLOG_LOCALE, defaultBlogPosts[0].data.translationKey)
-  : getBlogIndexPath(DEFAULT_BLOG_LOCALE);
 ---
 
 <html lang="zh-CN">
@@ -85,7 +78,6 @@ const defaultBlogHref = defaultBlogPosts[0]
         <DesktopWindows
           apps={desktopApps}
           blogPostsByLocale={blogPostsByLocale}
-          defaultBlogHref={defaultBlogHref}
         />
 
         <DesktopDock apps={desktopApps} />

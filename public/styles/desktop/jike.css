@@ -464,7 +464,11 @@
   }
 
   .jike-archive__intro {
-    padding: 18px;
+    padding: 18px 16px;
+  }
+
+  .jike-archive__year-label {
+    padding-left: 16px;
   }
 
   .jike-card {

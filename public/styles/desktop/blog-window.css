@@ -117,7 +117,52 @@
 
 .blog-browser__content {
   min-height: 0;
+  display: grid;
+  place-items: center;
   background: transparent;
+}
+
+.blog-browser__emptyState {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 420px);
+  padding: 40px 32px;
+  text-align: center;
+  color: #6f675c;
+}
+
+.blog-browser__emptyState h3,
+.blog-browser__emptyState p {
+  margin: 0;
+}
+
+.blog-browser__emptyState h3 {
+  font-family:
+    "SF Pro Display",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #24211d;
+}
+
+.blog-browser__emptyState p {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.blog-browser__emptyState[hidden],
+.blog-browser__frame[hidden] {
+  display: none !important;
+}
+
+.blog-browser__emptyState [hidden] {
+  display: none !important;
 }
 
 .blog-browser__frame {

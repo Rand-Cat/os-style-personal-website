@@ -28,7 +28,6 @@ import {
 interface Props {
   apps: DesktopApp[];
   blogPostsByLocale: Record<string, unknown>;
-  defaultBlogHref: string;
 }
 
 interface WindowDefinition {
@@ -56,7 +55,7 @@ interface WindowDefinition {
   zIndex?: number;
 }
 
-const { apps, blogPostsByLocale, defaultBlogHref } = Astro.props;
+const { apps, blogPostsByLocale } = Astro.props;
 const appById = new Map(apps.map((app) => [app.id, app]));
 
 const getApp = (id: string) => {
@@ -70,7 +69,7 @@ const windowDefinitions: WindowDefinition[] = [
   {
     appId: "blog",
     component: DesktopBlogWindow,
-    componentProps: { postsByLocale: blogPostsByLocale, defaultHref: defaultBlogHref },
+    componentProps: { postsByLocale: blogPostsByLocale },
     zIndex: 14
   },
   { appId: "read-easy", title: "Read Easy", component: ReadEasyWindow },

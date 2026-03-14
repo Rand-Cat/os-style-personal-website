@@ -12,10 +12,9 @@ import {
 
 interface Props {
   postsByLocale: Record<BlogLocale, BlogPost[]>;
-  defaultHref: string;
 }
 
-const { postsByLocale, defaultHref } = Astro.props;
+const { postsByLocale } = Astro.props;
 ---
 
 <section class="blog-browser" data-blog-browser>
@@ -28,9 +27,9 @@ const { postsByLocale, defaultHref } = Astro.props;
     {BLOG_LOCALES.map((locale) => (
       <div class="blog-browser__list" data-blog-list={locale} hidden={locale !== DEFAULT_BLOG_LOCALE}>
         {postsByLocale[locale].length > 0 ? (
-          postsByLocale[locale].map((post, index) => (
+          postsByLocale[locale].map((post) => (
             <button
-              class:list={["blog-browser__item", locale === DEFAULT_BLOG_LOCALE && index === 0 && "is-active"]}
+              class="blog-browser__item"
               type="button"
               data-blog-locale={locale}
               data-blog-target={getBlogEmbedPath(locale, post.data.translationKey)}
@@ -52,11 +51,19 @@ const { postsByLocale, defaultHref } = Astro.props;
   </aside>
 
   <div class="blog-browser__content">
+    <section class="blog-browser__emptyState" data-blog-empty-state>
+      {BLOG_LOCALES.map((locale) => (
+        <div data-blog-empty-copy={locale} hidden={locale !== DEFAULT_BLOG_LOCALE}>
+          <h3>{BLOG_COPY[locale].embeddedEmptyTitle}</h3>
+          <p>{BLOG_COPY[locale].embeddedEmptyDescription}</p>
+        </div>
+      ))}
+    </section>
     <iframe
       class="blog-browser__frame"
       data-blog-frame
-      src={defaultHref}
       title="Minimal Blog Reader"
+      hidden
     ></iframe>
   </div>
 </section>
