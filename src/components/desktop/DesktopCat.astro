@@ -5,84 +5,150 @@
   <div class="cat-hover-area" data-cat-hover aria-hidden="true"></div>
   <div class="art-illustration">
     <svg class="zen-cat-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <rect x="60" y="40" width="80" height="120" fill="#D93025" rx="4" />
+      <defs>
+        <filter id="cat-roughness">
+          <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.6" />
+        </filter>
+      </defs>
 
-    <line x1="40" y1="160" x2="160" y2="160" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
+      <line
+        x1="65"
+        y1="159"
+        x2="135"
+        y2="159"
+        stroke="rgba(26, 26, 26, 0.18)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
 
-    <g class="cat-group">
-      <path class="cat-tail" d="M 130,140 C 158,142 162,112 159,86" fill="none" stroke="#1A4F9C" stroke-width="4" stroke-linecap="round" />
+      <g class="cat-group hand-drawn" filter="url(#cat-roughness)">
+        <path
+          class="cat-tail tail-end"
+          d="M105,145 C130,145 145,125 145,95 C145,80 135,75 130,82.5"
+          fill="none"
+          stroke="var(--ink)"
+          stroke-width="3.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
 
-      <g class="cat-body">
-        <path d="M 100,90 L 100,160 L 130,160 C 130,160 135,90 100,90 Z" fill="#1A4F9C" stroke="none" />
-        <path d="M 100,90 L 100,160 L 70,160 C 70,160 65,90 100,90 Z" fill="var(--bg-canvas)" stroke="none" />
-        <path d="M 70,160 C 65,90 135,90 130,160" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-        <line x1="100" y1="90" x2="100" y2="160" stroke="var(--ink)" stroke-width="3" />
-      </g>
-
-      <path d="M 70,160 L 85,160" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
-      <path d="M 115,160 L 130,160" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
-
-      <g class="cat-head">
-        <g class="cat-head-inner">
-          <g class="cat-ear-left">
-          <path d="M 78,53 L 67,25 L 96,47" fill="var(--bg-canvas)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" />
+        <g class="cat-body">
+          <path
+            d="M80,155 C80,125 72.5,80 72.5,55 C72.5,42.5 80,37.5 87.5,37.5 L92.5,47.5 L107.5,47.5 L112.5,37.5 C120,37.5 127.5,42.5 127.5,55 C127.5,80 120,125 120,155 Z"
+            fill="var(--bg-canvas)"
+            stroke="var(--ink)"
+            stroke-width="3.1"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M92.5,155 L92.5,130 Q92.5,125 87.5,125"
+            fill="none"
+            stroke="var(--ink)"
+            stroke-width="2.3"
+            stroke-linecap="round"
+            opacity="0.85"
+          />
+          <path
+            d="M107.5,155 L107.5,130 Q107.5,125 112.5,125"
+            fill="none"
+            stroke="var(--ink)"
+            stroke-width="2.3"
+            stroke-linecap="round"
+            opacity="0.85"
+          />
         </g>
-        <g class="cat-ear-right">
-          <path d="M 122,53 L 133,25 L 104,47" fill="var(--bg-canvas)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" />
-        </g>
 
-        <ellipse cx="100" cy="70" rx="35" ry="29" fill="var(--bg-canvas)" stroke="var(--ink)" stroke-width="3" />
+        <g class="cat-head">
+          <g class="cat-head-inner">
+            <g class="cat-face-features">
+              <g class="cat-eyes-container">
+                <g class="cat-eye cat-eye-left">
+                  <circle class="cat-eye-sclera" cx="89" cy="67.5" r="2.8" fill="none" stroke="none" />
+                  <g class="cat-eye-target">
+                    <g class="cat-eye-orb">
+                      <circle cx="89" cy="67.5" r="2.8" fill="var(--ink)" />
+                    </g>
+                  </g>
+                  <path
+                    class="cat-eye-happy"
+                    d="M 86.2,67.5 Q 89,65.6 91.8,67.5"
+                    fill="none"
+                    stroke="var(--ink)"
+                    stroke-width="1.9"
+                    stroke-linecap="round"
+                    opacity="0"
+                  />
+                </g>
 
-        <g class="cat-face-features">
-          <g class="cat-eyes-container">
-            <g class="cat-eye cat-eye-left">
-              <path class="cat-eye-sclera" d="M 81,68 C 83,63.5 91,63.5 95,68 C 91,72.5 83,72.5 81,68 Z" fill="#fcfbf8" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round" />
-              <g class="cat-eye-target">
-                <g class="cat-eye-orb">
-                  <ellipse cx="88" cy="68" rx="2.7" ry="3.9" fill="#1A4F9C" />
-                  <path d="M 88,64.9 L 88,71.1" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="round" />
-                  <circle cx="89.1" cy="66.4" r="0.9" fill="#fff" opacity="0.92" />
+                <g class="cat-eye cat-eye-right">
+                  <circle class="cat-eye-sclera" cx="111" cy="67.5" r="2.8" fill="none" stroke="none" />
+                  <g class="cat-eye-target">
+                    <g class="cat-eye-orb">
+                      <circle cx="111" cy="67.5" r="2.8" fill="var(--ink)" />
+                    </g>
+                  </g>
+                  <path
+                    class="cat-eye-happy"
+                    d="M 108.2,67.5 Q 111,65.6 113.8,67.5"
+                    fill="none"
+                    stroke="var(--ink)"
+                    stroke-width="1.9"
+                    stroke-linecap="round"
+                    opacity="0"
+                  />
                 </g>
               </g>
-              <path class="cat-eye-blink" d="M 82,68 Q 88,70.7 94,68" fill="none" stroke="var(--ink)" stroke-width="2.1" stroke-linecap="round" />
-              <path class="cat-eye-happy" d="M 81,68 Q 88,62 95,68" fill="none" stroke="var(--ink)" stroke-width="2.1" stroke-linecap="round" opacity="0" />
-            </g>
 
-            <g class="cat-eye cat-eye-right">
-              <path class="cat-eye-sclera" d="M 105,68 C 107,63.5 115,63.5 119,68 C 115,72.5 107,72.5 105,68 Z" fill="#fcfbf8" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round" />
-              <g class="cat-eye-target">
-                <g class="cat-eye-orb">
-                  <ellipse cx="112" cy="68" rx="2.7" ry="3.9" fill="#1A4F9C" />
-                  <path d="M 112,64.9 L 112,71.1" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="round" />
-                  <circle cx="113.1" cy="66.4" r="0.9" fill="#fff" opacity="0.92" />
-                </g>
+              <circle class="cat-nose" cx="100" cy="71.5" r="1.4" fill="var(--ink)" />
+              <path
+                class="cat-philtrum"
+                d="M100,73 L100,76"
+                fill="none"
+                stroke="var(--ink)"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+              <g class="cat-mouth-group">
+                <path
+                  class="cat-mouth-normal"
+                  d="M99,77.5 C101,79 103,77 104,76"
+                  fill="none"
+                  stroke="var(--ink)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  class="cat-mouth-speaking"
+                  d="M98.3,77.5 C98.3,79.7 101.7,79.7 101.7,77.5 C101.7,76.1 98.3,76.1 98.3,77.5 Z"
+                  fill="none"
+                  stroke="var(--ink)"
+                  stroke-width="1.5"
+                  opacity="0"
+                />
+                <path
+                  class="cat-mouth-happy"
+                  d="M96,76.2 Q100,80.2 104,76.2"
+                  fill="none"
+                  stroke="var(--ink)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  opacity="0"
+                />
               </g>
-              <path class="cat-eye-blink" d="M 106,68 Q 112,70.7 118,68" fill="none" stroke="var(--ink)" stroke-width="2.1" stroke-linecap="round" />
-              <path class="cat-eye-happy" d="M 105,68 Q 112,62 119,68" fill="none" stroke="var(--ink)" stroke-width="2.1" stroke-linecap="round" opacity="0" />
+
+              <g class="cat-whiskers-left">
+                <line x1="84" y1="75" x2="75" y2="74" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" />
+                <line x1="84" y1="79" x2="75" y2="80.5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" />
+              </g>
+              <g class="cat-whiskers-right">
+                <line x1="116" y1="75" x2="125" y2="74" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" />
+                <line x1="116" y1="79" x2="125" y2="80.5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" />
+              </g>
             </g>
           </g>
-
-          <path class="cat-nose" d="M 97,77.5 L 103,77.5 L 100,82.7 Z" fill="#D93025" />
-          <path class="cat-philtrum" d="M 100,82.5 L 100,88.4" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
-          <g class="cat-mouth-group">
-            <path class="cat-mouth-normal" d="M 92,88.4 Q 96,93 100,88.9 Q 104,93 108,88.4" fill="none" stroke="var(--ink)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
-            <path class="cat-mouth-speaking" d="M 97,88.4 C 97,91 103,91 103,88.4 C 103,87 97,87 97,88.4 Z" fill="#D93025" stroke="var(--ink)" stroke-width="1.5" opacity="0" />
-            <path class="cat-mouth-happy" d="M 92,87.4 Q 100,95 108,87.4" fill="none" stroke="var(--ink)" stroke-width="2.1" stroke-linecap="round" opacity="0" />
-          </g>
-
-          <g class="cat-whiskers-left">
-            <line x1="62" y1="72" x2="46" y2="70" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
-            <line x1="61" y1="79.5" x2="46" y2="82" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
-          </g>
-
-          <g class="cat-whiskers-right">
-            <line x1="138" y1="72" x2="154" y2="70" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
-            <line x1="139" y1="79.5" x2="154" y2="82" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
-          </g>
-        </g>
         </g>
       </g>
-    </g>
     </svg>
     <div class="cat-speech-bubble" aria-hidden="true" data-cat-speech>
       <span class="cat-speech-text" data-cat-text></span>
