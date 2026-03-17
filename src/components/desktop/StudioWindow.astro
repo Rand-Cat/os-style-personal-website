@@ -1,23 +1,40 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
+import { APP_LOCALES, getLocalizedAppEntries } from "../../lib/apps";
 
-const profile = (await getCollection("apps")).find(
-  (entry) => entry.id === "profile" || entry.filePath?.endsWith("profile.mdx")
+const { entriesByLocale } = await getLocalizedAppEntries("profile");
+
+const localizedEntries = await Promise.all(
+  APP_LOCALES.map(async (locale) => {
+    const entry = entriesByLocale[locale];
+    if (!entry) return null;
+
+    const { Content } = await render(entry);
+    return {
+      locale,
+      title: entry.data.title,
+      Content
+    };
+  })
 );
-if (!profile) throw new Error('App content "profile" not found');
 
-const { Content } = await render(profile);
-const { title } = profile.data;
+const localizedViews = localizedEntries.filter(
+  (entry): entry is NonNullable<(typeof localizedEntries)[number]> => Boolean(entry)
+);
 ---
 
 <div class="os-window__scroll">
-  <div class="studio">
-    <header class="studio__hero">
-      <h2>{title}</h2>
-    </header>
+  <div class="studio" data-app-locale-root data-app-id="profile">
+    {localizedViews.map(({ locale, title, Content }) => (
+      <section data-app-locale={locale} hidden={locale !== "zh"}>
+        <header class="studio__hero">
+          <h2>{title}</h2>
+        </header>
 
-    <article class="studio__article">
-      <Content />
-    </article>
+        <article class="studio__article">
+          <Content />
+        </article>
+      </section>
+    ))}
   </div>
 </div>

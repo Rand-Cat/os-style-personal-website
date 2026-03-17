@@ -21,11 +21,16 @@ interface ProductYear {
 
 interface Props {
   years: ProductYear[];
+  locale?: "zh" | "en";
 }
 
-const { years } = Astro.props;
+const { years, locale = "zh" } = Astro.props;
 const appById = new Map(desktopApps.map((app) => [app.id, app]));
 const formatYearLabel = (value: string) => value.replace(/\D/g, "") || value;
+const toggleLabel =
+  locale === "en"
+    ? { expandAll: "Expand all", collapse: "Collapse" }
+    : { expandAll: "展开全部", collapse: "收起" };
 
 type ProductTag = {
   label: string;
@@ -61,6 +66,8 @@ const resolveProductTag = (tag: string): ProductTag => {
   aria-label="Products timeline"
   data-profile-products
   data-expanded="false"
+  data-expand-label={toggleLabel.expandAll}
+  data-collapse-label={toggleLabel.collapse}
 >
   <div class="profile-products__viewport" data-profile-products-viewport>
     {years.map((year) => (
@@ -142,7 +149,7 @@ const resolveProductTag = (tag: string): ProductTag => {
   </div>
 
   <button class="profile-products__toggle" type="button" data-profile-products-toggle hidden>
-    展开全部
+    {toggleLabel.expandAll}
   </button>
 </div>
 
@@ -156,6 +163,8 @@ const resolveProductTag = (tag: string): ProductTag => {
     if (!(viewport instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) return;
 
     const collapsedHeight = 350;
+    const expandLabel = root.getAttribute("data-expand-label") || "展开全部";
+    const collapseLabel = root.getAttribute("data-collapse-label") || "收起";
 
     const sync = () => {
       const isVisible = root.offsetParent !== null || root.getClientRects().length > 0;
@@ -170,13 +179,15 @@ const resolveProductTag = (tag: string): ProductTag => {
       if (!overflowing) {
         root.dataset.expanded = "false";
         viewport.style.removeProperty("--profile-products-collapsed-height");
-        button.textContent = "展开全部";
+        button.textContent = expandLabel;
         return;
       }
 
       root.dataset.expanded = expanded ? "true" : "false";
       viewport.style.setProperty("--profile-products-collapsed-height", `${collapsedHeight}px`);
-      button.textContent = expanded ? "收起" : "展开全部";
+      button.textContent = expanded
+        ? collapseLabel
+        : expandLabel;
     };
 
     button.addEventListener("click", () => {

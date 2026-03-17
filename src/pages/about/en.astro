@@ -1,17 +1,21 @@
 ---
-import { getCollection, render } from "astro:content";
-import SystemBreadcrumbs from "../components/shared/SystemBreadcrumbs.astro";
+import { render } from "astro:content";
+import SystemBreadcrumbs from "../../components/shared/SystemBreadcrumbs.astro";
+import { getLocalizedAppEntries } from "../../lib/apps";
 
-const profile = (await getCollection("apps")).find(
-  (entry) => entry.id === "profile" || entry.filePath?.endsWith("profile.mdx")
-);
-if (!profile) throw new Error('App content "profile" not found');
+const locale = "en" as const;
+const localePathByValue = {
+  zh: "/about",
+  en: "/about/en"
+} as const;
 
+const { entriesByLocale, fallbackEntry } = await getLocalizedAppEntries("profile");
+const profile = entriesByLocale[locale] ?? fallbackEntry;
 const { Content } = await render(profile);
 const { title } = profile.data;
 ---
 
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,6 +35,43 @@ const { title } = profile.data;
 
       .about-page .system-bar {
         position: sticky;
+      }
+
+      .system-right {
+        gap: 14px;
+      }
+
+      .system-locale {
+        gap: 14px;
+      }
+
+      .system-locale a {
+        position: relative;
+        color: var(--ink-dim);
+        font-size: 13px;
+        transition: color 0.18s ease;
+      }
+
+      .system-locale a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -3px;
+        height: 1px;
+        background: currentColor;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+      }
+
+      .system-locale a:hover,
+      .system-locale a.is-active {
+        color: var(--ink);
+      }
+
+      .system-locale a:hover::after,
+      .system-locale a.is-active::after {
+        opacity: 1;
       }
 
       .about-stage {
@@ -92,6 +133,13 @@ const { title } = profile.data;
             { label: "About", current: true }
           ]} />
         </div>
+
+        <div class="system-right">
+          <div class="system-locale" aria-label="About language switch">
+            <a href={localePathByValue.zh} data-about-locale-switch="zh">中文</a>
+            <a href={localePathByValue.en} data-about-locale-switch="en" class="is-active">English</a>
+          </div>
+        </div>
       </header>
 
       <section class="about-stage">
@@ -108,5 +156,16 @@ const { title } = profile.data;
         </div>
       </section>
     </main>
+
+    <script type="module" is:inline define:vars={{ locale }}>
+      import { setBlogLocalePreference } from "/scripts/locale-preference.js";
+
+      setBlogLocalePreference(locale);
+      document.querySelectorAll("[data-about-locale-switch]").forEach((link) => {
+        link.addEventListener("click", () => {
+          setBlogLocalePreference(link.getAttribute("data-about-locale-switch") || locale);
+        });
+      });
+    </script>
   </body>
 </html>

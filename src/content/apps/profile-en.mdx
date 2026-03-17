@@ -1,0 +1,176 @@
+---
+title: About Me
+locale: en
+translationKey: profile
+heroImage: "/icons/pfp.png"
+heroAlt: "Zhi Jie Gao portrait"
+webImage: "/icons/pfp.png"
+webAlt: "Zhi Jie Gao portrait"
+extensionImage: "/icons/pfp.png"
+extensionAlt: "Zhi Jie Gao portrait"
+---
+
+import ProfileProducts from "../../components/desktop/ProfileProducts.astro";
+import ProfileSocialLinks from "../../components/desktop/ProfileSocialLinks.astro";
+
+<p class="inline-intro">Hi, I am <img class="inline-avatar" src="/icons/pfp.png" alt="zhijie avatar" /> <strong>zhijie</strong>, based in Shanghai. Welcome to my personal website.</p>
+
+I like building products, thinking about interaction design, and exploring AI.
+
+I have made many products. Some were ambitious attempts to build something big enough to change the world (those plans failed), and some were simply small experiments.
+
+I used to be a product manager who did not code, but I always wanted to create products on my own.
+
+After ChatGPT came out, I started building projects by myself with AI support. I made websites, apps, and Chrome extensions, and also picked up different programming languages and frameworks.
+
+In the last six months, I have gone back to mostly not writing code. Most of my work is vibe coding now, with only occasional manual edits.
+
+For AI, I care about both macro and micro perspectives. I read Asimov's imagination of robots, and I have also done fine-tuning experiments on models.
+
+I try to examine questions from multiple angles and explore different possibilities so I can build a more complete understanding.
+
+There are many valid perspectives on almost everything, and I can never access all of them. That leads me to a "Less sure about everything" attitude.
+
+## About This Website
+
+Over the past three years, I built a set of products, some AI-related and some not.
+
+During that time, I was either building products or preparing to build them, but I rarely paused to look back at what I had actually made.
+
+Recently, I have been thinking about what to do next, so I used that moment to build this personal website. One goal is to organize and reflect on my work. Another is to introduce myself and see what collaboration opportunities might emerge.
+
+I wanted a simple but slightly playful way to present my projects, so I chose an operating-system-like interaction model, where each product maps naturally to a desktop app.
+
+The site itself was built fully with vibe coding. The current visual style was selected after trying many AI-generated directions.
+
+I used to build websites with Next.js and deploy on Vercel. But because Vercel's free traffic quota was too small and paid usage was relatively expensive, I switched this site to Astro and plan to deploy it on Cloudflare.
+
+### Product Timeline
+
+The operating-system style is not ideal for showing project chronology, so I keep a simple timeline view here.
+
+<ProfileProducts
+  locale="en"
+  years={[
+    {
+      year: "2026",
+      groups: [
+        {
+          items: [
+            {
+              name: "Molday.",
+              appId: "molday",
+              note: "When you keep scrolling, you might start growing mold.",
+              tags: ["Screen Time","iOS"],
+              titleTag: "by zhijie & wy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      year: "2025",
+      groups: [
+        {
+          items: [
+            {
+              name: "Vibary",
+              appId: "vibary",
+              note: "Use web pages to express each book's unique vibe",
+              tags: ["Vibe Coding","Web","Interactive Content"]
+            },
+            {
+              name: "Read Easy",
+              appId: "read-easy",
+              note: "Make reading in English easier",
+              tags: ["Web", "Extension"]
+            }
+          ]
+        },
+        {
+          label: "Small Products",
+          items: [
+            {
+              name: "Interlude",
+              appId: "interlude",
+              note: "Memorize a word while waiting for ChatGPT",
+              tags: ["ChatGPT","Extension"]
+            },
+            {
+              name: "TubeNitro",
+              appId: "tubenitro",
+              note: "A natural interaction model for YouTube speed control",
+              tags: ["Extension"]
+            },
+            {
+              name: "OneSnap!",
+              appId: "onesnap",
+              note: "Connect two nearby devices and stream one device camera preview to the other in real time",
+              tags: ["Vibe Coding","iOS"]
+            },
+            {
+              name: "DeepChat",
+              appId: "deepchat",
+              note: "April Fools 2024: WeChat introduces deep-thinking mode",
+              tags: ["April Fools","For Fun"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      year: "2024",
+      groups: [
+        {
+          items: [
+            {
+              name: "sekai",
+              appId: "sekai",
+              note: "An IM experience combined with AI characters",
+              tags: ["IM","iOS"],
+              titleTag: "by Reflex AI"
+            },
+            {
+              name: "Existence",
+              appId: "existence",
+              note: "Chat with your favorite characters on any webpage",
+              tags: ["Web", "Extension"],
+              titleTag: "by Reflex AI"
+            },
+            {
+              name: "New Portal",
+              appId: "new-portal",
+              note: "Automatically decide whether a question should go to Google or ChatGPT",
+              tags: ["Extension"]
+            },
+            {
+              name: "DogCheck",
+              appId: "dogcheck",
+              note: "What is the difference between you and a dog?",
+              tags: ["For Fun"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      year: "2023",
+      groups: [
+        {
+          items: [
+            {
+              name: "Atten",
+              appId: "atten",
+              note: "Combines GUI and LUI so you can write with AI, learn English, and preview/edit AI-generated code online.",
+              tags: ["AI", "Web"]
+            }
+          ]
+        }
+      ]
+    }
+  ]}
+/>
+
+## Find Me
+
+<ProfileSocialLinks />
