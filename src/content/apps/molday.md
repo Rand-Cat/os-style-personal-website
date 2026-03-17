@@ -5,7 +5,7 @@ summary: "当你在玩手机的时候，你可能在发霉"
 tags:
   - 屏幕时间
   - iOS
-titleTag: "by zhijie & wy"
+titleTag: "by zhijie & Klein"
 websiteUrl: "https://apps.apple.com/us/app/molday/id6754533732"
 websiteLabel: "App Store"
 heroImage: "/images/apps/molday/1-tab1.jpg"
@@ -37,6 +37,8 @@ Molday. 都同样支持你的决定
 承认即开始
 
 试试看
+
+Design by [Klein](https://okjk.co/RcNswa) 
 
 ## App Store截图
 

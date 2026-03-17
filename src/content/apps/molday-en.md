@@ -7,7 +7,7 @@ summary: "While you're using your phone, you might be growing mold"
 tags:
   - Screen Time
   - iOS
-titleTag: "by zhijie & wy"
+titleTag: "by zhijie & Klein"
 websiteUrl: "https://apps.apple.com/us/app/molday/id6754533732"
 websiteLabel: "App Store"
 heroImage: "/images/apps/molday/1-tab1.jpg"
@@ -42,6 +42,8 @@ To see it is to loosen its hold.
 To admit it is to begin.
 
 Give it a try.
+
+Design by [Klein](https://okjk.co/RcNswa) 
 
 ## App Store Screenshots
 

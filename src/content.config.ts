@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const blog = defineCollection({
   schema: z.object({
@@ -12,6 +13,11 @@ const blog = defineCollection({
 });
 
 const apps = defineCollection({
+  loader: glob({
+    base: "./src/content/apps",
+    pattern: "**/*.{md,mdx}",
+    generateId: ({ entry }) => entry.replace(/\.(md|mdx)$/i, "")
+  }),
   schema: z.object({
     title: z.string(),
     locale: z.enum(["zh", "en"]).default("zh"),

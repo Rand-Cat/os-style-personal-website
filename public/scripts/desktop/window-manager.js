@@ -413,6 +413,20 @@ export function initWindowManager() {
           if (!image.hasAttribute("loading")) image.loading = "lazy";
           if (!image.hasAttribute("decoding")) image.decoding = "async";
         });
+        contentTarget.querySelectorAll("a[href]").forEach((link) => {
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          try {
+            const href = link.getAttribute("href");
+            if (!href) return;
+
+            const url = new URL(href, window.location.origin);
+            if (url.origin === window.location.origin) return;
+
+            link.target = "_blank";
+            link.rel = "noreferrer";
+          } catch {}
+        });
 
         syncAppLocale(windowEl);
         if (appId === "jike") {
