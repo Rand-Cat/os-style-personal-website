@@ -88,19 +88,6 @@ export const desktopApps: DesktopApp[] = [
     iconY: 118
   },
   {
-    id: "settings",
-    name: "Settings",
-    glyph: "ST",
-    showOnDesktop: false,
-    showInDock: false,
-    width: 420,
-    height: 360,
-    x: 930,
-    y: 170,
-    iconX: 516,
-    iconY: 118
-  },
-  {
     id: "jike",
     name: "动态",
     localizedName: {
@@ -295,6 +282,23 @@ export const desktopApps: DesktopApp[] = [
     x: 940,
     y: 300,
     iconX: 180,
+    iconY: 374
+  },
+  {
+    id: "settings",
+    name: "Language",
+    localizedName: {
+      zh: "语言",
+      en: "Language"
+    },
+    glyph: "ST",
+    iconSrc: "/icons/language-settings.svg",
+    showInDock: false,
+    width: 420,
+    height: 240,
+    x: 930,
+    y: 170,
+    iconX: 292,
     iconY: 374
   }
 ];

@@ -1,76 +1,23 @@
 <div class="os-window__scroll">
-  <div class="settings-panel">
-    <section class="settings-panel__intro">
-      <span class="settings-panel__eyebrow">Desktop</span>
-      <h2>Settings</h2>
-      <p>调整桌面的基础观感。壁纸会保存在当前浏览器里，下次打开时继续沿用。</p>
-    </section>
+  <section class="settings-panel" role="radiogroup" aria-label="Site language">
+    <button
+      class="settings-language__option"
+      type="button"
+      data-blog-locale-switch="zh"
+      aria-pressed="false"
+    >
+      <strong>中文</strong>
+      <span class="settings-language__state" aria-hidden="true"></span>
+    </button>
 
-    <section class="settings-section">
-      <div class="settings-section__header">
-        <strong>Wallpaper</strong>
-        <span>Choose a backdrop for the desktop, or upload one from your device.</span>
-      </div>
-
-      <div class="wallpaper-picker" role="list" aria-label="Wallpaper options">
-        <button
-          class="wallpaper-picker__option"
-          type="button"
-          data-wallpaper-option="paper"
-          aria-pressed="false"
-        >
-          <span class="wallpaper-picker__preview wallpaper-picker__preview--paper" aria-hidden="true"></span>
-          <span class="wallpaper-picker__meta">
-            <strong>Paper</strong>
-            <span>Warm editorial default</span>
-          </span>
-        </button>
-
-        <button
-          class="wallpaper-picker__option"
-          type="button"
-          data-wallpaper-option="dawn"
-          aria-pressed="false"
-        >
-          <span class="wallpaper-picker__preview wallpaper-picker__preview--dawn" aria-hidden="true"></span>
-          <span class="wallpaper-picker__meta">
-            <strong>Dawn</strong>
-            <span>Brighter cream and sand</span>
-          </span>
-        </button>
-
-        <button
-          class="wallpaper-picker__option"
-          type="button"
-          data-wallpaper-option="ink"
-          aria-pressed="false"
-        >
-          <span class="wallpaper-picker__preview wallpaper-picker__preview--ink" aria-hidden="true"></span>
-          <span class="wallpaper-picker__meta">
-            <strong>Ink</strong>
-            <span>Muted slate with paper light</span>
-          </span>
-        </button>
-      </div>
-
-      <div class="wallpaper-upload">
-        <div class="wallpaper-upload__copy">
-          <strong>Custom wallpaper</strong>
-          <span>Upload a JPG, PNG, or WebP image from your computer.</span>
-        </div>
-        <div class="wallpaper-upload__actions">
-          <label class="wallpaper-upload__button" for="desktop-wallpaper-upload">Choose image</label>
-          <button class="wallpaper-upload__reset" type="button" data-reset-wallpaper>Use default</button>
-        </div>
-        <input
-          id="desktop-wallpaper-upload"
-          class="wallpaper-upload__input"
-          type="file"
-          accept="image/png,image/jpeg,image/webp"
-          data-wallpaper-upload
-        />
-        <div class="wallpaper-upload__status" data-wallpaper-status>No custom image selected.</div>
-      </div>
-    </section>
-  </div>
+    <button
+      class="settings-language__option"
+      type="button"
+      data-blog-locale-switch="en"
+      aria-pressed="false"
+    >
+      <strong>English</strong>
+      <span class="settings-language__state" aria-hidden="true"></span>
+    </button>
+  </section>
 </div>

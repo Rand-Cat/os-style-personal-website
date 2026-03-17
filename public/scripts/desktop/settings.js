@@ -1,14 +1,23 @@
+import {
+  getPreferredBlogLocale,
+  setBlogLocalePreference
+} from "../locale-preference.js";
+import { syncAppLocale } from "./app-locale.js";
+
 export function initDesktopSettings() {
   const desktopPage = document.querySelector("[data-desktop-wallpaper]");
   const wallpaperButtons = Array.from(document.querySelectorAll("[data-wallpaper-option]"));
   const wallpaperUpload = document.querySelector("[data-wallpaper-upload]");
   const resetWallpaperButton = document.querySelector("[data-reset-wallpaper]");
   const wallpaperStatus = document.querySelector("[data-wallpaper-status]");
+  const languageButtons = Array.from(
+    document.querySelectorAll(".settings-language__option[data-blog-locale-switch]")
+  );
   const storageKey = "desktop-wallpaper";
   const validWallpapers = new Set(["paper", "dawn", "ink"]);
   let customWallpaperUrl = "";
 
-  if (!desktopPage || wallpaperButtons.length === 0) return;
+  if (!desktopPage) return;
 
   const setStatus = (message) => {
     if (wallpaperStatus) wallpaperStatus.textContent = message;
@@ -77,4 +86,29 @@ export function initDesktopSettings() {
   });
 
   applyWallpaper(localStorage.getItem(storageKey) || desktopPage.getAttribute("data-desktop-wallpaper") || "paper");
+
+  const syncLanguageUI = (locale) => {
+    const nextLocale = locale === "en" ? "en" : "zh";
+    const localeButtons = Array.from(document.querySelectorAll("[data-blog-locale-switch]"));
+    localeButtons.forEach((button) => {
+      const isActive = button.getAttribute("data-blog-locale-switch") === nextLocale;
+      if (button instanceof HTMLElement) {
+        button.classList.toggle("is-active", isActive);
+      }
+      if (button instanceof HTMLButtonElement) {
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      }
+    });
+  };
+
+  if (!languageButtons.length) return;
+
+  syncLanguageUI(getPreferredBlogLocale());
+  languageButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const locale = setBlogLocalePreference(button.getAttribute("data-blog-locale-switch"));
+      syncAppLocale(document, locale);
+      syncLanguageUI(locale);
+    });
+  });
 }

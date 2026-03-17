@@ -21,6 +21,10 @@ export function syncAppLocale(scope = document, locale = getPreferredBlogLocale(
   const localizedNameTargets = collectRoots(scope, "[data-localized-name-attrs]");
 
   localeRoots.forEach((root) => {
+    if (root instanceof HTMLElement) {
+      root.setAttribute("data-current-app-locale", nextLocale);
+    }
+
     const panes = Array.from(root.querySelectorAll("[data-app-locale]"));
     if (!panes.length) return;
 

@@ -1,5 +1,6 @@
 ---
 import { getDesktopAppName, type DesktopApp } from "../../data/desktop";
+import LanguageSettingsIcon from "./LanguageSettingsIcon.astro";
 
 interface Props {
   apps: DesktopApp[];
@@ -37,7 +38,11 @@ const visibleApps = apps.filter((app) => app.showOnDesktop !== false);
             })}
           </span>
         ) : app.iconSrc ? (
-          <img class="desktop-icon__image" src={app.iconSrc} alt={`${app.name} icon`} />
+          app.id === "settings" ? (
+            <LanguageSettingsIcon />
+          ) : (
+            <img class="desktop-icon__image" src={app.iconSrc} alt={`${app.name} icon`} />
+          )
         ) : (
           <span class="desktop-icon__glyph serif">{app.glyph}</span>
         )}

@@ -335,6 +335,35 @@ h3 {
   object-fit: cover;
 }
 
+.language-settings-icon {
+  --language-icon-zh: #5f86d9;
+  --language-icon-en: #2f3642;
+  --language-icon-slash: #9aa6b7;
+}
+
+.language-settings-icon[data-current-app-locale="en"] {
+  --language-icon-zh: #2f3642;
+  --language-icon-en: #5f86d9;
+}
+
+.language-settings-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.language-settings-icon__zh {
+  fill: var(--language-icon-zh);
+}
+
+.language-settings-icon__en {
+  fill: var(--language-icon-en);
+}
+
+.language-settings-icon__slash {
+  stroke: var(--language-icon-slash);
+}
+
 .desktop-icon__group-preview {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
