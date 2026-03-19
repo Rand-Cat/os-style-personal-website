@@ -28,6 +28,13 @@ export interface DesktopApp {
   iconY: number;
 }
 
+const socialGroupMembers: NonNullable<DesktopApp["groupMembers"]> = [
+  { id: "okjk", glyph: "JK", name: "即刻", iconSrc: "/icons/okjk.jpg" },
+  { id: "xiaohongshu", glyph: "XHS", name: "小红书", iconSrc: "/icons/xiaohongshu.jpg" },
+  { id: "x", glyph: "X", name: "Twitter / X", iconSrc: "/icons/x.jpg" },
+  { id: "github", glyph: "GH", name: "GitHub", iconSrc: "/icons/github.jpg" }
+];
+
 export const desktopApps: DesktopApp[] = [
   {
     id: "profile",
@@ -298,6 +305,23 @@ export const desktopApps: DesktopApp[] = [
     height: 240,
     x: 930,
     y: 170,
+    iconX: 404,
+    iconY: 374
+  },
+  {
+    id: "social",
+    name: "Contact",
+    localizedName: {
+      zh: "联系我",
+      en: "Contact"
+    },
+    glyph: "SOC",
+    groupMembers: socialGroupMembers,
+    showInDock: false,
+    width: 760,
+    height: 360,
+    x: 970,
+    y: 240,
     iconX: 292,
     iconY: 374
   }

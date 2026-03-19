@@ -16,6 +16,7 @@ import DogcheckWindow from "./DogcheckWindow.astro";
 import NewPortalWindow from "./NewPortalWindow.astro";
 import ReadEasyWindow from "./ReadEasyWindow.astro";
 import SettingsWindow from "./SettingsWindow.astro";
+import SocialFolderWindow from "./SocialFolderWindow.astro";
 import StudioWindow from "./StudioWindow.astro";
 import TubeNitroWindow from "./TubeNitroWindow.astro";
 import VibaryWindow from "./VibaryWindow.astro";
@@ -40,6 +41,7 @@ interface WindowDefinition {
     | typeof ReadEasyWindow
     | typeof VibaryWindow
     | typeof SettingsWindow
+    | typeof SocialFolderWindow
     | typeof JikeIdeasWindow
     | typeof AttenWindow
     | typeof DeepChatWindow
@@ -75,6 +77,7 @@ const windowDefinitions: WindowDefinition[] = [
   { appId: "read-easy", title: "Read Easy", component: ReadEasyWindow },
   { appId: "vibary", title: "Vibary", component: VibaryWindow },
   { appId: "settings", title: "Settings", component: SettingsWindow },
+  { appId: "social", component: SocialFolderWindow, variant: "group" },
   { appId: "jike", component: JikeIdeasWindow },
   {
     appId: "atten",
