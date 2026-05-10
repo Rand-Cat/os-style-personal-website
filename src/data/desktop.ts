@@ -399,7 +399,8 @@ export const socialLinks = [
     glyph: "JK",
     iconSrc: "/icons/okjk.jpg",
     href: "https://okjk.co/irLg6A",
-    note: "即刻主页"
+    note: "即刻主页",
+    isPrimary: true
   },
   {
     id: "xiaohongshu",

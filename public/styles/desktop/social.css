@@ -62,10 +62,27 @@
   transform: scale(1.34);
 }
 
-.social-group__item strong {
+.social-group__name {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 22px;
+}
+
+.social-group__name strong {
   font-size: 16px;
   font-weight: 500;
   color: rgba(24, 24, 24, 0.92);
+}
+
+.social-group__marker {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 207, 36, 0.9);
+  box-shadow: 0 0 0 2px rgba(255, 207, 36, 0.18);
 }
 
 .social-group__arrow {

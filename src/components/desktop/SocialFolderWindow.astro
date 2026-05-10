@@ -12,7 +12,10 @@ import { socialLinks } from "../../data/desktop";
           <span class="serif">{item.glyph}</span>
         )}
       </span>
-      <strong>{item.name}</strong>
+      <span class="social-group__name">
+        <strong>{item.name}</strong>
+        {item.isPrimary ? <span class="social-group__marker" aria-hidden="true"></span> : null}
+      </span>
       <span class="social-group__arrow" aria-hidden="true">↗</span>
     </a>
   ))}
